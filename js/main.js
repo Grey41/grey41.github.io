@@ -1,3 +1,8 @@
+window.dataLayer = window.dataLayer || []
+const gtag = () => dataLayer.push(arguments)
+gtag('js', new Date())
+gtag('config', 'G-W2C6ZR2P0X')
+
 window.addEventListener("DOMContentLoaded", () => {
 	document.body.innerHTML = document.body.innerHTML
 	.replace(/¦/g, "<font color = '77b13e'>")
@@ -13,8 +18,3 @@ const bar = () => {
 	if (top.className === "top") top.className += " responsive"	
 	else top.className = "top"
 }
-
-window.dataLayer = window.dataLayer || []
-const gtag = () => dataLayer.push(arguments)
-gtag('js', new Date())
-gtag('config', 'G-W2C6ZR2P0X')
