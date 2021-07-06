@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset = utf-8>
+		<link rel = stylesheet type = text/css href = "https://fonts.googleapis.com/css?family=Nunito">
+        <title>Mandelbrot</title>
+
+		<style>
+			html {
+				height: 100%;
+			}
+
+			body {
+				font-family: Nunito;
+                font-weight: 900;
+				margin: 2rem;
+				overflow: hidden;
+				background: #555;
+				height: 100%;
+			}
+
+			#panel {
+				float: left;
+                width: 25%;
+                height: -moz-calc(100% - 4rem);
+                height: -webkit-calc(100% - 4rem);
+                height: -o-calc(100% - 4rem);
+                height: calc(100% - 4rem);
+			}
+
+			#main {
+				float: right;
+				width: 75%;
+				height: -moz-calc(100% - 4rem);
+                height: -webkit-calc(100% - 4rem);
+                height: -o-calc(100% - 4rem);
+                height: calc(100% - 4rem);
+				overflow: hidden;
+			}
+
+			#area {
+				width: -moz-calc(100% - 6rem);
+                width: -webkit-calc(100% - 6rem);
+                width: -o-calc(100% - 6rem);
+                width: calc(100% - 6rem);
+                height: -moz-calc(100% - 4rem);
+                height: -webkit-calc(100% - 4rem);
+                height: -o-calc(100% - 4rem);
+                height: calc(100% - 4rem);
+                border-radius: 0.4rem;
+                padding: 2rem;
+				background: #aaa;
+				overflow-y: auto;
+			}
+
+			canvas {
+				border-radius: 0.4rem;
+				background: #000;
+				width: 100%;
+			}
+
+			input {
+				width: -moz-calc(100% - 1rem);
+                width: -webkit-calc(100% - 1rem);
+                width: -o-calc(100% - 1rem);
+                width: calc(100% - 1rem);
+				margin: 0.5rem;
+			}
+
+			input[type = number], select, button {
+				font-family: Nunito;
+                font-weight: 900;
+                border: none;
+                border-radius: 0.4rem;
+				padding: 0.5rem;
+				background: #ddd;
+			}
+
+			select, button {
+				margin: 0.5rem;
+				width: 100%;
+			}
+
+			span {
+				font-family: Nunito;
+                font-weight: 900;
+			}
+
+			button:hover {
+				cursor: pointer;
+				background: #fff;
+			}
+		</style>
+	</head>
+
+    <body>
+		<div id = panel>
+			<div id = area>
+				Precision
+				<input id = precision type = range min = 0 max = 1000 value = 200>
+
+				Repeat
+				<input id = repeat type = range step = 0.1 min = 0 max = 100 value = 50>
+
+				Coordinates
+				<input type = number step = 0.0001 id = horizontal>
+				<input type = number step = 0.0001 id = vertical>
+				<p></p>
+
+				Zoom
+				<input type = number step = 500 id = zoom>
+				<p></p>
+
+				Red
+				<input id = red type = range step = 0.00001 min = 0 max = 0.01 value = 0.001>
+
+				Green
+				<input id = green type = range step = 0.00001 min = 0 max = 0.01 value = 0.0006>
+
+				Blue
+				<input id = blue type = range step = 0.00001 min = 0 max = 0.01 value = 0.0005>
+
+				Type
+				<select id = type></select>
+				<p></p>
+
+				Resolution
+				<input id = resolution type = range min = 1 max = 100 value = 100 oninput = resize()>
+
+				Controls
+				<button onclick = snapshot()>Take Snapshot</button>
+				<button onclick = random()>Random Combination</button>
+				<p></p>
+
+				<span id = warning>Both the precision and the resolution affect the performance of the program.</span>
+			</div>
+		</div>
+
+		<div id = main><canvas id = canvas></canvas></div>
+
+		<script>
+			const webgl = canvas.getContext("webgl")
+			const program = webgl.createProgram()
+			const buffer = webgl.createBuffer()
+			const change = () => values.theme = themes.indexOf(theme.value)
+			const types = ["Default", "Threads", "Scales", "Pattern", "Circles"]
+			const snapshot = () => capture = true
+
+			const combinations = [
+				{x: 1.1861786994802017, y: -0.3029449114503461, zoom: 123459.4270094397, precision: 300, type: "Threads", repeat: 60, red: 0.0005, green: 0.0007, blue: 0.0009},
+				{x: 0.5, y: 0, zoom: 300, precision: 152, type: "Pattern", repeat: 11, red: 0.00738, green: 0.00724, blue: 0.01},
+				{x: 0.25957526701233563, y: -0.6520076312565807, zoom: 366321.7059984943, precision: 300, type: "Pattern", repeat: 52.2, red: 0.00065, green: 0.00053, blue: 0.00077},
+				{x: 0.10161072385160261, y: -0.9513389085221718, zoom: 2867786.24936694, precision: 673, type: "Scales", repeat: 35.7, red: 0.0008, green: 0.00076, blue: 0.00067},
+				{x: 0.1550856967411207, y: 1.0378174253870305, zoom: 1613194.1722879575, precision: 500, type: "Default", repeat: 49.6, red: 0.0008, green: 0.00097, blue: 0.00075},
+				{x: 1.147330938318468, y: -0.21210580232365286, zoom: 249345.02677208433, precision: 327, type: "Circles", repeat: 100, red: 0.00018, green: 0.00027, blue: 0.00053},
+				{x: 0.2224369211931579, y: -0.8238172722504702, zoom: 39104.11920898745, precision: 300, type: "Threads", repeat: 28.2, red: 0.00088, green: 0.00097, blue: 0.00063},
+				{x: 1.4483030917924269, y: -0.000005759138696804256, zoom: 3684587.528027376, precision: 524, type: "Default", repeat: 84.6, red: 0.0001, green: 0.00028, blue: 0.00022},
+				{x: 1.478916109643793, y: -0.00360195621285734, zoom: 566531.9416168085, precision: 524, type: "Threads", repeat: 94.7, red: 0.0001, green: 0.00028, blue: 0.00022},
+				{x: 0.7147198311139941, y: 0.29866987401416517, zoom: 257747.1018581069, precision: 339, type: "Pattern", repeat: 33.3, red: 0.00077, green: 0.00087, blue: 0.00069}
+			]
+
+			const random = () => {
+				const set = combinations[Math.floor(Math.random() * combinations.length)]
+
+				horizontal.value = set.x
+				vertical.value = set.y
+				zoom.value = set.zoom
+				precision.value = set.precision
+				type.value = set.type
+				repeat.value = set.repeat
+				red.value = set.red
+				green.value = set.green
+				blue.value = set.blue
+			}
+
+			const mouse = {
+				hold: false,
+				x: 0,
+				y: 0
+			}
+
+			const create = (name, source) => {
+				const shader = webgl.createShader(name)
+				webgl.shaderSource(shader, source)
+				webgl.compileShader(shader)
+				webgl.attachShader(program, shader)
+				return shader
+			}
+
+			const vertex = create(webgl.VERTEX_SHADER, `
+				attribute vec2 vertex;
+
+				void main(void) {
+					gl_Position = vec4(vertex, 0, 1);
+				}`)
+
+			const fragment = create(webgl.FRAGMENT_SHADER, `
+				precision highp float;
+
+				uniform vec2 size;
+				uniform vec2 position;
+				uniform vec3 colors;
+				uniform float zoom;
+				uniform float repeat;
+				uniform int samples;
+				uniform int type;
+
+				void main(void) {
+					vec2 position = vec2((gl_FragCoord.x - position.x * zoom - size.x / 2.0) / zoom, (gl_FragCoord.y - position.y * zoom - size.y / 2.0) / zoom);
+					vec2 solid = position;
+
+					float value = 0.0;
+
+					for (int index = 0; index < 1000; index ++) {
+						if (index > samples) break;
+
+						vec2 power = vec2(pow(position.x, 2.0) - pow(position.y, 2.0), 2.0 * position.x * position.y);
+						position.x = power.x + solid.x;
+						position.y = power.y + solid.y;
+		
+						if (type == 0 && pow(position.x, 2.0) + pow(position.y, 2.0) > 4.0) {value=float(index);break;}
+						else if (type == 1 && position.x * position.y > 5.0) {value=float(index);break;}
+						else if (type == 2 && cos(position.x) * cos(position.y) < 0.0) {value=float(index);break;}
+						else if (type == 3 && sin(pow(position.x, 2.0)) * pow(position.y, 2.0) > 1.0) {value=float(index);break;}
+						else if (type == 4 && sin(position.x) - cos(position.y) > 0.0) {value=float(index);break;}
+					}
+
+					float strength = mod(value, repeat);
+					gl_FragColor = vec4(mod(value, 70.0) * strength * colors.x, mod(value, 50.0) * strength * colors.y, mod(value, 30.0) * strength * colors.z, 1); 
+				}`)
+
+			webgl.linkProgram(program)
+			webgl.useProgram(program)
+			webgl.bindBuffer(webgl.ARRAY_BUFFER, buffer)
+			webgl.bufferData(webgl.ARRAY_BUFFER, new Float32Array([-1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1]), webgl.STATIC_DRAW)
+			webgl.vertexAttribPointer(0, 2, webgl.FLOAT, false, 0, 0)
+			webgl.enableVertexAttribArray(0)
+
+			const uniform = {
+				size: webgl.getUniformLocation(program, "size"),
+				position: webgl.getUniformLocation(program, "position"),
+				zoom: webgl.getUniformLocation(program, "zoom"),
+				precision: webgl.getUniformLocation(program, "samples"),
+				repeat: webgl.getUniformLocation(program, "repeat"),
+				colors: webgl.getUniformLocation(program, "colors"),
+				type: webgl.getUniformLocation(program, "type")
+			}
+
+			if (!webgl.getShaderParameter(fragment, webgl.COMPILE_STATUS))
+				alert(webgl.getShaderInfoLog(fragment))
+
+			if (!webgl.getShaderParameter(vertex, webgl.COMPILE_STATUS))
+				alert(webgl.getShaderInfoLog(vertex))
+
+			const resize = event => {
+				canvas.width = main.clientWidth / 100 * resolution.value
+				canvas.height = main.clientHeight / 100 * resolution.value
+				webgl.viewport(0, 0, canvas.width, canvas.height)
+			}
+
+			horizontal.value = -0.3168716699417118
+			vertical.value = -0.5945117078984253
+			zoom.value = 20000
+			capture = false
+
+			types.forEach(item => {
+				let option = document.createElement("option")
+				option.innerHTML = item
+				type.appendChild(option)
+			})
+
+			addEventListener("mousedown", event => mouse.hold = true)
+			addEventListener("mouseup", event => mouse.hold = false)
+			addEventListener("resize", resize)
+			addEventListener("load", event => {
+				if (navigator.userAgent.toLowerCase().match(/mobile/i))
+					alert("WARNING: This program is not designed for mobile devices.")
+			})
+
+			canvas.addEventListener("mousemove", event => {
+				let rect = canvas.getBoundingClientRect()
+				mouse.x = event.clientX - rect.left
+				mouse.y = event.clientY - rect.top
+
+				if (mouse.hold) {
+					horizontal.value -=- event.movementX / zoom.value / 100 * resolution.value
+					vertical.value -= event.movementY / zoom.value / 100 * resolution.value
+				}
+			})
+
+			canvas.addEventListener("wheel", event => {
+				zoom.value -= event.deltaY * zoom.value / 300
+				horizontal.value -=- event.deltaY * (mouse.x - main.clientWidth / 2) / zoom.value / 300 / 100 * resolution.value
+				vertical.value -= event.deltaY * (mouse.y - main.clientHeight / 2) / zoom.value / 300 / 100 * resolution.value
+			})
+
+			const loop = time => {
+				webgl.clear(webgl.COLOR_BUFFER_BIT)
+
+				webgl.uniform2f(uniform.size, canvas.width, canvas.height)
+				webgl.uniform2f(uniform.position, horizontal.value, vertical.value)
+				webgl.uniform1f(uniform.zoom, zoom.value)
+				webgl.uniform1i(uniform.precision, precision.value)
+				webgl.uniform1f(uniform.repeat, repeat.value)
+				webgl.uniform1i(uniform.type, types.indexOf(type.value))
+				webgl.uniform3f(uniform.colors, red.value, green.value, blue.value)
+
+				webgl.drawArrays(webgl.TRIANGLES, 0, 6)
+
+				if (capture) {
+					const base = document.createElement("canvas")
+					const draw = base.getContext("2d")
+					const link = document.createElement("a")
+
+					base.width = canvas.width
+					base.height = canvas.height
+					draw.drawImage(canvas, 0, 0)
+
+					link.download = "mandelbrot.png"
+					link.href = canvas.toDataURL()
+				
+					document.body.appendChild(link)
+					link.click()
+					document.body.removeChild(link)
+					capture = false
+				}
+
+				requestAnimationFrame(loop)
+			}
+
+			resize()
+			loop()
+		</script>
+	</body>
+</html>
