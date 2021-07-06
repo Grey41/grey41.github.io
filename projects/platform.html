@@ -1,0 +1,954 @@
+<script>
+    const RATE = 60
+    const SIZE = 50
+    const GRAVITY = 0.022
+    const FADE = 0.015
+    const SQUISH = 0.3
+    const FOCUS = 0.05
+    const EDGE = 10
+
+    class Camera {
+        constructor(pos) {
+            this.pos = pos
+            this.bombs = 0
+            this.coins = 0
+        }
+
+        update() {
+            this.pos.x += (level.player.pos.x - this.pos.x) * FOCUS
+            this.pos.y += (level.player.pos.y - this.pos.y) * FOCUS
+        }
+
+        draw() {
+            font.draw("press 'r' to restart", {x: 10, y: 10}, {x: 3, y: 3})
+            font.draw("press 'space' to throw an explosive", {x: 10, y: 35}, {x: 3, y: 3})
+            font.draw("explosives: " + this.bombs, {x: 10, y: 60}, {x: 3, y: 3})
+            font.draw("coins: " + this.coins, {x: 10, y: 85}, {x: 3, y: 3})
+        }
+
+        get offset() {
+            return {
+                x: Math.round(this.pos.x * SIZE - canvas.width / 2),
+                y: Math.round(this.pos.y * SIZE - canvas.height / 2)
+            }
+        }
+    }
+
+    class Font {
+        constructor() {
+            this.data = {}
+            this.source = {
+                "?": "###  # ##    # ",
+                "0": "#### ## ## ####",
+                "1": "##  #  #  # ###",
+                "2": "###  #####  ###",
+                "3": "###  # ##  ####",
+                "4": "#  #  # ####  #",
+                "5": "####  ##   ### ",
+                "6": "####  #### ####",
+                "7": "###  # #  #  # ",
+                "8": "#### ##### ####",
+                "9": "#### ####  ####",
+                "a": "#### ##### ## #",
+                "b": "#### ### # ####",
+                "c": "####  #  #  ###",
+                "d": "## # ## ## ### ",
+                "e": "####  ## #  ###",
+                "f": "####  ## #  #  ",
+                "g": "####  #  # ####",
+                "h": "# ## ##### ## #",
+                "i": "### #  #  # ###",
+                "j": "  #  #  ## ####",
+                "k": "# ## ### # ## #",
+                "l": "#  #  #  #  ###",
+                "m": "# ##### ## ## #",
+                "n": "#### ## ## ## #",
+                "o": "#### ## ## ####",
+                "p": "#### #####  #  ",
+                "q": "#### ####  #  #",
+                "r": "#### ### # ## #",
+                "s": "####  ###  ####",
+                "t": "### #  #  #  # ",
+                "u": "# ## ## ## ####",
+                "v": "# ## ## ## # # ",
+                "w": "# ## ## ##### #",
+                "x": "# ## # # # ## #",
+                "y": "# ## #### #  # ",
+                "z": "###  # # #  ###",
+                "+": "    # ### #    ",
+                "=": "   ###   ###   ",
+                "(": " #### #  ##  ##",
+                ")": "##  ##  # #### ",
+                "{": " ## # #   #  ##",
+                "}": "##  #   # # ## ",
+                "^": " # # #         ",
+                "*": " # # # #       ",
+                "/": "  #  # # #  #  ",
+                "¬": "      ###  #   ",
+                "<": "    ###   ##   ",
+                ">": "   ##   ###    ",
+                "[": "### # # ##",
+                "]": "## # # ###",
+                "-": "    ##    ",
+                "!": "### #",
+                "|": "#####",
+                "'": "##   ",
+                " ": "     ",
+                ".": "    #",
+                ":": " # # ",
+            }
+
+            for(let char in this.source) {
+                let split = this.source[char].match(new RegExp(".{1," + this.source[char].length / 5 + "}", "g"))
+                this.data[char] = []
+
+                for (let y in split)
+                    for (let x in split[y])
+                        if (split[y][x] == "#")
+                            this.data[char].push({x, y})
+            }
+        }
+
+        measure(text) {
+            let width = 0
+
+            for(let char of text)
+                width += this.source[char].length / 5 + 1
+
+            return width
+        }
+
+        draw(text, pos, size) {
+            context.fillStyle = "#aaa"
+
+            for (let char of text) {
+				for (let square of this.data[char]) {
+                    context.fillRect(
+                        square.x * size.x + pos.x,
+                        square.y * size.y + pos.y,
+                        size.x, size.y
+                    )
+				}
+
+                pos.x += this.measure(char) * size.x
+            }
+        }
+    }
+
+    class Level {
+        constructor(size) {
+            this.plan = this.generate(size)
+
+            let data = this.decode(this.plan)
+            this.player = data.player
+            this.actors = data.actors
+            this.walls = data.walls
+        }
+
+        generate(size) {
+            let head = {
+                index: odd(random(0, size.y - 4)) * size.x + odd(random(0, size.x - 4)),
+                vertical: 0,
+                horizontal: 0,
+                lift: false,
+                timer: 50,
+            }
+
+            let maze = []
+            let actors = []
+
+            for (let i = 0; i < size.x * size.y; i ++) {
+                maze.push(i == head.index ? 1 : 0)
+                actors.push(0)
+            }
+
+            actors[head.index] = 2
+
+            const move = (shift, number) => {
+                maze[head.index] = number
+
+                for (let i = 0; i < 2; i ++) {
+                    head.index += (
+                        shift == 0 ? -size.x :
+                        shift == 1 ? size.x :
+                        shift == 2 ? -1 : 1
+                    )
+
+                    maze[head.index] = number
+                }
+
+                return shift
+            }
+
+            const flat = array => {
+                return (
+                    array.includes(2) && array.includes(3) ? random(2, 3) :
+                    array.includes(2) ? 2 :
+                    array.includes(3) ? 3 :
+                    choice(array)
+                )
+            }
+
+            while (maze.includes(1)) {
+                let empty = []
+                let visit = []
+
+                if (head.index >= size.x * 3) {
+                    maze[head.index - size.x * 2] == 0 && empty.push(0)
+                    maze[head.index - size.x] == 1 && visit.push(0)
+                }
+
+                if (head.index < size.y * size.x - size.x * 3) {
+                    maze[head.index + size.x * 2] == 0 && empty.push(1)
+                    maze[head.index + size.x] == 1 && visit.push(1)
+                }
+
+                if (head.index % size.x != 0 && head.index % size.x != 1) {
+                    maze[head.index - 2] == 0 && empty.push(2)
+                    maze[head.index - 1] == 1 && visit.push(2)
+                }
+
+                if (head.index % size.x != size.x - 1 && head.index % size.x != size.x - 2) {
+                    maze[head.index + 2] == 0 && empty.push(3)
+                    maze[head.index + 1] == 1 && visit.push(3)
+                }
+
+                if (empty.length > 0) {
+                    let shift = move(head.vertical == 0 ? choice(empty) : flat(empty), 1)
+
+                    if (shift == 0 || shift == 1)
+                        head.vertical ++
+
+                    else {
+                        head.vertical = 0
+                        head.lift = false
+                    }
+
+                    if (head.vertical > 1 && !head.lift) {
+                        actors[head.index] = 4
+                        head.vertical = 0
+                        head.lift = true
+                    }
+
+                    else if (!actors[head.index]) {
+                        if (shift == 1 || shift == 2 || shift == 3) {
+                            if (random(0, 3)) actors[head.index] = 3
+                            else if (!random(0, 3)) actors[head.index] = 6
+                        }
+                    }
+
+                    head.timer --
+                    if (head.timer < 0)
+                        if (shift == 2 || shift == 3 && !actors[head.index]) {
+                            head.timer = 50
+                            actors[head.index] = 5
+                        }
+                }
+
+                else {
+                    let shift = move(choice(visit), 2)
+
+                    head.vertical = 0
+                    head.lift = false
+                }
+            }
+
+            let map = []
+
+            maze.forEach((part, i) => maze[i] = maze[i] == 0 ? 1 : actors[i] ? actors[i] : 0)
+
+            for (let i = 0; i < size.y; i ++) {
+                map.push(...maze.slice(i * size.x, i * size.x + size.x))
+
+                if (i % 2 == 1)
+                    for (let h = 0; h < random(2, 3); h ++) {
+                        let array = maze.slice(i * size.x, i * size.x + size.x)
+                        array.forEach((part, i) => array[i] = array[i] == 1 ? 1 : 0)
+                        map.push(...array)
+                    }
+            }
+
+            return {size: {x: size.x, y: map.length / size.x}, map}
+        }
+
+        decode(plan) {
+            /*
+            0. empty
+            1. wall
+            2. player
+            3. coin
+            4. lift
+            5. enemy
+            6. bomb
+            */
+
+            let actors = []
+            let walls = []
+            let player = new Player({x: 0, y: -2})
+
+            for (let i = 0; i < plan.map.length; i ++) {
+                let point = plan.map[i]
+                let x = i % plan.size.x
+                let y = Math.floor(i / plan.size.x)
+
+                if (point == 1) walls.push(new Wall({x, y}))
+                else if (point == 2) player.pos = {x, y}
+                else if (point == 3) actors.push(new Coin({x, y}))
+                else if (point == 4) actors.push(new Lift({x, y}, 0))
+                else if (point == 5) actors.push(new Enemy({x, y}))
+                else if (point == 6) actors.push(new Bomb({x, y}))
+            }
+
+            return {walls, actors, player}
+        }
+
+        coins() {
+            for (let actor of level.actors)
+                if (actor instanceof Coin)
+                    return true
+
+            return false
+        }
+
+        reset() {
+            let data = this.decode(this.plan)
+            this.player = data.player
+            this.actors = data.actors
+            this.walls = data.walls
+        }
+    }
+
+    class Object {
+        constructor(pos) {
+            this.pos = pos
+        }
+
+        draw() {
+            context.fillStyle = this.color
+            context.fillRect(
+                this.pos.x * SIZE - this.size.x * SIZE / 2 - camera.offset.x,
+                this.pos.y * SIZE - this.size.y * SIZE / 2 - camera.offset.y,
+                this.size.x * SIZE,
+                this.size.y * SIZE
+            )
+        }
+
+        collide(object) {
+            return (
+                this.left < object.right &&
+                this.right > object.left &&
+                this.top < object.bottom &&
+                this.bottom > object.top
+            )
+        }
+
+        block(object) {
+            let margin = [
+                this.bottom -object.top,
+                this.top - object.bottom,
+                this.right - object.left,
+                this.left - object.right
+            ]
+
+            let x = Math.abs(margin[2]) < Math.abs(margin[3]) ? 2 : 3
+            let y = Math.abs(margin[0]) < Math.abs(margin[1]) ? 0 : 1
+            let value = null
+
+            if (Math.abs(margin[x]) < Math.abs(margin[y])) {
+                this.pos.x -= margin[x]
+
+                if (this instanceof Player && Math.abs(margin[x]) > SQUISH) value = x
+                else if (this instanceof Lift) this.speed.x *= -1
+                else if (this instanceof Particle) this.speed.x = -margin[x]
+            }
+
+            else {
+                this.pos.y -= margin[y]
+
+                if (this instanceof Player) {
+                    if (Math.abs(margin[y]) > SQUISH) value = y
+                    else if (margin[y] > 0) this.landed = true
+                    this.fall = 0
+                }
+
+                else if (this instanceof Lift) this.speed.y *= -1
+                else if (this instanceof Particle) this.speed.y = -margin[y]
+            }
+
+            return value
+        }
+
+        get top() {return this.pos.y - this.size.y / 2}
+        get bottom() {return this.pos.y + this.size.y / 2}
+        get left() {return this.pos.x - this.size.x / 2}
+        get right() {return this.pos.x + this.size.x / 2}
+    }
+
+    class Wall extends Object {
+        constructor(pos) {
+            super(pos)
+        }
+    }
+
+    Wall.prototype.size = {x: 1, y: 1}
+    Wall.prototype.color = "#444"
+
+    class Particle extends Object {
+        constructor(pos, color, type) {
+            super(pos)
+            this.color = color
+            this.speed = {x: 0, y: 0}
+            this.type = type
+
+            this.timer = (type == 0 ? random(300, 600) :
+            type == 1 ? 150 : random(100, 200))
+        }
+
+        explode() {
+            for (let i = 0; i < 50; i ++) {
+                let particle = new Particle({
+                    x: this.pos.x,
+                    y: this.pos.y
+                }, this.color, 2)
+
+                particle.speed.x = Math.random() - 0.5
+                particle.speed.y = Math.random() - 0.5
+
+                level.actors.push(particle)
+            }
+
+            level.actors.splice(level.actors.indexOf(this), 1)
+        }
+
+        update() {
+            this.speed.y += GRAVITY
+
+            this.speed.x *= this.damping
+            this.speed.y *= this.damping
+            this.pos.x += this.speed.x
+            this.pos.y += this.speed.y
+
+            for (let wall of level.walls) {
+                if (this.collide(wall)) {
+                    if (this.type == 2 && Math.abs(this.speed.x) + Math.abs(this.speed.y) > 0.5) {
+                        level.walls.splice(level.walls.indexOf(wall), 1)
+                        level.actors.splice(level.actors.indexOf(this), 1)
+                        return
+                    }
+
+                    else this.block(wall)
+                }
+            }
+
+            if (this.collide(level.player) &&
+                this.type == 2 &&
+                Math.abs(this.speed.x) + Math.abs(this.speed.y) > 0.5) {
+                    level.player.die()
+                    level.actors.splice(level.actors.indexOf(this), 1)
+                    return
+                }
+
+            for (let actor of level.actors) {
+                if (actor instanceof Lift && this.collide(actor)) {
+                    this.block(actor)
+                    this.pos.x += actor.speed.x
+                    this.pos.y += actor.speed.y
+                }
+
+                else if (actor instanceof Enemy && this.collide(actor)) {
+                    if (this.type == 2 && Math.abs(this.speed.x) + Math.abs(this.speed.y) > 0.5) {
+                        level.actors.splice(level.actors.indexOf(actor), 1)
+                        level.actors.splice(level.actors.indexOf(this), 1)
+                        return
+                    }
+
+                    else if (this.type == 1) this.explode()
+                }
+            }
+
+            this.timer --
+            if (this.timer < 0) {
+                if (this.type == 1) this.explode()
+                else level.actors.splice(level.actors.indexOf(this), 1)
+            }
+        }
+    }
+
+    Particle.prototype.size = {x: 0.4, y: 0.4}
+    Particle.prototype.damping = 0.95
+
+    class Enemy extends Object {
+        constructor(pos) {
+            super(pos)
+            this.found = false
+            this.blink = 0
+            this.closed = []
+            this.active = []
+            this.path = []
+            this.goal = {x: 0, y: 0}
+        }
+
+        draw() {
+            /*for (let pos of this.closed) {
+                context.fillStyle = "#005"
+
+                context.fillRect(
+                    pos.x * SIZE - SIZE / 2 - camera.offset.x,
+                    pos.y * SIZE - SIZE / 2 - camera.offset.y,
+                    SIZE, SIZE
+                )
+            }
+
+            for (let pos of this.active) {
+                context.fillStyle = "#500"
+
+                context.fillRect(
+                    pos.x * SIZE - SIZE / 2 - camera.offset.x,
+                    pos.y * SIZE - SIZE / 2 - camera.offset.y,
+                    SIZE, SIZE
+                )
+            }
+
+            for (let pos of this.path) {
+                context.fillStyle = "#550"
+
+                context.fillRect(
+                    pos.x * SIZE - SIZE / 2 - camera.offset.x,
+                    pos.y * SIZE - SIZE / 2 - camera.offset.y,
+                    SIZE, SIZE
+                )
+            }*/
+
+            if (this.path.length == 0 && level.player.state == 0) {
+                context.fillStyle = this.color
+                context.fillRect(
+                    this.pos.x * SIZE - this.size.x * SIZE / 2 - camera.offset.x,
+                    this.pos.y * SIZE - this.size.y * SIZE / 2 - camera.offset.y,
+                    this.size.x * SIZE,
+                    this.size.y * SIZE
+                )
+            }
+
+            if (this.found) {
+                context.fillStyle = "#f00"
+
+                context.fillRect(
+                    this.pos.x * SIZE - this.eyes.x * SIZE - camera.offset.x - 0.1 * SIZE,
+                    this.pos.y * SIZE - this.eyes.y * SIZE / 2 - camera.offset.y,
+                    this.eyes.x * SIZE,
+                    this.blink * SIZE
+                )
+
+                context.fillRect(
+                    this.pos.x * SIZE - camera.offset.x + 0.1 * SIZE,
+                    this.pos.y * SIZE - this.eyes.y * SIZE / 2 - camera.offset.y,
+                    this.eyes.x * SIZE,
+                    this.blink * SIZE
+                )
+            }
+        }
+
+        complete() {
+            this.goal.x = Math.floor(level.player.pos.x)
+            this.goal.y = Math.floor(level.player.pos.y)
+            this.closed = []
+            this.active = []
+            this.path = []
+        }
+
+        update() {
+            if (this.found) {
+                let start = false
+
+                Math.floor(level.player.pos.x) == this.goal.x &&
+                Math.floor(level.player.pos.y) == this.goal.y ? start = true :
+                this.complete()
+
+                if (this.blink < this.eyes.y) this.blink += 0.1
+
+                else if (this.active.length == 0 && start)
+                    this.active.push({x: Math.round(this.pos.x), y: Math.round(this.pos.y), join: -1})
+            }
+
+            else this.found = distance(level.player.pos, this.pos) < this.range
+
+            if (this.path.length > 0) {
+                let goal = this.path[this.path.length - 1]
+
+                if (goal.y < this.pos.y) this.pos.y -= this.speed
+                else if (goal.y > this.pos.y) this.pos.y += this.speed
+                else if (goal.x < this.pos.x) this.pos.x -= this.speed
+                else if (goal.x > this.pos.x) this.pos.x += this.speed
+
+                if (Math.abs(Math.round(this.pos.x) - this.pos.x) < this.speed - 0.001)
+                    this.pos.x = Math.round(this.pos.x)
+
+                if (Math.abs(Math.round(this.pos.y) - this.pos.y) < this.speed - 0.001)
+                    this.pos.y = Math.round(this.pos.y)
+
+                if (this.pos.x == goal.x && this.pos.y == goal.y) {
+                    this.path.pop()
+                    this.path.length == 0 && this.complete()
+                }
+            }
+
+            else if (this.active.length > 0) {
+                let active = []
+
+                for (let i = 0; i < this.power; i ++) {
+                    for (let pos of this.active) {
+                        let paths = [
+                            {x: pos.x, y: pos.y - 1},
+                            {x: pos.x, y: pos.y + 1},
+                            {x: pos.x - 1, y: pos.y},
+                            {x: pos.x + 1, y: pos.y}
+                        ]
+
+                        for (let path of paths)
+                            if (path.x < -EDGE || path.x > level.plan.size.x + EDGE || path.y < -EDGE || path.y > level.plan.size.y + EDGE)
+                                paths.splice(paths.indexOf(path), 1)
+
+                        for (let check of this.active)
+                            for (let path of paths)
+                                path.x == check.x && path.y == check.y && paths.splice(paths.indexOf(path), 1)
+
+                        for (let check of active)
+                            for (let path of paths)
+                                path.x == check.x && path.y == check.y && paths.splice(paths.indexOf(path), 1)
+
+                        for (let check of this.closed)
+                            for (let path of paths)
+                                path.x == check.x && path.y == check.y && paths.splice(paths.indexOf(path), 1)
+
+                        for (let wall of level.walls)
+                            for (let path of paths)
+                                path.x == wall.pos.x && path.y == wall.pos.y && paths.splice(paths.indexOf(path), 1)
+
+                        for (let path of paths) {
+                            path.join = this.closed.length
+                            active.push(path)
+
+                            if (path.x == Math.round(level.player.pos.x) && path.y == Math.round(level.player.pos.y)) {
+                                this.path.push(path)
+                                this.path.push(pos)
+                                let next = pos.join
+
+                                while (next != -1) {
+                                    this.path.push(this.closed[next])
+                                    next = this.closed[next].join
+                                }
+                            }
+                        }
+
+                        this.active.splice(this.active.indexOf(pos), 1)
+                        this.closed.push(pos)
+                    }
+
+                    this.active.push.apply(this.active, active)
+                }
+            }
+        }
+    }
+
+    Enemy.prototype.size = {x: 1, y: 1}
+    Enemy.prototype.speed = 0.2
+    Enemy.prototype.eyes = {x: 0.3, y: 0.3}
+    Enemy.prototype.range = 4
+    Enemy.prototype.color = "#333"
+    Enemy.prototype.power = 1
+
+    class Lift extends Object {
+        constructor(pos, type) {
+            super(pos)
+            let random = Math.random()
+
+            this.speed = (
+                !type ? {x: 0, y: this.speed} :
+                type == 1 ? {x: this.speed, y: 0} :
+                {x: random * this.speed, y: (1 - random) * this.speed}
+            )
+        }
+
+        update() {
+            this.pos.x += this.speed.x
+            this.pos.y += this.speed.y
+
+            for (let wall of level.walls)
+                this.collide(wall) && this.block(wall)
+
+            for (let actor of level.actors)
+                actor instanceof Lift && actor != this && this.collide(actor) && this.block(actor)
+        }
+    }
+
+    Lift.prototype.size = {x: 1, y: 1}
+    Lift.prototype.speed = 0.05
+    Lift.prototype.color = "#ddd"
+
+    class Coin extends Object {
+        constructor(pos) {
+            super(pos)
+            this.base = {x: pos.x, y: pos.y}
+            this.move = {x: Math.random() * 2 - 1, y: Math.random() * 2 - 1}
+        }
+
+        update() {
+            this.move.x += this.speed * 0.9
+            this.move.y += this.speed * 1.1
+            this.pos.x = this.base.x + Math.sin(this.move.x) * this.wobble
+            this.pos.y = this.base.y + Math.sin(this.move.y) * this.wobble
+        }
+    }
+
+    Coin.prototype.size = {x: 0.6, y: 0.6}
+    Coin.prototype.color = "#a80"
+    Coin.prototype.speed = 0.1
+    Coin.prototype.wobble = 0.1
+
+    class Bomb extends Object {
+        constructor(pos) {
+            super(pos)
+            this.base = {x: pos.x, y: pos.y}
+            this.move = {x: Math.random() * 2 - 1, y: Math.random() * 2 - 1}
+        }
+
+        update() {
+            this.move.x += this.speed * 0.9
+            this.move.y += this.speed * 1.1
+            this.pos.x = this.base.x + Math.sin(this.move.x) * this.wobble
+            this.pos.y = this.base.y + Math.sin(this.move.y) * this.wobble
+        }
+    }
+
+    Bomb.prototype.size = {x: 0.6, y: 0.6}
+    Bomb.prototype.color = "#08a"
+    Bomb.prototype.speed = 0.1
+    Bomb.prototype.wobble = 0.1
+
+    class Player extends Object {
+        constructor(pos) {
+            super(pos)
+            this.fall = 0
+            this.landed = false
+            this.state = 0
+            this.direction = -1
+            this.fluid = false
+        }
+
+        draw() {
+            if (this.state == -1) return
+
+            const eye = value => {
+                context.fillRect(
+                    this.pos.x * SIZE + this.size.x * SIZE * 0.2 * value - this.eyes.x * SIZE / 2 - camera.offset.x,
+                    this.pos.y * SIZE - this.size.y * SIZE * 0.28 - this.eyes.y * SIZE / 2 - camera.offset.y,
+                    this.eyes.x * SIZE,
+                    this.eyes.y * SIZE
+                )
+            }
+
+            const pupil = value => {
+                let x = this.pos.x * SIZE + this.size.x * SIZE * 0.2 * value - this.pupils.x * SIZE / 2 - camera.offset.x
+                let y = this.pos.y * SIZE - this.size.y * SIZE * 0.28 - this.pupils.y * SIZE / 2 - camera.offset.y
+                context.fillRect(
+                    x + this.direction * 2,
+                    y + (key.up ? -2 : 0),
+                    this.pupils.x * SIZE,
+                    this.pupils.y * SIZE
+                )
+            }
+
+            context.fillStyle = this.color
+            context.fillRect(
+                this.pos.x * SIZE - this.size.x * SIZE / 2 - camera.offset.x,
+                this.pos.y * SIZE - this.size.y * SIZE / 2 - camera.offset.y,
+                this.size.x * SIZE,
+                this.size.y * SIZE
+            )
+
+            context.fillStyle = '#fff'
+            eye(+1)
+            eye(-1)
+
+            context.fillStyle = '#000'
+            pupil(+1)
+            pupil(-1)
+        }
+
+        die() {
+            if (this.state != 0) return
+            this.state = -1
+
+            for (let i = 0; i < this.particles; i ++) {
+                let particle = new Particle({
+                    x: this.pos.x - this.size.x / 2 + Math.random() * (this.size.x - Particle.prototype.size.x),
+                    y: this.pos.y - this.size.y / 2 + Math.random() * (this.size.y - Particle.prototype.size.y)
+                }, this.death, 0)
+
+                particle.speed.x = key.right ? this.speed : key.left ? -this.speed : 0
+                particle.speed.y = this.fall
+
+                level.actors.push(particle)
+            }
+        }
+
+        bomb() {
+            if (this.state == -1 || camera.bombs == 0) return
+
+            let particle = new Particle({
+                x: this.pos.x,
+                y: this.pos.y
+            }, Bomb.prototype.color, 1)
+
+            particle.speed.x = this.speed * this.direction * 4
+            particle.speed.y = this.fall - this.speed * 4
+
+            level.actors.push(particle)
+            camera.bombs -= 1
+        }
+
+        update() {
+            if (this.state == -1) return
+
+            if (key.up && this.landed) {
+                this.fall -= this.jump
+                this.landed = false
+            }
+
+            if (key.left) {
+                this.pos.x -= this.speed
+                this.direction = -1
+            }
+
+            if (key.right) {
+                this.pos.x += this.speed
+                this.direction = 1
+            }
+            
+            if (!this.fluid) this.fall += GRAVITY
+            this.pos.y += this.fall
+
+            let sides = []
+            for (let wall of level.walls)
+                this.collide(wall) && sides.push(this.block(wall))
+
+            for (let actor of level.actors) {
+
+                // not adding collision first for maximum speed
+
+                if (actor instanceof Lift && this.collide(actor)) {
+                    sides.push(this.block(actor))
+                    this.pos.x += actor.speed.x
+                    this.pos.y += actor.speed.y
+                }
+
+                else if (actor instanceof Coin && this.collide(actor)) {
+                    level.actors.splice(level.actors.indexOf(actor), 1)
+                    camera.coins += 1
+
+                    if (!level.coins()) {
+                        size.x += 6
+                        size.y += 2
+                        this.state = 1
+                    }
+                }
+
+                else if (actor instanceof Bomb && this.collide(actor) && !actor.type) {
+                    level.actors.splice(level.actors.indexOf(actor), 1)
+                    camera.bombs += 1
+                }
+
+                else if (actor instanceof Enemy && this.collide(actor))
+                    this.die()
+            }
+
+            if (sides.includes(0) && sides.includes(1) || sides.includes(2) && sides.includes(3))
+                this.die()
+
+            else if (
+                this.pos.x < -EDGE ||
+                this.pos.x > level.plan.size.x + EDGE ||
+                this.pos.y < -EDGE ||
+                this.pos.y > level.plan.size.y + EDGE)
+                    this.die()
+        }
+    }
+
+    Player.prototype.size = {x: 0.8, y: 1.5}
+    Player.prototype.eyes = {x: 0.25, y: 0.25}
+    Player.prototype.pupils = {x: 0.13, y: 0.13}
+    Player.prototype.color = "#333"
+    Player.prototype.death = "#900"
+    Player.prototype.speed = 0.1
+    Player.prototype.jump = 0.5
+    Player.prototype.particles = 50
+
+    const random = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a
+    const distance = (a, b) => Math.sqrt((b.x - a.x) ** 2 + (b.y - a.y) ** 2)
+    const choice = array => array[Math.floor(Math.random() * array.length)]
+    const even = number => 2 * Math.round(number / 2)
+    const odd = number => 2 * Math.round(number / 2) + 1
+    const canvas = document.createElement("canvas")
+    const context = canvas.getContext("2d")
+
+    const update = () => {
+        level.player.update()
+        for (let actor of level.actors) actor.update()
+        camera.update()
+
+        if (level.player.state == 0 && haze > 0)
+            haze -= FADE
+
+        else if (level.player.state != 0) {
+            haze < 1 ? haze += FADE :
+            level.player.state == 1 ? level = new Level(size) :
+            level.reset()
+        }
+    }
+
+    const draw = () => {
+        context.fillStyle = "#000"
+        context.fillRect(0, 0, canvas.width, canvas.height)
+
+        for (let wall of level.walls) wall.draw()
+        level.player.draw()
+        for (let actor of level.actors) actor.draw()
+        camera.draw()
+
+        context.fillStyle = "rgb(0, 0, 0, " + haze + ")"
+        context.fillRect(0, 0, canvas.width, canvas.height)
+
+        requestAnimationFrame(draw)
+    }
+
+    let size = {x: 7, y: 5}
+    let key = {up: false, down: false, left: false, right: false}
+    let level = new Level(size)
+    let camera = new Camera({x: 0, y: 0})
+    let font = new Font()
+    let haze = 1
+
+    addEventListener("load", () => {
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+
+        with(document.body) {
+            appendChild(canvas)
+            style.margin = 0
+            style.overflow = "hidden"
+        }
+
+        setInterval(update, 1000 / RATE)
+        requestAnimationFrame(draw)
+    })
+
+    addEventListener("keydown", event => key[event.key.slice(5).toLowerCase()] = true)
+	addEventListener("keyup", event => {
+        key[event.key.slice(5).toLowerCase()] = false
+        event.key == 'r' && level.player.die()
+        event.key == ' ' && level.player.bomb()
+        event.key == 'w' && level.actors.push(new Fluid({x: Math.floor(level.player.pos.x), y: Math.floor(level.player.pos.y)}))
+    })
+
+    addEventListener("resize", event => {canvas.width = innerWidth; canvas.height = innerHeight})
+</script>
