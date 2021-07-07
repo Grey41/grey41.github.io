@@ -1,8 +1,3 @@
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-W2C6ZR2P0X');
-
 window.addEventListener("DOMContentLoaded", () => {
 	document.body.innerHTML = document.body.innerHTML
 	.replace(/¦/g, "<font color = '77b13e'>")
