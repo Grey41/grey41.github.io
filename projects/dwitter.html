@@ -2,6 +2,7 @@
     <head>
 		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
         <link rel = stylesheet type = text/css href = "https://fonts.googleapis.com/css?family=Nunito">
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
         <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
         <script src = ../js/analytics.js></script>
         <meta charset = utf-8>
@@ -19,24 +20,25 @@
                 overflow: hidden;
                 height: 100%;
                 margin: 2rem;
+                display: flex;
+                flex-flow: row;
             }
 
             #left {
-                float: left;
-                width: 60%;
+                flex: 0 0 auto;
                 height: -moz-calc(100% - 4rem);
                 height: -webkit-calc(100% - 4rem);
                 height: -o-calc(100% - 4rem);
                 height: calc(100% - 4rem);
+                padding-right: 1rem;
             }
 
             #right {
-                width: 40%;
+                flex: auto;
                 height: -moz-calc(100% - 4rem);
                 height: -webkit-calc(100% - 4rem);
                 height: -o-calc(100% - 4rem);
                 height: calc(100% - 4rem);
-                float: right;
             }
 
             #error {
@@ -53,6 +55,21 @@
                 overflow: auto;
             }
 
+            #text {
+                height: -moz-calc(100% - 3.5rem);
+                height: -webkit-calc(100% - 3.5rem);
+                height: -o-calc(100% - 3.5rem);
+                height: calc(100% - 3.5rem);
+                resize: horizontal;
+                border: none;
+                border-radius: 0.4rem;
+                padding: 0.5rem;
+                margin-bottom: 0.5rem;
+                overflow: auto;
+                font-size: 1.3rem;
+                width: 60vw;
+            }
+
             canvas {
                 border-radius: 0.4rem;
                 margin-left: 0.8rem;
@@ -60,25 +77,6 @@
                 height: 2.5rem;
                 width: 10rem;
                 float: left;
-            }
-
-            textarea {
-                font-family: Consolas, Menlo, Courier, monospace;
-                font-weight: 900;
-                font-size: 1.3rem;
-                width: -moz-calc(100% - 2rem);
-                width: -webkit-calc(100% - 2rem);
-                width: -o-calc(100% - 2rem);
-                width: calc(100% - 2rem);
-                height: -moz-calc(100% - 3.5rem);
-                height: -webkit-calc(100% - 3.5rem);
-                height: -o-calc(100% - 3.5rem);
-                height: calc(100% - 3.5rem);
-                resize: none;
-                border: none;
-                border-radius: 0.4rem;
-                padding: 0.5rem;
-                margin-bottom: 0.5rem;
             }
 
             span {
@@ -106,11 +104,12 @@
                 height: 2.5rem;
                 border-radius: 0.4rem;
                 font-size: 1rem;
-                margin-left: 0.8rem;
+                margin-left: 1rem;
                 margin-top: 0.8rem;
                 padding-left: 0.8rem;
                 padding-right: 0.8rem;
                 float: left;
+                -webkit-appearance: none;
             }
 
             footer {
@@ -133,14 +132,14 @@
 
     <body>
         <div id = left>
-            <textarea id = text oninput = input()></textarea>
+            <div id = text></div>
             <span id = count></span>
             <footer id = footer></footer>
         </div>
 
         <div id = right>
             <iframe id = frame></iframe>
-            <button title = "Restart the dweet" onClick = input()><i class="fas fa-step-backward"></i></button>
+            <button title = "Restart the dweet" onClick = input()><i class = "fas fa-step-backward"></i></button>
             <button id = button title = "Pause or resume" onClick = play()><i class = "fas fa-pause"></i></button>
             <canvas id = bar></canvas>
             <div id = error></div>
@@ -160,27 +159,33 @@
         </div>
 
         <script>
-            const resize = event => frame.style.height = (frame.offsetWidth * 9 / 16) + "px"
+            const resize = event => frame.style.height = (frame.clientWidth * 9 / 16) + "px"
             const base = "c.width=1920\nfor(i=0;i<9;i++)\nx.fillRect(400+i*100+S(t)*300,400,50,200)"
             const timeout = 1000
             const speed = []
             const context = bar.getContext("2d")
+            const editor = ace.edit(text)
 
             const colors = {
-                Dark: {main: "#000", box: "#666", error: "#f33", text: "#fff", button: "#555", hover: "#777", bar: "#aaa"},
-                Mid: {main: "#555", box: "#aaa", error: "#f00", text: "#000", button: "#999", hover: "#ccc", bar: "#ddd"},
-                Light: {main: "#ddd", box: "#bbb", error: "#d22", text: "#333", button: "#ccc", hover: "#fff", bar: "#fff"},
-                Navy: {main: "#004", box: "#667", error: "#f00", text: "#fff", button: "#558", hover: "#99a", bar: "#aab"},
-                Girly: {main: "#cac", box: "#767", error: "#f45", text: "#fef", button: "#858", hover: "#989", bar: "#ede"},
-                Alien: {main: "#000", box: "#555", error: "#f00", text: "#5f5", button: "#575", hover: "#555", bar: "#4e4"},
-                Mad: {main: "#08f", box: "#0ff", error: "#f00", text: "#f0f", button: "#ff0", hover: "#0f0", bar: "#f00"}
+                Dark: {main: "#333", box: "#666", error: "#f33", text: "#fff", button: "#555", hover: "#777", bar: "#aaa", theme: "merbivore"},
+                Mid: {main: "#666", box: "#aaa", error: "#f00", text: "#000", button: "#999", hover: "#ccc", bar: "#ddd", theme: "tomorrow_night_eighties"},
+                Light: {main: "#aaa", box: "#ddd", error: "#d22", text: "#333", button: "#ccc", hover: "#fff", bar: "#fff", theme: "tomorrow"},
+                Navy: {main: "#337", box: "#668", error: "#f00", text: "#fff", button: "#558", hover: "#99a", bar: "#aab", theme: "tomorrow_night_blue"},
+                Girly: {main: "#b9b", box: "#767", error: "#f45", text: "#fef", button: "#858", hover: "#979", bar: "#ede", theme: "katzenmilch"},
+                Alien: {main: "#444", box: "#666", error: "#f00", text: "#5f5", button: "#575", hover: "#555", bar: "#4e4", theme: "gob"},
+                Mad: {main: "#08f", box: "#0ff", error: "#f00", text: "#f0f", button: "#ff0", hover: "#0f0", bar: "#f00", theme: "cobalt"}
             }
 
             const start = () => {
                 frame.sandbox.add("allow-scripts")
                 frame.sandbox.add("allow-same-origin")
+
+                editor.setTheme("ace/theme/eclipse")
+                editor.session.setMode("ace/mode/javascript")
+                editor.setValue(localStorage.getItem("code") || base)
+                editor.on("change", event => input())
+
                 window.onerror = message => print(message, "error")
-                text.value = localStorage.getItem("code") || base
                 window.store = 0
                 window.theme = null
                 window.clock = 0
@@ -191,6 +196,9 @@
                 ~ Inspired by the <a href=http://dweetabase.3d2k.com target=_blank>Dweetabase</a> by Frank Force.`
 
                 addEventListener("resize", resize)
+                let thing = new ResizeObserver(resize)
+                thing.observe(text)
+
                 change()
                 input()
                 requestAnimationFrame(loop)
@@ -206,14 +214,18 @@
                         (c == ')' ? '' : ',') + c : a)
                 }
 
-                try {content.eval("function u(t) {" + wrap(text.value) + "}")}
+                try {
+                    content.eval("function u(t) {" + wrap(editor.getValue()) + "}")
+                    //here
+                }
+
                 catch (message) {
                     print(message, "error")
                     content.u = t => {}
                 }
 
                 content.window.u = content.u
-                localStorage.setItem("code", text.value)
+                localStorage.setItem("code", editor.getValue())
                 store = 0
 
                 number()
@@ -221,7 +233,7 @@
 
             const number = () => {
                 let length = 0
-                for (let char of text.value) length += 1
+                for (let char of editor.getValue()) length += 1
                 count.innerHTML = "Characters: " + length
                 count.style.color = length > 140 ? colors[theme].error : colors[theme].text
             }
@@ -256,7 +268,7 @@
             }
 
             const unpack = () => {
-                let code = text.value
+                let code = editor.getValue()
                 let index = code.toLowerCase().search(/eval\(unescape\(escape`/g)
                 
                 if (index >= 0) {
@@ -266,7 +278,7 @@
 
                     if (result) {
                         code = start + result
-                        text.value = code
+                        editor.setValue(code)
                     }
                 }
                 
@@ -312,7 +324,7 @@
 
             const reset = () => {
                 if (!confirm("Do you really want to reset everything?")) return
-                text.value = base
+                editor.setValue(base)
                 input()
             }
 
@@ -324,9 +336,8 @@
                 theme = select.value
                 document.body.style.background = colors[theme].main
                 error.style.background = colors[theme].box
-                text.style.background = colors[theme].box
-                text.style.color = colors[theme].text
                 bar.style.background = colors[theme].button
+                editor.setTheme("ace/theme/" + colors[theme].theme)
 
                 for (let item of tags) {
                     item.style.background = colors[theme].button
@@ -339,7 +350,7 @@
             }
 
             const compress = () => {
-                const value = [...text.value.trim()]
+                const value = [...editor.getValue().trim()]
                 let code = ""
 
                 for (let character of value) {
@@ -351,7 +362,7 @@
                 let compressed = String.fromCharCode(...[...code.length % 2 ? code + ";" : code].map((item, index) => item.charCodeAt() | (index % 2 ? 0xDF00 : 0xDB00)))
                 compressed = "eval(unescape(escape`" + compressed + "`.replace(/u../g,'')))"
 
-                text.value = compressed
+                editor.setValue(compressed)
                 input()
             }
 
