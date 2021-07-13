@@ -112,6 +112,11 @@
                 -webkit-appearance: none;
             }
 
+            option {
+                font-family: Nunito;
+                font-weight: bold;
+            }
+
             footer {
                 position: absolute;
                 bottom: 0;
@@ -185,7 +190,7 @@
                 editor.setValue(localStorage.getItem("code") || base)
                 editor.on("change", event => input())
 
-                window.onerror = message => print(message, "error")
+                window.onerror = message => show(message, "error")
                 window.store = 0
                 window.theme = null
                 window.clock = 0
@@ -214,13 +219,10 @@
                         (c == ')' ? '' : ',') + c : a)
                 }
 
-                try {
-                    content.eval("function u(t) {" + wrap(editor.getValue()) + "}")
-                    //here
-                }
+                try {content.eval("function u(t) {" + wrap(editor.getValue()) + "}")}
 
                 catch (message) {
-                    print(message, "error")
+                    show(message, "error")
                     content.u = t => {}
                 }
 
@@ -238,7 +240,7 @@
                 count.style.color = length > 140 ? colors[theme].error : colors[theme].text
             }
 
-            const print = (message, type) => {
+            const show = (message, type) => {
                 let html = "<span style='color:" + colors[theme][type] + "'>" + message + "</span><br>"
                 error.innerHTML += html
                 if (error.innerHTML.length > 5000) error.innerHTML = ""
@@ -261,7 +263,7 @@
                 content.C = content.Math.cos
                 content.T = content.Math.tan
                 content.R = (r, g, b, a) => `rgba(${r|0},${g|0},${b|0},${a===undefined?1:a})`
-                content.console.log = message => print(message, "text")
+                content.console.log = message => show(message, "text")
                 error.innerHTML = ""
                 speed.length = 0
                 resize()
@@ -311,7 +313,7 @@
                 content.timeout = Date.now() + timeout
 
                 try {content.window.u(store)}
-                catch (message) {print(message, "error")}
+                catch (message) {show(message, "error")}
 
                 store += (rate - clock) / 1000
                 clock = rate
