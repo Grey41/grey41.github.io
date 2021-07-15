@@ -9,8 +9,11 @@ window.addEventListener("DOMContentLoaded", () => {
 	const iframes = document.querySelectorAll(".iframe")
 	const editors = document.querySelectorAll(".editor")
 	const list = document.querySelectorAll(".example")
+	const array = document.querySelectorAll(".demo")
+
 	const demos = Object.values(iframes)
 	const examples = Object.values(list)
+	const frames = Object.values(array)
 
 	const input = (demo) => {
 		const frame = document.createElement("iframe")
@@ -42,8 +45,12 @@ window.addEventListener("DOMContentLoaded", () => {
 		input(demos[index])
 
 		document.addEventListener("mousedown", () => demos[index].hold = true)
-		document.addEventListener("mouseup", () => demos[index].hold = false)
 		document.addEventListener("mousemove", () => demos[index].hold && demos[index].ace.resize())
+
+		document.addEventListener("mouseup", () => {
+			demos[index].hold = false
+			input(demos[index])
+		})
 	})
 
 	examples.forEach(example => {
@@ -56,6 +63,13 @@ window.addEventListener("DOMContentLoaded", () => {
 		editor.setValue(editor.getValue().trim())
 		editor.setReadOnly(true)
 		editor.setOptions({maxLines: Infinity})
+	})
+
+	frames.forEach(frame =>	{
+		const content = frame.contentWindow || frame.contentDocument
+		content.document.open()
+		content.document.write(frame.innerHTML)
+		content.document.close()
 	})
 })
 
