@@ -15,6 +15,13 @@ window.addEventListener("DOMContentLoaded", () => {
 	const examples = Object.values(list)
 	const frames = Object.values(array)
 
+	const write = (iframe, code) => {
+		const content = iframe.contentWindow || iframe.contentDocument
+		content.document.open()
+		content.document.write(code)
+		content.document.close()
+	}
+
 	const input = (demo) => {
 		const frame = document.createElement("iframe")
 		frame.className = "iframe"
@@ -23,10 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		demo.iframe.remove()
 		demo.iframe = frame
 
-		const content = demo.iframe.contentWindow || demo.iframe.contentDocument
-		content.document.open()
-		content.document.write(demo.ace.getValue())
-		content.document.close()
+		write(demo.iframe, demo.ace.getValue())
 	}
 
 	demos.forEach((iframe, index) => {
@@ -65,12 +69,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		editor.setOptions({maxLines: Infinity})
 	})
 
-	frames.forEach(frame =>	{
-		const content = frame.contentWindow || frame.contentDocument
-		content.document.open()
-		content.document.write(frame.innerHTML)
-		content.document.close()
-	})
+	frames.forEach(frame =>	write(frame, frame.innerHTML))
 })
 
 const bar = () => {
