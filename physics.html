@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+  	<head>
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+		<script src = js/analytics.js></script>
+	
+		<title>Ball Physics</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html class = this>DEMOS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Ball Physics</h2>
+
+			<iframe class = iframe></iframe>
+			<div class = editor>
+				<xmp>
+<!DOCTYPE html>
+	<body>
+		<canvas id = canvas></canvas>
+
+		<script>
+			const ROWS = 10
+			const COLUMNS = 10
+			const RADIUS = 10
+			const GRAVITY = 0.2
+			const DAMPING = 0.99
+
+			class Ball {
+				constructor(x, y) {
+					this.x = x
+					this.y = y
+					this.speed = {x: 0.1, y: 0}
+				}
+
+				update() {
+					// make the ball fall
+					this.speed.y += GRAVITY
+
+					// slow it down slightly
+					this.x += this.speed.x *= DAMPING
+					this.y += this.speed.y *= DAMPING
+
+					// check collision with every other ball
+					balls.forEach(ball => {
+
+						// make sure it doesn't collide with itself
+						if (ball == this) return
+
+						// find distance and angle between both balls
+						const distance = Math.sqrt((this.x - ball.x) ** 2 + (this.y - ball.y) ** 2)
+						const angle = Math.atan2(ball.y - this.y, ball.x - this.x)
+
+						// if the balls are too close, it means they have collided
+						if (distance < RADIUS * 2) {
+
+							// find how much they overlap
+							const x = Math.cos(angle) * (RADIUS * 2 - distance) / 2
+							const y = Math.sin(angle) * (RADIUS * 2 - distance) / 2
+
+							// make them move apart from each other
+							this.x -= x
+							this.y -= y
+							ball.x += x
+							ball.y += y
+
+							// alter their speed
+							this.speed.x -= x
+							this.speed.y -= y
+							ball.speed.x += x
+							ball.speed.y += y
+						}
+					})
+
+					// check collision with floor
+					if (this.y > innerHeight * 0.9) {
+						this.y = innerHeight * 0.9
+						this.speed.y = Math.abs(this.speed.y) * -1
+					}
+
+					// left wall
+					if (this.x < RADIUS) {
+						this.x = RADIUS
+						this.speed.x = Math.abs(this.speed.x)
+					}
+
+					// right wall
+					else if (this.x > innerWidth - RADIUS) {
+						this.x = innerWidth - RADIUS
+						this.speed.x = Math.abs(this.speed.x) * -1
+					}
+
+					// draw ball with javascript arc
+					context.fillStyle = "#aaa"
+					context.beginPath()
+					context.arc(this.x, this.y, RADIUS, 0, 2 * Math.PI)
+					context.fill()
+				}
+			}
+
+			function loop() {
+				// clear screen
+				canvas.width = canvas.width
+
+				// update all the balls
+				balls.forEach(ball => ball.update())
+
+				requestAnimationFrame(loop)
+			}
+
+			function start() {
+				// set canvas dimentions
+				canvas.width = innerWidth
+				canvas.height = innerHeight
+
+				// style the body and get rid of margins
+				with (document.body.style) {
+					margin = 0
+					overflow = "hidden"
+					background = "#555"
+				}
+
+				// position all the balls in a grid
+				for (let y = 0; y < ROWS; y ++)
+					for (let x = 0; x < COLUMNS; x ++)
+						balls.push(new Ball(
+							innerWidth / 2 - ROWS * RADIUS + RADIUS * 2 * y,
+							innerHeight / 3 - COLUMNS * RADIUS * 2 + RADIUS * 2 * x
+						))
+
+				// when screen resizes, update canvas dimentions
+				addEventListener("resize", event => {
+					canvas.width = innerWidth
+					canvas.height = innerHeight
+				})
+
+				// activate game loop
+				loop()
+			}
+
+			const context = canvas.getContext("2d")
+			const balls = []
+
+			start()
+		</script>
+	</body>
+</html>
+				</xmp>
+			</div>
+
+			<p>
+				In this demo, I have tried to make the code as minimal as possible.
+				The main collision calculations are done inside the <mark>update</mark> function.
+			</p>
+
+			<p>
+				To find the distance between two circles, you need to use the <mark>Pythagoras Theorem</mark>.
+				The example below will show how this is achieved.
+				Once you have the distance, it's easy to calculate collision.
+			</p>
+
+			<div class = code>
+				<pre>distance = &#8730;(x-distance&#178; + y-distance&#178;)</pre>
+			</div>
+
+			<p>
+				Feel free to fiddle with the code and make your own combinations.
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>
