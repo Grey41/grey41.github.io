@@ -5,12 +5,45 @@
 	src: url(../font/dyslexic.otf);
 }
 
+@font-face {
+	font-family: nunito;
+	src: url(../font/nunito.ttf)
+}
+
 html {
 	scroll-behavior: smooth;
 }
 
 body {
 	margin: 0;
+	background-color: #eee;
+}
+
+mark {
+	color: #47b;
+	background: none;
+}
+
+.editor, .example {
+	font-size: 1rem;
+	width: 100%;
+	border-radius: 0.4rem;
+	margin-top: 1rem;
+}
+
+.editor {
+	height: 30rem;
+	resize: vertical;
+}
+
+.iframe {
+	width: 100%;
+	height: 25rem;
+	border-radius: 0.4rem;
+	border: none;
+	background: #fff;
+	resize: vertical;
+	overflow: auto;
 }
 
 .top {
@@ -45,7 +78,7 @@ body {
 	margin: 0;
 	font-weight: bold;
 	vertical-align: middle;
-	font-size: 4.5rem;
+	font-size: 4rem;
 }
 
 .header .line {
@@ -53,16 +86,16 @@ body {
 	font-weight: normal;
 	opacity: 0.7;
 	display: block;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 }
 
 .main {
-	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-family: nunito;
 	color: #677;
 	line-height: 1.5;
 }
 
-.main h2, .main h3 {
+.main.h1, .main h2, .main h3 {
 	margin-top: 2rem;
 	margin-bottom: 1rem;
 	font-family: dyslexic;
@@ -85,6 +118,11 @@ body {
 	float: left;
 }
 
+.note {
+	font-size: 0.8rem;
+	color: #888;
+}
+
 .image {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
@@ -100,9 +138,12 @@ body {
 	margin-bottom: 2rem;
 }
 
+.image img:hover {
+	opacity: 0.5;
+}
+
 .image .content {
 	float: left;
-	width: 40%;
 }
 
 .image .content h2 {
@@ -110,21 +151,18 @@ body {
 }
 
 .code {
-	padding: 0.5rem 1rem;
-	font-family: Consolas, Menlo, Courier, monospace;
-	font-size: 0.9rem;
-	color: #a0a0a0;
-	background-color: #f3f6fa;
-	border-radius: 0.3rem;
-	border: solid 1px #e9ebec;
+	padding-left: 1rem;
+	background-color: #ddd;
+	border-radius: 0.4rem;
+	border: solid 1px #bbb;
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
 
-.code code {
+.code pre {
 	color: #2b3c44;
 	font-family: Consolas, Menlo, Courier, monospace;
-	font-size: 0.9rem;
+	font-size: 1rem;
 }
 
 .email {
@@ -139,6 +177,7 @@ body {
 	.main {max-width: 64rem; padding: 1rem 6rem; margin: 0 auto; font-size: 1.1rem}
 	.top {max-width: 64rem; padding: 2rem 6rem; margin: 0 auto}
 	.image img {width: 50%}
+	.image .content {width: 40%}
 }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
@@ -148,6 +187,7 @@ body {
 	.main {padding: 1rem 4rem; font-size: 1.1rem}
 	.top {padding: 2rem 4rem}
 	.image img {width: 60%}
+	.image .content {width: 60%}
 }
 
 @media screen and (max-width: 42em) {
@@ -157,6 +197,7 @@ body {
 	.main {padding: 1rem 1rem; font-size: 1rem}
 	.top {padding: 2rem 1rem}
 	.image img {width: 100%}
+	.image .content {width: 100%}
 
 	.top a {
 		display: none;
