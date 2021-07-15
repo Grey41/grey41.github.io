@@ -115,6 +115,12 @@
 				}
 			}
 
+			function resize() {
+				// set canvas dimentions
+				canvas.width = innerWidth
+				canvas.height = innerHeight
+			}
+
 			function loop() {
 				// clear screen
 				canvas.width = canvas.width
@@ -126,10 +132,6 @@
 			}
 
 			function start() {
-				// set canvas dimentions
-				canvas.width = innerWidth
-				canvas.height = innerHeight
-
 				// style the body and get rid of margins
 				with (document.body.style) {
 					margin = 0
@@ -145,11 +147,9 @@
 							innerHeight / 3 - COLUMNS * RADIUS * 2 + RADIUS * 2 * x
 						))
 
-				// when screen resizes, update canvas dimentions
-				addEventListener("resize", event => {
-					canvas.width = innerWidth
-					canvas.height = innerHeight
-				})
+				// when screen resizes, run the resize function
+				addEventListener("resize", resize)
+				resize()
 
 				// activate game loop
 				loop()
