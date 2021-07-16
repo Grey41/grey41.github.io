@@ -22,15 +22,17 @@ window.addEventListener("DOMContentLoaded", () => {
 		content.document.close()
 	}
 
-	const input = (demo) => {
+	const reset = (iframe, code) => {
 		const frame = document.createElement("iframe")
-		frame.className = "iframe"
+		frame.className = iframe.className
+		frame.id = iframe.id
 
-		demo.iframe.before(frame)
-		demo.iframe.remove()
-		demo.iframe = frame
+		iframe.before(frame)
+		iframe.remove()
+		iframe = frame
 
-		write(demo.iframe, demo.ace.getValue())
+		write(iframe, code)
+		return iframe
 	}
 
 	demos.forEach((iframe, index) => {
@@ -45,16 +47,8 @@ window.addEventListener("DOMContentLoaded", () => {
 		demos[index].ace.session.setMode("ace/mode/html")
 		demos[index].ace.setTheme("ace/theme/monokai")
 		demos[index].ace.setValue(text[iframe.id])
-		demos[index].ace.on("change", () => input(demos[index]))
-		input(demos[index])
-
-		document.addEventListener("mousedown", () => demos[index].hold = true)
-		document.addEventListener("mousemove", () => demos[index].hold && demos[index].ace.resize())
-
-		document.addEventListener("mouseup", () => {
-			demos[index].hold = false
-			input(demos[index])
-		})
+		demos[index].ace.on("change", () => demos[index].iframe = reset(demos[index].iframe, demos[index].ace.getValue()))
+		write(demos[index].iframe, demos[index].ace.getValue())
 	})
 
 	/*examples.forEach(example => {
@@ -70,6 +64,16 @@ window.addEventListener("DOMContentLoaded", () => {
 	})*/
 
 	frames.forEach(frame =>	write(frame, text[frame.id]))
+
+	document.addEventListener("mousedown", () => demos.forEach(item => item.hold = true))
+	document.addEventListener("mousemove", () => demos.forEach(item => item.hold && item.ace.resize()))
+	document.addEventListener("mouseup", () => {
+		frames.forEach((item, index) => frames[index] = reset(item, text[item.id]))
+		demos.forEach(item => {
+			item.hold = false
+			item.iframe = reset(item.iframe, item.ace.getValue())
+		})
+	})
 })
 
 const bar = () => {
