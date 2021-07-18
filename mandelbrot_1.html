@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+  	<head>
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+		<script src = js/analytics.js></script>
+	
+		<title>Mandelbrot Visualisation | The Formula</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html>DEMOS</a>
+			<a href = tutorials.html class = this>TUTORIALS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Mandelbrot Visualisation</h2>
+
+			<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+			<a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+			<h3>1. The Formula</h3>
+
+			<p>
+				This tutorial will start by explaining how the <mark>Mandelbrot Set</mark> is calculated.
+				On future pages, we will look at some <mark>Javascript</mark> examples.
+			</p>
+
+			<p>
+				The <mark>Mandelbrot Set</mark> is made with a grid of squares.
+				Each square is shaded based on its position on the grid.
+				In the example below, the red lines refer to the horizontal and vertical axis of the grid.
+			</p>
+
+			<iframe id = mandelbrot_1 class = demo></iframe>
+
+			<p>
+				You will notice that this set doesn't have any colours.
+				This is because the <mark>Mandelbrot</mark> formula only returns a single value.
+				The colours of the set are made using an extra formula which we will cover later.
+			</p>
+
+			<p>
+				Now we are going to focus on a single square.
+				First we use its original position to generate a new position.
+				Then we continue to generate new positions until one falls outside the grid.
+				The shade of our square will be determined by the amount of positions we generated.
+				The example below illustrates how each square is shaded based on the generated positions.
+			</p>
+
+			<iframe id = mandelbrot_2 class = demo></iframe>
+			
+			<p>
+				In the example, the maximum amount of iterations is set to <mark>10</mark>.
+				This means that near the centre of the grid, the square gives up after <mark>10</mark> calculations.
+			</p>
+
+			<p>
+				Now we will focus on the actual calculations.
+				Let's use a square with the coordinates <mark>(0.6, 0.4)</mark>.
+			</p>
+
+			<div class = code>
+				<pre>original_x = 0.6<br>original_y = 0.4</pre>
+			</div>
+
+			<p>
+				Now we make a new copy of these positions.
+			</p>
+
+			<div class = code>
+				<pre>copy_x = original_x<br>copy_y = original_y</pre>
+			</div>
+
+			<p>
+				Then we will execute a calculation on the copies to create a new position.
+			</p>
+
+			<div class = code>
+				<pre>set_x = copy_x&#178; - copy_y&#178;<br>set_y = 2 &#215; copy_x &#215; copy_y</pre>
+				<pre>copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
+			</div>
+
+			<p>
+				After performing the calculations above, <mark>copy_x</mark> will equal <mark>0.2</mark> and <mark>copy_y</mark> will equal <mark>0.48</mark>.
+				These are our new coordinates.
+				We keep repeating the code above until the coordinates go out of bounds.
+			</p>
+
+			<p>
+				The following <mark>Javascript</mark> code snippet will show you the full algorithm.
+			</p>
+
+			<div id = mandelbrot_3 class = example></div>
+
+			<p>
+				After running the code above, the <mark>index</mark> value will determine the shade of our square.
+				It should be a value between <mark>0</mark> and <mark>10</mark>.
+				In this case, <mark>index</mark> will be equal to <mark>2</mark>.
+				If we use different coordinates for our square, the <mark>index</mark> value will be different.
+			</p>
+
+			<p>
+				Surprisingly, that is all there is to the <mark>Mandelbrot Set</mark>.
+				By applying the code above to each square, you will get incredible patterns.
+				To get the <mark>RGB</mark> colour of each square, use the formula below.
+				It will return colour values between <mark>0</mark> and <mark>255</mark>.
+			</p>
+
+			<div class = code>
+				<pre>rgb = (index &#215; 25.5, index &#215; 25.5, index &#215; 25.5)</pre>
+			</div>
+
+			<p>
+				Some of you may be unable to grasp why the code for the <mark>Mandelbrot Set</mark> is so small.
+				You may also be wondering why we never talked about imaginary numbers which are part of the <mark>Mandelbrot Formula</mark>.
+				Because we are dealing mainly with code, we don't need to use imaginary numbers.
+				If you are more interested in the maths, then feel free to do your own research.
+			</p>
+
+			<p>
+				In the next lesson, we will build our first <mark>Mandelbrot Set</mark> in <mark>Javascript</mark>.
+			</p>
+
+			<p>
+				<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+				<a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>
