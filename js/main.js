@@ -8,11 +8,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	const iframes = document.querySelectorAll(".iframe")
 	const editors = document.querySelectorAll(".editor")
-	//const list = document.querySelectorAll(".example")
+	const list = document.querySelectorAll(".example")
 	const array = document.querySelectorAll(".demo")
 
 	const demos = Object.values(iframes)
-	//const examples = Object.values(list)
+	const examples = Object.values(list)
 	const frames = Object.values(array)
 
 	const write = (iframe, code) => {
@@ -51,24 +51,21 @@ window.addEventListener("DOMContentLoaded", () => {
 		write(demos[index].iframe, demos[index].ace.getValue())
 	})
 
-	/*examples.forEach(example => {
+	examples.forEach(example => {
 		const editor = ace.edit(example)
-
-		console.log(editor.getValue())
 
 		editor.session.setMode("ace/mode/javascript")
 		editor.setTheme("ace/theme/monokai")
-		editor.setValue(editor.getValue().trim())
+		editor.setValue(text[example.id])
 		editor.setReadOnly(true)
 		editor.setOptions({maxLines: Infinity})
-	})*/
+	})
 
 	frames.forEach(frame =>	write(frame, text[frame.id]))
 
 	document.addEventListener("mousedown", () => demos.forEach(item => item.hold = true))
 	document.addEventListener("mousemove", () => demos.forEach(item => item.hold && item.ace.resize()))
 	document.addEventListener("mouseup", () => {
-		frames.forEach((item, index) => frames[index] = reset(item, text[item.id]))
 		demos.forEach(item => {
 			item.hold = false
 			item.iframe = reset(item.iframe, item.ace.getValue())
@@ -84,7 +81,7 @@ const bar = () => {
 }
 
 const text = {
-	physics: (
+	physics_1: (
 		"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst ROWS = 10\n\t\t\tconst COLUMNS = 10\n\t\t\tc" +
 		"onst RADIUS = 10\n\t\t\tconst GRAVITY = 0.2\n\t\t\tconst DAMPING = 0.99\n\n\t\t\tclass Ball {\n\t\t\t\tconstructor(x, y) {\n\t\t\t\t\t" +
 		"this.x = x\n\t\t\t\t\tthis.y = y\n\t\t\t\t\tthis.speed = {x: 0.1, y: 0}\n\t\t\t\t}\n\n\t\t\t\tupdate() {\n\t\t\t\t\t// make the ball f" +
@@ -115,7 +112,7 @@ const text = {
 		"html>"
 	),
 
-	waves: (
+	waves_1: (
 		"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst RESOLUTION = 200\n\t\t\tconst DAMPING = 0.99" +
 		"\n\t\t\tconst SPREAD = 0.5\n\t\t\tconst SPRING = 0.1\n\n\t\t\tfunction resize() {\n\t\t\t\t// empty the list of waves\n\t\t\t\tpoints." +
 		"length = 0\n\n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\n\t\t\t\t// p" +
@@ -141,7 +138,7 @@ const text = {
 		"\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t</script>\n\t</body>\n</html>"
 	),
 
-	waves_1: (
+	waves_2: (
 		"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst RESOLUTION = 50\n\t\t\tconst DAMPING = 0.99 " +
 		"\n\t\t\tconst SPREAD = 0.1\n\t\t\tconst SPRING = 0.01\n\n\t\t\tfunction resize() {\n\t\t\t\tpoints.length = 0\n\n\t\t\t\tcanvas.width " +
 		"= innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\n\t\t\t\tfor (let i = 0; i < RESOLUTION; i ++)\n\t\t\t\t\tpoints.push({height: Mat" +
@@ -159,5 +156,57 @@ const text = {
 		"\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\taddEventListener(\"mousedown\", event => { \n\t\t\t\t" +
 		"\tpoints[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\tloop()\n\t\t\t}\n\n\t\t\tconst conte" +
 		"xt = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t</script>\n\t</body>\n</html>"
+	),
+
+	mandelbrot_1: (
+		"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 40\n\t\t\tconst SIZE = 10\n\n\t\t\tf" +
+		"unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
+		"{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
+		"\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tif (item.x ** 2 + " +
+		"item.y ** 2 < 4 && item.value < 10) {\n\t\t\t\t\t\tlet x = item.x ** 2 - item.y ** 2\n\t\t\t\t\t\tlet y = 2 * item.x * item.y \n\n\t\t" +
+		"\t\t\t\titem.x = position(index).x + x\n\t\t\t\t\t\titem.y = position(index).y + y\n\t\t\t\t\t\titem.value ++\n\t\t\t\t\t}\n\n\t\t\t\t" +
+		"\tif (time % 12 == 0) {\n\t\t\t\t\t\titem.x = position(index).x\n\t\t\t\t\t\titem.y = position(index).y\n\t\t\t\t\t\titem.value = 0 \n" +
+		"\t\t\t\t\t}\n\n\t\t\t\t\tconst value = item.value * 25.5\n\t\t\t\t\tcontext.fillStyle = \"rgb(\" + value + \", \" + value + \", \" + v" +
+		"alue + \")\"\n\n\t\t\t\t\tcontext.fillRect(\n\t\t\t\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth - WIDTH * SIZE - SIZE) / 2), \n" +
+		"\t\t\t\t\t\tMath.floor(Math.floor(index / WIDTH) * SIZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tSIZE, SIZE \n\t\t\t\t" +
+		"\t)\n\t\t\t\t})\n\n\t\t\t\tcontext.strokeStyle = \"#800\"\n\t\t\t\tcontext.beginPath()\n\t\t\t\tcontext.moveTo(0, innerHeight / 2)\n\t" +
+		"\t\t\tcontext.lineTo(innerWidth, innerHeight / 2)\n\t\t\t\tcontext.moveTo(innerWidth / 2, 0)\n\t\t\t\tcontext.lineTo(innerWidth / 2, i" +
+		"nnerHeight)\n\t\t\t\tcontext.stroke()\n\n\t\t\t\ttime ++\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\tcanvas.style.width = \"100%\"\n" +
+		"\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#000\"\n\t\t\t" +
+		"\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t\t\tsqua" +
+		"res.push({x: position(i).x, y: position(i).y, value: 0})\n\n\t\t\t\tsetInterval(loop, 500)\n\t\t\t}\n\n\t\t\tconst context = canvas.ge" +
+		"tContext(\"2d\")\n\t\t\tconst squares = []\n\t\t\tlet time = 0\n\n\t\t\tstart()\n\t\t</script>\n\t</body>\n</html>"
+	),
+
+	mandelbrot_2: (
+		"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 10\n\t\t\tconst SIZE = 40\n\n\t\t\tf" +
+		"unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
+		"{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
+		"\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tif (current.positions[0].x ** 2 + current.positions[0].y ** 2 < " +
+		"4 && squares[current.index] < 10) {\n\t\t\t\t\tlet x = current.positions[0].x ** 2 - current.positions[0].y ** 2\n\t\t\t\t\tlet y = 2 " +
+		"* current.positions[0].x * current.positions[0].y\n\n\t\t\t\t\tcurrent.positions.unshift({x: position(current.index).x + x, y: positio" +
+		"n(current.index).y + y})\n\t\t\t\t\tsquares[current.index] ++\n\t\t\t\t}\n\n\t\t\t\telse {\n\t\t\t\t\tif (squares.length == current.in" +
+		"dex + 1) {\n\t\t\t\t\t\tcurrent.index = 0\n\t\t\t\t\t\tsquares.length = 0\n\n\t\t\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t" +
+		"\t\t\t\tsquares.push(0)\n\t\t\t\t\t}\n\n\t\t\t\t\telse current.index ++\n\t\t\t\t\tcurrent.positions = [position(current.index)]\n\t\t" +
+		"\t\t}\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tconst value = item * 25.5\n\t\t\t\t\tcontext.fillStyle = \"rgb(\" + val" +
+		"ue + \", \" + value + \", \" + value + \")\"\n\n\t\t\t\t\tcontext.fillRect(\n\t\t\t\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth" +
+		" - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tMath.floor(Math.floor(index / WIDTH) * SIZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t" +
+		"\t\t\t\t\tSIZE, SIZE\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\tcontext.strokeStyle = \"#800\"\n\t\t\t\tcontext.fillStyle = \"#800\" \n\t\t\t" +
+		"\tcontext.lineWidth = 3\n\t\t\t\tcontext.beginPath()\n\n\t\t\t\tcurrent.positions.forEach(item => {\n\t\t\t\t\tconst x = innerWidth / " +
+		"2 + item.x * WIDTH * SIZE / 4\n\t\t\t\t\tconst y = innerHeight / 2 + item.y * WIDTH * SIZE / 4\n\t\t\t\t\tcontext.fillRect(x - 5, y - " +
+		"5, 10, 10)\n\t\t\t\t\tcontext.lineTo(x, y)\n\t\t\t\t})\n\t\t\t\t\n\t\t\t\tcontext.stroke()\n\t\t\t}\n\n\t\t\tfunction start() { \n\t\t" +
+		"\t\tcanvas.style.width = \"100%\"\n\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t" +
+		"\t\t\tbackground = \"#000\"\n\t\t\t\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i " +
+		"< WIDTH ** 2; i ++)\n\t\t\t\t\tsquares.push(0)\n\n\t\t\t\tsetInterval(loop, 500)\n\t\t\t} \n\n\t\t\tconst context = canvas.getContext(" +
+		"\"2d\")\n\t\t\tconst current = {index: 0, positions: [position(0)]}\n\t\t\tconst squares = []\n\t\t\tlet time = 0\n\n\t\t\tstart()\n\t" +
+		"\t</script>\n\t</body>\n</html>"
+	),
+
+	mandelbrot_3: (
+		"// starting position of square\nconst original_x = 0.2\nconst original_y = 0.6\n\n// copy the position\nlet copy_x = original_x\nlet c" +
+		"opy_y = original_y\n\n// make a loop that does a maximum of 10 iterations\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the" +
+		" main calculations\n\tlet set_x = copy_x * copy_x - copy_y * copy_y\n\tlet set_y = 2 * copy_x * copy_y\n\n\tcopy_x = set_x + original_" +
+		"x\n\tcopy_y = set_y + original_y\n\n\t// if the position is out of bounds, cancel the loop\n\tif (copy_x * copy_x + copy_y * copy_y > " +
+		"4)\n\t\tbreak;\n}"
 	)
 }
