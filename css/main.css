@@ -24,6 +24,26 @@ mark {
 	background: none;
 }
 
+button {
+	font-family: nunito;
+	border: none;
+	border-radius: 0.4rem;
+	background: #ddd;
+	font-size: 1rem;
+	padding: 0.5rem 1rem 0.5rem 1rem;
+	cursor: pointer;
+	color: #555;
+}
+
+button:hover {
+	background: #bbb;
+	color: #000;
+}
+
+.right {
+	float: right;
+}
+
 .editor, .example {
 	font-size: 1rem;
 	width: 100%;
