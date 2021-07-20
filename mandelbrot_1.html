@@ -54,12 +54,16 @@
 				"\t<\/script>\n\t</body>\n</html>"
 			]
 
-			const text = [
-				"// starting position of square\nconst original_x = 0.2\nconst original_y = 0.6\n\n// copy the position\nlet copy_x = original_x\nlet c" +
-				"opy_y = original_y\n\n// make a loop that does a maximum of 10 iterations\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the" +
-				" main calculations\n\tlet set_x = copy_x * copy_x - copy_y * copy_y\n\tlet set_y = 2 * copy_x * copy_y\n\n\tcopy_x = set_x + original_" +
-				"x\n\tcopy_y = set_y + original_y\n\n\t// if the position is out of bounds, cancel the loop\n\tif (copy_x * copy_x + copy_y * copy_y > " +
-				"4)\n\t\tbreak;\n}"
+			const text = [{
+				lines: [],
+				start: 1,
+				code: (
+					"// starting position of square\nconst original_x = 0.2\nconst original_y = 0.6\n\n// copy the position\nlet copy_x = original_x\nlet c" +
+					"opy_y = original_y\n\n// make a loop that does a maximum of 10 iterations\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the" +
+					" main calculations\n\tlet set_x = copy_x * copy_x - copy_y * copy_y\n\tlet set_y = 2 * copy_x * copy_y\n\n\tcopy_x = set_x + original_" +
+					"x\n\tcopy_y = set_y + original_y\n\n\t// if the position is out of bounds, cancel the loop\n\tif (copy_x * copy_x + copy_y * copy_y > " +
+					"4)\n\t\tbreak;\n}"
+				)}
 			]
 		</script>
 	
