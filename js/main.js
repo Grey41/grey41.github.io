@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	const demos = Object.values(document.querySelectorAll(".iframe"))
 	const examples = Object.values(document.querySelectorAll(".example"))
 	const frames = Object.values(document.querySelectorAll(".demo"))
+	const range = ace.require("ace/range").Range
 
 	const write = (iframe, code) => {
 		const content = iframe.contentWindow || iframe.contentDocument
@@ -26,6 +27,11 @@ window.addEventListener("DOMContentLoaded", () => {
 		iframe.before(frame)
 		iframe.remove()
 		iframe = frame
+
+		if (iframe.id == "scroll") {
+			demos[index].iframe.onmouseenter = () => document.body.style.overflow = "hidden"
+			demos[index].iframe.onmouseleave = () => document.body.style.overflow = "auto"
+		}
 
 		write(iframe, code)
 		return iframe
@@ -46,8 +52,12 @@ window.addEventListener("DOMContentLoaded", () => {
 		demos[index].ace.on("change", () => demos[index].iframe = reset(demos[index].iframe, demos[index].ace.getValue()))
 		demos[index].ace.clearSelection()
 
-		const range = ace.require("ace/range").Range
 		edit[index].lines.forEach(line => demos[index].ace.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
+
+		if (iframe.id == "scroll") {
+			demos[index].iframe.onmouseenter = () => document.body.style.overflow = "hidden"
+			demos[index].iframe.onmouseleave = () => document.body.style.overflow = "auto"
+		}
 
 		write(demos[index].iframe, demos[index].ace.getValue())
 	})
@@ -57,17 +67,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
 		editor.session.setMode("ace/mode/javascript")
 		editor.setTheme("ace/theme/monokai")
-		editor.setValue(text[index])
+		editor.setValue(text[index].code)
 		editor.setReadOnly(true)
-		editor.setOptions({maxLines: Infinity})
+		editor.setOptions({maxLines: Infinity, firstLineNumber: text[index].start})
 		editor.clearSelection()
+		text[index].lines.forEach(line => editor.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
 	})
 
 	frames.forEach((frame, index) => write(frame, source[index]))
-
-	document.addEventListener("mousedown", () => demos.forEach(item => item.hold = true))
-	document.addEventListener("mousemove", () => demos.forEach(item => item.hold && item.ace.resize()))
-	document.addEventListener("mouseup", () => demos.forEach(item => item.hold = false))
+	addEventListener("mousedown", () => demos.forEach(item => item.hold = true))
+	addEventListener("mousemove", () => demos.forEach(item => item.hold && item.ace.resize()))
+	addEventListener("mouseup", () => demos.forEach(item => item.hold = false))
 })
 
 const bar = () => {
