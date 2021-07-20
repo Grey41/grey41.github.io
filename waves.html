@@ -10,6 +10,57 @@
 		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
 		<script src = js/main.js></script>
 		<script src = js/analytics.js></script>
+
+		<script>
+			const edit = [{
+				lines: [],
+				code: (
+					"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst RESOLUTION = 200\n\t\t\tconst DAMPING = 0.99" +
+					"\n\t\t\tconst SPREAD = 0.5\n\t\t\tconst SPRING = 0.1\n\n\t\t\tfunction resize() {\n\t\t\t\t// empty the list of waves\n\t\t\t\tpoints." +
+					"length = 0\n\n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\n\t\t\t\t// p" +
+					"osition all the wave segments\n\t\t\t\tfor (let i = 0; i < RESOLUTION; i ++)\n\t\t\t\t\tpoints.push({height: Math.random() * 0.2 - 0.1" +
+					", speed: 0})\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// clear screen\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tpoints.forEa" +
+					"ch((point, index) => {\n\t\t\t\t\t// change speed based on sections on either side\n\t\t\t\t\tpoint.speed += (points[index == 0 ? RESO" +
+					"LUTION - 1 : index - 1].height - point.height) * SPREAD\n\t\t\t\t\tpoint.speed += (points[index == RESOLUTION - 1 ? 0 : index + 1].hei" +
+					"ght - point.height) * SPREAD\n\n\t\t\t\t\t// make the wave move towards the centre\n\t\t\t\t\tpoint.speed += -point.height * SPRING \n" +
+					"\n\t\t\t\t\t// slow the wave down, this makes the splash slowly fade away\n\t\t\t\t\tpoint.speed *= DAMPING\n\t\t\t\t})\n\n\t\t\t\tpoi" +
+					"nts.forEach((point, index) => {\n\t\t\t\t\t// smooth out all the bumps\n\t\t\t\t\tpoint.height += (points[index == 0 ? RESOLUTION - 1 " +
+					": index - 1].height - point.height) * 0.1\n\t\t\t\t\tpoint.height += (points[index == RESOLUTION - 1 ? 0 : index + 1].height - point.h" +
+					"eight) * 0.1\n\t\t\t\t})\n\n\t\t\t\t// starting coordinate of the shape (left, bottom)\n\t\t\t\tcontext.moveTo(0, innerHeight)\n\n\t\t" +
+					"\t\tpoints.forEach((point, index) => {\n\t\t\t\t\t// update height of the section\n\t\t\t\t\tpoint.height += point.speed\n\n\t\t\t\t\t" +
+					"// mark position on the screen\n\t\t\t\t\tcontext.lineTo(\n\t\t\t\t\t\tindex * innerWidth / (RESOLUTION - 1),\n\t\t\t\t\t\tinnerHeight" +
+					" / 2 - point.height * innerHeight / 2\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\t// end coordinate of the shape (right, bottom)\n\t\t\t\tcont" +
+					"ext.lineTo(innerWidth, innerHeight)\n\n\t\t\t\t// set outline width\n\t\t\t\tcontext.lineWidth = 5\n\n\t\t\t\t// draw the outline \n\t" +
+					"\t\t\tcontext.strokeStyle = \"#569\"\n\t\t\t\tcontext.stroke()\n\n\t\t\t\t// fill in the shape\n\t\t\t\tcontext.fillStyle = \"#9ab\"\n" +
+					"\t\t\t\tcontext.fill()\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// style the body and get " +
+					"rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"" +
+					"#555\"\n\t\t\t\t}\n\n\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tre" +
+					"size()\n\n\t\t\t\t// when the mouse clicks on screen, make a wave\n\t\t\t\taddEventListener(\"mousedown\", event => {\n\t\t\t\t\tpoint" +
+					"s[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t" +
+					"\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+				)}
+			]
+
+			const source = [
+				"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst RESOLUTION = 50\n\t\t\tconst DAMPING = 0.99 " +
+				"\n\t\t\tconst SPREAD = 0.1\n\t\t\tconst SPRING = 0.01\n\n\t\t\tfunction resize() {\n\t\t\t\tpoints.length = 0\n\n\t\t\t\tcanvas.width " +
+				"= innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\n\t\t\t\tfor (let i = 0; i < RESOLUTION; i ++)\n\t\t\t\t\tpoints.push({height: Mat" +
+				"h.random() * 0.2 - 0.1, speed: 0})\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\t\t\t\tcontext.lineWidth" +
+				" = 2\n\t\t\t\t\n\t\t\t\tpoints.forEach((point, index) => {\n\t\t\t\t\tpoint.speed += (points[index == 0 ? RESOLUTION - 1 : index - 1]." +
+				"height - point.height) * SPREAD\n\t\t\t\t\tpoint.speed += (points[index == RESOLUTION - 1 ? 0 : index + 1].height - point.height) * SP" +
+				"READ\n\t\t\t\t\tpoint.speed += -point.height * SPRING\n\t\t\t\t\tpoint.speed *= DAMPING\n\t\t\t\t})\n\n\t\t\t\tpoints.forEach((point, " +
+				"index) => {\n\t\t\t\t\tpoint.height += (points[index == 0 ? RESOLUTION - 1 : index - 1].height - point.height) * 0.1\n\t\t\t\t\tpoint." +
+				"height += (points[index == RESOLUTION - 1 ? 0 : index + 1].height - point.height) * 0.1\n\t\t\t\t})\n\n\t\t\t\tpoints.forEach((point, " +
+				"index) => {\n\t\t\t\t\tpoint.height += point.speed\n\n\t\t\t\t\tconst x = index * innerWidth / (RESOLUTION - 1)\n\t\t\t\t\tconst y = i" +
+				"nnerHeight / 2 - point.height * innerHeight / 2\n\n\t\t\t\t\tcontext.fillStyle = \"#f00\"\n\t\t\t\t\tcontext.beginPath()\n\t\t\t\t\tco" +
+				"ntext.moveTo(x, y)\n\t\t\t\t\tcontext.lineTo(x, innerHeight)\n\t\t\t\t\tcontext.stroke()\n\n\t\t\t\t\tcontext.fillStyle = \"#a00\"\n\t" +
+				"\t\t\t\tcontext.fillRect(x - 5, y - 5, 10, 10)\n\t\t\t\t})\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {" +
+				"\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#9ab\"\n\t\t\t" +
+				"\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\taddEventListener(\"mousedown\", event => { \n\t\t\t\t" +
+				"\tpoints[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\tloop()\n\t\t\t}\n\n\t\t\tconst conte" +
+				"xt = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+			]
+		</script>
 	
 		<title>Wave Simulation</title>
   	</head>
@@ -30,7 +81,7 @@
 
 			<h2>Wave Simulation</h2>
 
-			<iframe id = waves_1 class = iframe></iframe>
+			<iframe class = iframe></iframe>
 			<div class = editor></div>
 
 			<p>
@@ -43,7 +94,7 @@
 				Each wave section has its own speed and height that is affected by the sections either side of it.
 			</p>
 
-			<iframe id = waves_2 class = demo></iframe>
+			<iframe class = demo></iframe>
 
 			<p>
 				To take this demo a step further, you could try to add proper splashes.
