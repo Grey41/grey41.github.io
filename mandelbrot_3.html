@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+  	<head>
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+		<script src = js/analytics.js></script>
+
+		<script>
+			const edit = [{
+				lines: [],
+				code: (
+					"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tfunction resize() {\n\t\t\t\t// set canvas dimenti" +
+					"ons\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\n\t\t\t\t// update webgl dimentions\n\t\t\t\twebgl.viewp" +
+					"ort(0, 0, innerWidth, innerHeight)\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// clear webgl viewport\n\t\t\t\twebgl.clear(webgl.COL" +
+					"OR_BUFFER_BIT)\n\n\t\t\t\t// sent all the information to the fragment shader\n\t\t\t\twebgl.uniform2f(uniform.resolution, innerWidth, " +
+					"innerHeight)\n\t\t\t\twebgl.uniform2f(uniform.position, position.x, position.y)\n\t\t\t\twebgl.uniform1f(uniform.zoom, zoom)\n\n\t\t\t" +
+					"\t// draw everything with triangles\n\t\t\t\twebgl.drawArrays(webgl.TRIANGLES, 0, 6)\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n" +
+					"\n\t\t\tfunction start() {\n\t\t\t\t// style the body and get rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin =" +
+					" 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#555\"\n\t\t\t\t}\n\n\t\t\t\t// create vertex shader\n\t\t\t\tconst vert" +
+					"ex = webgl.createShader(webgl.VERTEX_SHADER)\n\n\t\t\t\t// add shader source code\n\t\t\t\twebgl.shaderSource(vertex, `\n\t\t\t\t\tatt" +
+					"ribute vec2 vertex;\n\n\t\t\t\t\tvoid main(void) {\n\t\t\t\t\t\tgl_Position = vec4(vertex, 0, 1);\n\t\t\t\t\t}`)\n\n\t\t\t\twebgl.comp" +
+					"ileShader(vertex)\n\t\t\t\twebgl.attachShader(program, vertex)\n\n\t\t\t\t// create fragment shader\n\t\t\t\tconst fragment = webgl.cr" +
+					"eateShader(webgl.FRAGMENT_SHADER)\n\t\t\t\t\n\t\t\t\t// the source code for the fragment shader is where the main calculations happen " +
+					"\n\t\t\t\twebgl.shaderSource(fragment, `\n\t\t\t\t\tprecision highp float;\n\n\t\t\t\t\tuniform vec2 resolution;\n\t\t\t\t\tuniform ve" +
+					"c2 position;\n\t\t\t\t\tuniform float zoom;\n\n\t\t\t\t\tvoid main(void) {\n\t\t\t\t\t\t// do lots of complicated things to get the ex" +
+					"act position in the set\n\t\t\t\t\t\tfloat original_x = (gl_FragCoord.x - position.x * zoom - resolution.x * 0.6) / zoom; \n\t\t\t\t\t" +
+					"\tfloat original_y = (gl_FragCoord.y - position.y * zoom - resolution.y * 0.5) / zoom;\n\n\t\t\t\t\t\tfloat copy_x = original_x;\n\t\t" +
+					"\t\t\t\tfloat copy_y = original_y;\n\n\t\t\t\t\t\tfloat index = 0.0;\n\n\t\t\t\t\t\t// change samples to make the set more detailed \n" +
+					"\t\t\t\t\t\tconst int samples = 400;\n\n\t\t\t\t\t\tfor (int i = 0; i < samples; i ++) {\n\t\t\t\t\t\t\tfloat set_x = copy_x * copy_x " +
+					"- copy_y * copy_y;\n\t\t\t\t\t\t\tfloat set_y = 2.0 * copy_x * copy_y;\n\n\t\t\t\t\t\t\tcopy_x = set_x + original_x;\n\t\t\t\t\t\t\tco" +
+					"py_y = set_y + original_y;\n\n\t\t\t\t\t\t\tif (copy_x * copy_x + copy_y * copy_y > 4.0) {\n\t\t\t\t\t\t\t\tindex = float(i); \n\t\t\t" +
+					"\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\n\t\t\t\t\t\t// feel free to change the numbers below\n\t\t\t\t\t\tfloat strength =" +
+					" mod(index, 40.0);\n\t\t\t\t\t\tgl_FragColor = vec4(mod(index, 70.0) * strength * 0.001, mod(index, 50.0) * strength * 0.0006, mod(ind" +
+					"ex, 30.0) * strength * 0.0005, 1);\n\t\t\t\t\t}`)\n\n\t\t\t\twebgl.compileShader(fragment)\n\t\t\t\twebgl.attachShader(program, fragme" +
+					"nt)\n\n\t\t\t\t// set up main shader program\n\t\t\t\twebgl.linkProgram(program)\n\t\t\t\twebgl.useProgram(program)\n\n\t\t\t\t// make" +
+					" vertices for each corner of the screen\n\t\t\t\twebgl.bindBuffer(webgl.ARRAY_BUFFER, buffer)\n\t\t\t\twebgl.bufferData(webgl.ARRAY_BU" +
+					"FFER, new Float32Array([-1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1, -1]), webgl.STATIC_DRAW)\n\t\t\t\twebgl.vertexAttribPointer(0, 2, webgl." +
+					"FLOAT, false, 0, 0)\n\t\t\t\twebgl.enableVertexAttribArray(0)\n\n\t\t\t\tif (!webgl.getShaderParameter(fragment, webgl.COMPILE_STATUS)" +
+					")\n\t\t\t\t\talert(webgl.getShaderInfoLog(fragment))\n\n\t\t\t\tif (!webgl.getShaderParameter(vertex, webgl.COMPILE_STATUS))\n\t\t\t\t" +
+					"\talert(webgl.getShaderInfoLog(vertex))\n\n\t\t\t\t// find uniform locations inside shader\n\t\t\t\tuniform.resolution = webgl.getUnif" +
+					"ormLocation(program, \"resolution\")\n\t\t\t\tuniform.position = webgl.getUniformLocation(program, \"position\")\n\t\t\t\tuniform.zoom" +
+					" = webgl.getUniformLocation(program, \"zoom\")\n\n\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"" +
+					"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\t// hold becomes true when the user presses the mouse\n\t\t\t\taddEventListener(\"moused" +
+					"own\", event => hold = true)\n\t\t\t\taddEventListener(\"mouseup\", event => hold = false)\n\n\t\t\t\taddEventListener(\"mousemove\", " +
+					"event => {\n\t\t\t\t\tif (!hold) return\n\n\t\t\t\t\t// when the user drags the mouse, change the positions\n\t\t\t\t\tposition.x += e" +
+					"vent.movementX / zoom\n\t\t\t\t\tposition.y -= event.movementY / zoom\n\t\t\t\t})\n\n\t\t\t\t// detect when user wants to zoom\n\t\t\t" +
+					"\taddEventListener(\"wheel\", event => {\n\t\t\t\t\t// change zoom based on current value\n\t\t\t\t\tzoom -= event.deltaY * zoom / 300" +
+					"\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t\t}\n\n\t\t\t// canvas with webgl context\n\t\t\tconst webgl = canv" +
+					"as.getContext(\"webgl\")\n\n\t\t\t// webgl shader program\n\t\t\tconst program = webgl.createProgram()\n\n\t\t\t// stores uniform loca" +
+					"tions in shader\n\t\t\tconst uniform = {}\n\n\t\t\t// webgl vertex buffer\n\t\t\tconst buffer = webgl.createBuffer()\n\n\t\t\t// chang" +
+					"e the positions and zoom to make it start in a different place\n\t\t\tconst position = {x: -0.3168716699417118, y: -0.5945117078984253" +
+					"}\n\t\t\tlet zoom = 20000\n\t\t\tlet hold = false\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+				)}
+			]
+
+			const text = [{
+				lines: [6, 7],
+				start: 134,
+				code: (
+					"// detect when user wants to zoom\naddEventListener(\"wheel\", event => {\n\t// change zoom based on current value\n\tzoom -= event." +
+					"deltaY * zoom / 300\n\n\tposition.x += event.deltaY * (event.clientX - innerWidth * 0.6) / zoom / 300\n\tposition.y -= event.deltaY * " +
+					"(event.clientY - innerHeight * 0.5) / zoom / 300\n})"
+				)}
+			]
+		</script>
+	
+		<title>Mandelbrot Visualisation | WebGL Rendering</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html>DEMOS</a>
+			<a href = tutorials.html class = this>TUTORIALS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Mandelbrot Visualisation</h2>
+
+			<a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+			<a href = mandelbrot_4.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+			<h3>3. WebGL Rendering</h3>
+
+			<p>
+				In this tutorial we will make the <mark>Mandelbrot Set</mark> in <mark>WebGL</mark>.
+				If you are overwhelmed by the code, you can skip to the next page which is slightly simpler.
+			</p>
+
+			<p>
+				This method of rendering the <mark>Mandelbrot Set</mark> is certainly the fastest.
+				In the example below, hold the mouse to pan and zoom.
+			</p>
+
+			<iframe id = scroll class = iframe></iframe>
+			<div class = editor></div>
+
+			<p>
+				In the code above, the <mark>Mandelbrot</mark> calculations are done inside the <mark>Fragment Shader</mark>.
+				In case you don't know what a <mark>Fragment Shader</mark> is, it is a piece of graphics card code that runs for every pixel on the screen.
+				If you want different starting coordinates, change the <mark>position</mark> value at the bottom of the code.
+			</p>
+
+			<p>
+				When you scroll, the program zooms based on the centre of the screen.
+				To make the program zoom to where the mouse is pointing, add the following lines of code.
+				It will change the coordinates as you zoom in.
+			</p>
+
+			<div class = example></div>
+
+			<p>
+				On the next page, we will go back to making the <mark>Mandelbrot Set</mark> with the <mark>Javascript Canvas</mark>.
+				The page will explain how to render individual frames and make a zooming in video.
+			</p>
+
+			<p>
+				If you would like to learn more about coding with <mark>WebGL</mark>, please visit our seperate <a href = tutorials.html>tutorial</a>.
+			</p>
+
+			<p>
+				<a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+				<a href = mandelbrot_4.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>
