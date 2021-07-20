@@ -40,6 +40,11 @@ button:hover {
 	color: #000;
 }
 
+.new {
+	position: absolute;
+  	background: #0f03;
+}
+
 .right {
 	float: right;
 }
