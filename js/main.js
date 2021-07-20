@@ -6,14 +6,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	if (typeof ace === "undefined") return
 
-	const iframes = document.querySelectorAll(".iframe")
 	const editors = document.querySelectorAll(".editor")
-	const list = document.querySelectorAll(".example")
-	const array = document.querySelectorAll(".demo")
-
-	const demos = Object.values(iframes)
-	const examples = Object.values(list)
-	const frames = Object.values(array)
+	const demos = Object.values(document.querySelectorAll(".iframe"))
+	const examples = Object.values(document.querySelectorAll(".example"))
+	const frames = Object.values(document.querySelectorAll(".demo"))
 
 	const write = (iframe, code) => {
 		const content = iframe.contentWindow || iframe.contentDocument
@@ -64,7 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		editor.setValue(text[index])
 		editor.setReadOnly(true)
 		editor.setOptions({maxLines: Infinity})
-		demos[index].ace.clearSelection()
+		editor.clearSelection()
 	})
 
 	frames.forEach((frame, index) => write(frame, source[index]))
