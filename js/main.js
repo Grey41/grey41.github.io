@@ -45,12 +45,13 @@ window.addEventListener("DOMContentLoaded", () => {
 		span.innerText = "Edit the code to change the result above."
 		editor.after(span)
 
-		demos[index] = {iframe, editor, ace: ace.edit(editor), hold: false}
+		demos[index] = {iframe, editor, ace: ace.edit(editor)}
 		demos[index].ace.session.setMode("ace/mode/html")
 		demos[index].ace.setTheme("ace/theme/monokai")
 		demos[index].ace.setValue(edit[index].code)
 		demos[index].ace.on("change", () => demos[index].iframe = reset(demos[index].iframe, demos[index].ace.getValue()))
-		demos[index].ace.clearSelection()
+		demos[index].ace.gotoLine(0, 1, true)
+		demos[index].ace.setOptions({maxLines: 25})
 
 		edit[index].lines.forEach(line => demos[index].ace.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
 
@@ -70,14 +71,11 @@ window.addEventListener("DOMContentLoaded", () => {
 		editor.setValue(text[index].code)
 		editor.setReadOnly(true)
 		editor.setOptions({maxLines: Infinity, firstLineNumber: text[index].start})
-		editor.clearSelection()
+		editor.gotoLine(0, 1, true)
 		text[index].lines.forEach(line => editor.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
 	})
 
 	frames.forEach((frame, index) => write(frame, source[index]))
-	addEventListener("mousedown", () => demos.forEach(item => item.hold = true))
-	addEventListener("mousemove", () => demos.forEach(item => item.hold && item.ace.resize()))
-	addEventListener("mouseup", () => demos.forEach(item => item.hold = false))
 })
 
 const bar = () => {
