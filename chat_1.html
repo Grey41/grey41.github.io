@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+  	<head>
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+		<script src = js/analytics.js></script>
+
+		<script>
+			const text = [{
+				lines: [],
+				start: 1,
+				code: (
+					"console.log(\"hello\")"
+				)}
+			]
+		</script>
+			
+		<title>Chat App | Setting Up</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html>DEMOS</a>
+			<a href = tutorials.html class = this>TUTORIALS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Chat App</h2>
+
+			<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+			<a href = chat_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+			<h3>1. Setting Up</h3>
+
+			<p>
+				In this tutorial, we will create a simple online chat application.
+				The same skills can be used to create multiplayer games and <mark>dynamic</mark> websites.
+			</p>
+
+			<p>
+				Every website on the <mark>World Wide Web</mark> needs a computer to store it.
+				The computer is called a server.
+				For example, this website is hosted on <mark>GitHub</mark>.
+				This means that whenever you want to visit this website, a <mark>GitHub</mark> server is providing your computer with the data for this website.
+			</p>
+
+			<p>
+				When building a <mark>static</mark> website, you upload the code to a server that only has to provide users with the website data.
+				In this tutorial, we will build a <mark>dynamic</mark> website where we write our own code for the server.
+				The server does a lot more work because it is constantly recieving and sending data between users.
+			</p>
+
+			<p>
+				Our application will have two main parts.
+				One part will be for the server and the other part will be for the clients.
+				We can write the client part in normal <mark>HTML</mark> but for the server, we need to use a new tool called <mark>Node.js</mark>.
+			</p>
+
+			<p>
+				<mark>Node.js</mark> was specifically designed for building online applications in <mark>JavaScript</mark>.
+				It is a very useful piece of software.
+			</p>
+
+			<p>
+				To install <mark>Node.js</mark>, visit <a href = https://nodejs.org>nodejs.org</a> and download the stable version for your computer.
+				On <mark>Windows</mark> and <mark>Mac</mark>, it comes as an installer.
+			</p>
+
+			<p>
+				To check if everything has worked, type the following into the <mark>Command Terminal</mark> of your computer and press <mark>ENTER</mark>.
+			</p>
+
+			<div class = code>
+				<pre>node -v<br>npm -v</pre>
+			</div>
+
+			<p>
+				If any errors appear, then you have a problem.
+				If you need help installing <mark>Node.js</mark>, you can either find a more detailed installation guide or contact us at <a href = mailto:info@greyhope.uk>info@greyhope.uk</a>.
+			</p>
+
+			<p>
+				Once you have successfully installed <mark>Node.js</mark>, make a new folder on your computer and name it <mark>chat_app</mark>.
+				Inside the folder, add a file called <mark>server.js</mark>.
+				Open the file and write the following code.
+			</p>
+
+			<div class = example></div>
+
+			<p>
+				Now go to the <mark>Command Terminal</mark> and type <mark>cd</mark> followed by the file path of your <mark>chat_app</mark> folder.
+				Based on where you put the folder, the file path will be different.
+			</p>
+
+			<div class = code>
+				<pre>cd file/path/chat_app</pre>
+			</div>
+
+			<p>
+				Now type the following into the terminal.
+			</p>
+
+			<div class = code>
+				<pre>node server.js</pre>
+			</div>
+
+			<p>
+				The terminal should then print <mark>hello</mark>.
+			</p>
+
+			<p>
+				Now we need to set up our <mark>chat_app</mark> folder.
+				Type the following into the terminal.
+			</p>
+
+			<div class = code>
+				<pre>npn init</pre>
+			</div>
+
+			<p>
+				It will then ask questions about your new package.
+				You can type the following answers.
+			</p>
+
+			<div class = code>
+				<pre>package name: chat-app<br>version: 1.0.0<br>description: A basic online chat application<br>entry point: server.js<br>test command:<br>git repository:<br>keywords: chatting online fun<br>author: Your Name<br>license: ISC</pre>
+			</div>
+
+			<p>
+				Confirm everything by pressing <mark>ENTER</mark>.
+				It should then create a single file called <mark>package.json</mark> in your <mark>chat_app</mark> folder.
+				This file contains all the information you just entered.
+			</p>
+
+			<p>
+				Finally, we want to include two important packages for our application.
+				They are <mark>Socket.IO</mark> and <mark>Express</mark>, they will be explained later.
+				Type the following into the terminal.
+			</p>
+
+			<div class = code>
+				<pre>npm install --save express socket.io</pre>
+			</div>
+
+			<p>
+				It should then create a file called <mark>package-lock.json</mark> and a folder called <mark>node_modules</mark>.
+				If this works, you are ready to move on to the next page where we will start coding our program.
+			</p>
+
+			<p>
+				<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+				<a href = chat_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>
