@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+  	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+		<script src = js/analytics.js></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+
+		<script>
+			const text = [{
+				lines: [],
+				start: 1,
+				code: (
+					"// scale of everything\nconst offset = 100\n\n// starting position of square\nconst original_x = 0.2 * offset\nconst original_y = 0.6 " +
+					"* offset\n\n// copy the position\nlet copy_x = original_x\nlet copy_y = original_y\n\n// make a loop that does a maximum of 10 iterati" +
+					"ons\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the main calculations\n\tlet set_x = (copy_x * copy_x) / offset - (copy_y" +
+					" * copy_y) / offset\n\tlet set_y = (2 * copy_x * copy_y) / offset\n\n\tcopy_x = set_x + original_x\n\tcopy_y = set_y + original_y \n\n" +
+					"\t// if the position is out of bounds, cancel the loop\n\tif ((copy_x * copy_x) / offset + (copy_y * copy_y) / offset > 4 * offset) \n" +
+					"\t\tbreak;\n}"
+				)}
+			]
+		</script>
+	
+		<title>Mandelbrot Visualisation | Infinite Zoom</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html>DEMOS</a>
+			<a href = tutorials.html class = this>TUTORIALS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Mandelbrot Visualisation</h2>
+
+			<a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+			<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+			<h3>3. Infinite Zoom</h3>
+
+			<p>
+				This page will explain how to alter our previous program to achieve infinite zoom.
+				It will introduce the <mark>JavaScript BigInt</mark> which is an integer that can go to any size.
+			</p>
+
+			<p>
+				Because we are going to use <mark>JavaScript BigInt</mark>, the calculations can only involve whole numbers.
+				This means we have to scale everything so that the formula works without decimals.
+				We will store a number called <mark>offset</mark> that will represent this scale.
+			</p>
+
+			<p>
+				Just like the example on the first page of this tutorial, let's use a square with the coordinates <mark>(0.6, 0.4)</mark>.
+				We need to multiply the coordinates by the <mark>offset</mark> to bring them into whole numbers.
+			</p>
+
+			<div class = code>
+				<pre>offset = 100</pre>
+				<pre>original_x = 0.6 * offset<br>original_y = 0.4 * offset</pre>
+			</div>
+
+			<p>
+				We will now have the values <mark>60</mark> and <mark>40</mark>.
+				Like before, let's make a new copy of these positions.
+			</p>
+
+			<div class = code>
+				<pre>copy_x = original_x<br>copy_y = original_y</pre>
+			</div>
+
+			<p>
+				Then we will execute a calculation on the copies to create a new position.
+				This time, we will use our <mark>offset</mark> value to scale everything.
+			</p>
+
+			<div class = code>
+				<pre>set_x = copy_x&#178; / offset - copy_y&#178; / offset<br>set_y = (2 &#215; copy_x &#215; copy_y) / offset</pre>
+				<pre>copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
+			</div>
+
+			<p>
+				After performing the calculations above, <mark>copy_x</mark> will equal <mark>80</mark> and <mark>copy_y</mark> will equal <mark>88</mark>.
+				If you compare these to the numbers on the first page, you will see that they are just scaled up by the <mark>offset</mark>.
+				This is very exciting because we managed to all the maths with just integers.
+			</p>
+
+			<p>
+				The <mark>JavaScript</mark> code below will show you the full altered algorithm.
+			</p>
+
+			<div class = example></div>
+
+			<p>
+				Although this code works perfectly, you may be wondering where <mark>BigInt</mark> comes into it.
+			</p>
+
+			<p>
+				<a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+				<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>

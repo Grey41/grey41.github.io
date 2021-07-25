@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+  	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+		<script src = js/analytics.js></script>
+
+    	<meta charset = utf-8>
+		<meta name = viewport content = "width = device-width, initial-scale = 1">
+		<link rel = stylesheet href = css/main.css>
+
+		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+		<script src = js/main.js></script>
+
+		<script>
+			const source = [
+				"<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\n\t\t<style>\n\t\t\thtml {\n\t\t\t\theight: 100%;\n\t\t\t}\n\n\t\t\tbody { \n" +
+				"\t\t\t\tmargin: 0;\n\t\t\t\tbackground: #555;\n\t\t\t\theight: 100%;\n\t\t\t}\n\n\t\t\t#main {\n\t\t\t\tmax-width: 20rem;\n\t\t\t\tmar" +
+				"gin: 0 auto;\n\t\t\t\tbackground: #aaa;\n\t\t\t\theight: 100%;\n\t\t\t}\n\t\t</style>\n\t</head>\n\n\t<body>\n\t\t<div id = main></div" +
+				">\n\t</body>\n</html>"
+			]// not
+
+			const text = [{
+				lines: [7],
+				start: 1,
+				code: (
+					"<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t</head>\n\n\t<body>\n\t\t<div id = main></div>\n\t</body>\n</html>"
+				)}, {
+				lines: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+				start: 1,
+				code: (
+					"<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\n\t\t<style>\n\t\t\thtml {\n\t\t\t\theight: 100%;\n\t\t\t}\n\n\t\t\tbody { \n" +
+					"\t\t\t\tmargin: 0;\n\t\t\t\tbackground: #555;\n\t\t\t\theight: 100%;\n\t\t\t}\n\n\t\t\t#main {\n\t\t\t\tmax-width: 64rem;\n\t\t\t\tmar" +
+					"gin: 0 auto;\n\t\t\t\tbackground: #aaa;\n\t\t\t\theight: 100%;\n\t\t\t}\n\t\t</style>\n\t</head>"
+				)}
+			]
+		</script>
+			
+		<title>Chat App | The Layout</title>
+  	</head>
+  
+  	<body>
+		<section class = top>
+			<a href = index.html>HOME</a>
+			<a href = projects.html>PROJECTS</a>
+			<a href = demos.html>DEMOS</a>
+			<a href = tutorials.html class = this>TUTORIALS</a>
+			<a href = https://jobase.org target = _blank>JOBASE</a>
+			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+		</section>
+
+		<section class = main>
+			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+			<h2>Chat App</h2>
+
+			<a href = chat_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+			<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+			<h3>3. The Layout</h3>
+
+			<p>
+				So far, we have written the setup code for the server and the clients.
+				Now we will start coding the layout of our application in <mark>HTML</mark> and <mark>CSS</mark>.
+				If you are familiar with styling in <mark>CSS</mark>, then feel free to change the code and make the layout better.
+			</p>
+
+			<p>
+				Open your <mark>index.html</mark> file and delete the code inside the <mark>body</mark>.
+				Then create a new <mark>div</mark> called <mark>main</mark>.
+			</p>
+
+			<div class = example></div>
+
+			<p>
+				Now we want to style the page and make the <mark>div</mark> fit in the middle of the screen.
+			</p>
+
+			<div class = example></div>
+
+			<p>
+				The <mark>CSS</mark> above makes the page expand to the full height of the window.
+				We then make the <mark>div</mark> have a maximum width of <mark>64rem</mark> and set its <mark>margin</mark> to <mark>auto</mark>.
+				This positions the <mark>div</mark> in the centre of the screen.
+			</p>
+
+			<p>
+				If you go back to the <mark>localhost:5000</mark> browser window and refresh the page.
+				You will see a grey rectangle in the middle of a grey screen.
+				If you can't connect, make sure your <mark>Node.js</mark> application is still running in the terminal.
+				Go back to the previous page if you can't remember how to run your application.
+			</p>
+
+			<p>
+				<a href = chat_2.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+				<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+			</p>
+
+			<footer></footer>
+		</section>
+  	</body>
+</html>
