@@ -66,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	examples.forEach((example, index) => {
 		const editor = ace.edit(example)
 
-		editor.session.setMode("ace/mode/javascript")
+		editor.session.setMode("ace/mode/" + (text[index].code.match(/<\w+>/) ? "html" : "javascript"))
 		editor.setTheme("ace/theme/monokai")
 		editor.setValue(text[index].code)
 		editor.setReadOnly(true)
