@@ -20,7 +20,7 @@ body {
 }
 
 mark {
-	color: #47b;
+	color: #555;
 	background: none;
 }
 
@@ -42,7 +42,7 @@ button:hover {
 
 .new {
 	position: absolute;
-  	background: #0f03;
+  	background: #fff2;
 }
 
 .right {
@@ -56,19 +56,12 @@ button:hover {
 	margin-top: 1rem;
 }
 
-.editor {
-	height: 30rem;
-	resize: vertical;
-}
-
 .iframe, .demo {
 	width: 100%;
 	height: 25rem;
 	border-radius: 0.4rem;
 	border: none;
 	background: #fff;
-	resize: vertical;
-	overflow: auto;
 }
 
 .top {
