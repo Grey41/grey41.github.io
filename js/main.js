@@ -2,7 +2,7 @@ addEventListener("DOMContentLoaded", () => {
 	const footers = document.getElementsByTagName("footer")
 	const number = parseInt(localStorage.getItem("type"))
 
-	window.type = number === undefined ? new Date().getHours() > 6 && new Date().getHours() < 18 : number
+	window.type = isNaN(number) ? new Date().getHours() > 6 && new Date().getHours() < 18 : number
 	window.lost = (typeof ace === "undefined")
 
 	for (footer of footers)
