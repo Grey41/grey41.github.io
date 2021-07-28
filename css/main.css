@@ -1,229 +1,229 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
 @font-face {
-	font-family: dyslexic;
-	src: url(../font/dyslexic.otf);
+    font-family: dyslexic;
+    src: url(../font/dyslexic.otf);
 }
 
 @font-face {
-	font-family: nunito;
-	src: url(../font/nunito.ttf)
+    font-family: nunito;
+    src: url(../font/nunito.ttf)
 }
 
 html {
-	scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-	margin: 0;
+    margin: 0;
 }
 
 mark {
-	background: none;
+    background: none;
 }
 
 button {
-	font-family: nunito;
-	border: none;
-	border-radius: 0.4rem;
-	font-size: 1rem;
-	padding: 0.5rem 1rem 0.5rem 1rem;
-	cursor: pointer;
+    font-family: nunito;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    cursor: pointer;
 }
 
 .new {
-	position: absolute;
-  	background: #fff2;
+    position: absolute;
+    background: #8884;
 }
 
 .right {
-	float: right;
+    float: right;
 }
 
 .editor, .example {
-	font-size: 1rem;
-	width: 100%;
-	border-radius: 0.4rem;
-	margin-top: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 0.4rem;
+    margin-top: 1rem;
 }
 
 .iframe, .demo {
-	width: 100%;
-	height: 25rem;
-	border-radius: 0.4rem;
-	border: none;
-	background: #fff;
+    width: 100%;
+    height: 25rem;
+    border-radius: 0.4rem;
+    border: none;
+    background: #fff;
 }
 
 .top {
-	overflow: hidden;
-	font-family: dyslexic;
+    overflow: hidden;
+    font-family: dyslexic;
 }
 
 .top a {
-	float: left;
-	padding-right: 18px;
-	text-decoration: none;
-	font-size: 0.9rem;
-	cursor: pointer;
+    float: left;
+    padding-right: 18px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .top .icon {
-	display: none;
+    display: none;
 }
 
 .top .theme {
-	float: right;
+    float: right;
 }
 
 .header {
-	text-align: center;
-	font-family: dyslexic;
+    text-align: center;
+    font-family: dyslexic;
 }
 
 .header .base {
-	margin: 0;
-	font-weight: bold;
-	vertical-align: middle;
-	font-size: 4rem;
+    margin: 0;
+    font-weight: bold;
+    vertical-align: middle;
+    font-size: 4rem;
 }
 
 .header .line {
-	margin-bottom: 2rem;
-	font-weight: normal;
-	opacity: 0.7;
-	display: block;
-	font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: normal;
+    opacity: 0.7;
+    display: block;
+    font-size: 1.2rem;
 }
 
 .main {
-	font-family: nunito;
-	line-height: 1.5;
+    font-family: nunito;
+    line-height: 1.5;
 }
 
 .main.h1, .main h2, .main h3 {
-	margin-top: 2rem;
-	margin-bottom: 1rem;
-	font-family: dyslexic;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: dyslexic;
     font-weight: normal;
 }
 
 .main a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .main footer {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	font-size: 0.9rem;
-	float: left;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    float: left;
 }
 
 .note {
-	font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .image {
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-	float: left;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    float: left;
 }
 
 .image img {
-	opacity: 1;
-	transition: .2s ease;
-	border-radius: 0.4rem;
-	float: left;
-	margin-right: 2rem;
-	margin-bottom: 2rem;
+    opacity: 1;
+    transition: .2s ease;
+    border-radius: 0.4rem;
+    float: left;
+    margin-right: 2rem;
+    margin-bottom: 2rem;
 }
 
 .image img:hover {
-	opacity: 0.5;
+    opacity: 0.5;
 }
 
 .image .content {
-	float: left;
+    float: left;
 }
 
 .image .content h2 {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .code {
-	padding-left: 1rem;
-	border-radius: 0.4rem;
-	border: solid 1px;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+    padding-left: 1rem;
+    border-radius: 0.4rem;
+    border: solid 1px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .code pre {
-	font-family: Consolas, Menlo, Courier, monospace;
-	font-size: 1rem;
+    font-family: Consolas, Menlo, Courier, monospace;
+    font-size: 1rem;
 }
 
 .email {
-	font-family: dyslexic;
-	font-size: 0.9rem;
+    font-family: dyslexic;
+    font-size: 0.9rem;
 }
 
 @media screen and (min-width: 64em) {
-	.title {font-size: 3.25rem}
-	.header {padding: 5rem 6rem}
-	.tagline {font-size: 1.25rem}
-	.main {max-width: 64rem; padding: 1rem 6rem; margin: 0 auto; font-size: 1.1rem}
-	.top {max-width: 64rem; padding: 2rem 6rem; margin: 0 auto}
-	.image img {width: 50%}
-	.image .content {width: 40%}
+    .title {font-size: 3.25rem}
+    .header {padding: 5rem 6rem}
+    .tagline {font-size: 1.25rem}
+    .main {max-width: 64rem; padding: 1rem 6rem; margin: 0 auto; font-size: 1.1rem}
+    .top {max-width: 64rem; padding: 2rem 6rem; margin: 0 auto}
+    .image img {width: 50%}
+    .image .content {width: 40%}
 }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
-	.title {font-size: 2.25rem}
-	.header {padding: 3rem 4rem}
-	.tagline {font-size: 1.15rem}
-	.main {padding: 1rem 4rem; font-size: 1.1rem}
-	.top {padding: 2rem 4rem}
-	.image img {width: 60%}
-	.image .content {width: 60%}
+    .title {font-size: 2.25rem}
+    .header {padding: 3rem 4rem}
+    .tagline {font-size: 1.15rem}
+    .main {padding: 1rem 4rem; font-size: 1.1rem}
+    .top {padding: 2rem 4rem}
+    .image img {width: 60%}
+    .image .content {width: 60%}
 }
 
 @media screen and (max-width: 42em) {
-	.title {font-size: 1.75rem}
-	.header {padding: 2rem 1rem}
-	.tagline {font-size: 1rem}
-	.main {padding: 1rem 1rem; font-size: 1rem}
-	.top {padding: 2rem 1rem}
-	.image img {width: 100%}
-	.image .content {width: 100%}
+    .title {font-size: 1.75rem}
+    .header {padding: 2rem 1rem}
+    .tagline {font-size: 1rem}
+    .main {padding: 1rem 1rem; font-size: 1rem}
+    .top {padding: 2rem 1rem}
+    .image img {width: 100%}
+    .image .content {width: 100%}
 
-	.top a {
-		display: none;
-	}
+    .top a {
+        display: none;
+    }
 
-	.top a.icon {
-		float: left;
-		display: block;
-	}
+    .top a.icon {
+        float: left;
+        display: block;
+    }
 
-	.top.responsive {
-		position: relative;
-	}
+    .top.responsive {
+        position: relative;
+    }
 
-	.top.responsive.icon {
-		position: absolute;
-		right: 0px;
-		top: 0px;
-	}
+    .top.responsive.icon {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
 
-	.top.responsive a {
-		padding-bottom: 5px;
-		float: none;
-		display: block;
-		text-align: left;
-	}
+    .top.responsive a {
+        padding-bottom: 5px;
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
 
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
