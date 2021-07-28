@@ -1,15 +1,23 @@
-window.addEventListener("DOMContentLoaded", () => {
+addEventListener("DOMContentLoaded", () => {
 	const footers = document.getElementsByTagName("footer")
+	const number = parseInt(localStorage.getItem("type"))
+
+	window.type = number === undefined ? new Date().getHours() > 6 && new Date().getHours() < 18 : number
+	window.lost = (typeof ace === "undefined")
 
 	for (footer of footers)
 		footer.innerText = "\u00a9 Copyright " + new Date().getFullYear() + " GreyHope"
 
-	if (typeof ace === "undefined") return
+	document.querySelector(".theme").firstChild.className = (type ? "fas fa-sun" : "fas fa-moon")
+	theme.href = "css/" + (type ? "light" : "dark") + ".css"
 
-	const editors = document.querySelectorAll(".editor")
-	const demos = Object.values(document.querySelectorAll(".iframe"))
-	const examples = Object.values(document.querySelectorAll(".example"))
-	const frames = Object.values(document.querySelectorAll(".demo"))
+	if (lost) return
+
+	window.editors = document.querySelectorAll(".editor")
+	window.demos = Object.values(document.querySelectorAll(".iframe"))
+	window.examples = Object.values(document.querySelectorAll(".example"))
+	window.frames = Object.values(document.querySelectorAll(".demo"))
+
 	const range = ace.require("ace/range").Range
 
 	const write = (iframe, code) => {
@@ -38,16 +46,11 @@ window.addEventListener("DOMContentLoaded", () => {
 	}
 
 	demos.forEach((iframe, index) => {
-		const span = document.createElement("span")
 		const editor = Object.values(editors)[index]
-
-		span.className = "note"
-		span.innerText = "Edit the code to change the result above."
-		editor.after(span)
 
 		demos[index] = {iframe, editor, ace: ace.edit(editor)}
 		demos[index].ace.session.setMode("ace/mode/html")
-		demos[index].ace.setTheme("ace/theme/monokai")
+		demos[index].ace.setTheme(color())
 		demos[index].ace.setValue(edit[index].code)
 		demos[index].ace.on("change", () => demos[index].iframe = reset(demos[index].iframe, demos[index].ace.getValue()))
 		demos[index].ace.gotoLine(0, 1, true)
@@ -64,23 +67,36 @@ window.addEventListener("DOMContentLoaded", () => {
 	})
 
 	examples.forEach((example, index) => {
-		const editor = ace.edit(example)
-
-		editor.session.setMode("ace/mode/" + (text[index].code.match(/<\w+>/) ? "html" : "javascript"))
-		editor.setTheme("ace/theme/monokai")
-		editor.setValue(text[index].code)
-		editor.setReadOnly(true)
-		editor.setOptions({maxLines: Infinity, firstLineNumber: text[index].start})
-		editor.gotoLine(0, 1, true)
-		text[index].lines.forEach(line => editor.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
+		examples[index] = {example, ace: ace.edit(example)}
+		examples[index].ace.session.setMode("ace/mode/" + (text[index].code.match(/<\w+>/) ? "html" : "javascript"))
+		examples[index].ace.setTheme(color())
+		examples[index].ace.setValue(text[index].code)
+		examples[index].ace.setReadOnly(true)
+		examples[index].ace.setOptions({maxLines: Infinity, firstLineNumber: text[index].start})
+		examples[index].ace.gotoLine(0, 1, true)
+		text[index].lines.forEach(line => examples[index].ace.session.addMarker(new range(line - 1, 0, line - 1, 1), "new", "fullLine"))
 	})
 
 	frames.forEach((frame, index) => write(frame, source[index]))
 })
+
+const color = () => "ace/theme/" + (type ? "eclipse" : "monokai")
 
 const bar = () => {
 	let top = document.querySelector(".top")
 	
 	if (top.className === "top") top.className += " responsive"	
 	else top.className = "top"
+}
+
+const change = event => {
+	type = !type
+	theme.href = "css/" + (type ? "light" : "dark") + ".css"
+	event.firstChild.className = (type ? "fas fa-sun" : "fas fa-moon")
+	localStorage.setItem("type", type ? 1 : 0)
+
+	if (lost) return
+
+	demos.forEach(item => item.ace.setTheme(color()))
+	examples.forEach(item => item.ace.setTheme(color()))
 }
