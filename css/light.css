@@ -1,0 +1,51 @@
+body {
+	background-color: #eee;
+}
+
+mark {
+	color: #555;
+}
+
+button {
+	background: #ddd;
+	color: #555;
+}
+
+button:hover {
+	background: #bbb;
+	color: #000;
+}
+
+.top a {
+	color: #999;
+}
+
+.header {
+	color: #fff;
+	background-image: linear-gradient(180deg, #888, #777, #333);
+}
+
+.main {
+	color: #677;
+}
+
+.main a, .main.h1, .main h2, .main h3, .top a:hover, .top a.this {
+	color: #47b;
+}
+
+.main a:hover {
+	color: #aaa;
+}
+
+.note {
+	color: #888;
+}
+
+.code {
+	background-color: #ddd;
+	border-color: #bbb;
+}
+
+.code pre {
+	color: #2b3c44;
+}
