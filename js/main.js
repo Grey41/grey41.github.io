@@ -80,7 +80,7 @@ addEventListener("DOMContentLoaded", () => {
     frames.forEach((frame, index) => write(frame, source[index]))
 })
 
-const color = () => "ace/theme/" + (type ? "chrome" : "monokai")
+const color = () => "ace/theme/" + (type ? "tomorrow" : "monokai")
 
 const bar = () => {
     let top = document.querySelector(".top")
