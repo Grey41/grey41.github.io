@@ -1,185 +1,185 @@
 <!DOCTYPE html>
-  	<head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-		
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {dataLayer.push(arguments);}
-			gtag('js', new Date());
+      <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-			gtag('config', 'G-C34XCNZ9G4');
-		</script>
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
 
-    	<meta charset = utf-8>
-		<meta name = viewport content = "width = device-width, initial-scale = 1">
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
 
-		<link rel = stylesheet href = css/main.css>
-		<link rel = stylesheet id = theme>
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet id = theme>
 
-		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
-		<script src = js/main.js></script>
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
 
-		<script>
-			const text = [{
-				lines: [4],
-				start: 1,
-				code: (
-					"<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t\t<script src = socket.io/socket.io.js><\/script>"
-				)}, {
-				lines: [12, 13, 14],
-				start: 59,
-				code: (
-					"\t<body>\n\t\t<div id = main>\n\t\t\t<div id = box><div>This is a test message.</div></div>\n\t\t</div>\n\n\t\t<div id = base>\n\t\t\t" +
-					"<form id = form>\n\t\t\t\t<input id = input type = text placeholder = \"Type Message\">\n\t\t\t</form>\n\t\t</div>\n\n\t\t<script>\n\t" +
-					"\t\tconst socket = io()\n\t\t<\/script>\n\t</body>\n</html>"
-				)}, {
-				lines: [4, 5, 6, 7],
-				start: 70,
-				code: (
-					"\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
-					"\tconsole.log(input.value)\n\t\t\t})\n\t\t<\/script>"
-				)}, {
-				lines: [6],
-				start: 70,
-				code: (
-					"\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
-					"\tsocket.emit(\"message\", input.value)\n\t\t\t})\n\t\t<\/script>"
-				)}, {
-				lines: [4, 5, 6],
-				start: 6,
-				code: (
-					"app.use(express.static(__dirname + \"/public\"))\napp.get(\"/\", (request, response) => response.render(\"index.html\"))\n\nio.on(\"co" +
-					"nnection\", socket => {\n\tconsole.log(\"client connected\")\n})\n\nserver.listen(5000, () => console.log(\"server listening\"))"
-				)}, {
-				lines: [4, 5, 6],
-				start: 9,
-				code: (
-					"io.on(\"connection\", socket => {\n\tconsole.log(\"client connected\")\n\n\tsocket.on(\"message\", data => {\n\t\tconsole.log(data) \n" +
-					"\t})\n})\n\nserver.listen(5000, () => console.log(\"server listening\"))"
-				)}
-			]
-		</script>
+        <script>
+            const text = [{
+                lines: [4],
+                start: 1,
+                code: (
+                    "<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t\t<script src = socket.io/socket.io.js><\/script>"
+                )}, {
+                lines: [12, 13, 14],
+                start: 59,
+                code: (
+                    "\t<body>\n\t\t<div id = main>\n\t\t\t<div id = box><div>This is a test message.</div></div>\n\t\t</div>\n\n\t\t<div id = base>\n\t\t\t" +
+                    "<form id = form>\n\t\t\t\t<input id = input type = text placeholder = \"Type Message\">\n\t\t\t</form>\n\t\t</div>\n\n\t\t<script>\n\t" +
+                    "\t\tconst socket = io()\n\t\t<\/script>\n\t</body>\n</html>"
+                )}, {
+                lines: [4, 5, 6, 7],
+                start: 70,
+                code: (
+                    "\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
+                    "\tconsole.log(input.value)\n\t\t\t})\n\t\t<\/script>"
+                )}, {
+                lines: [6],
+                start: 70,
+                code: (
+                    "\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
+                    "\tsocket.emit(\"message\", input.value)\n\t\t\t})\n\t\t<\/script>"
+                )}, {
+                lines: [4, 5, 6],
+                start: 6,
+                code: (
+                    "app.use(express.static(__dirname + \"/public\"))\napp.get(\"/\", (request, response) => response.render(\"index.html\"))\n\nio.on(\"co" +
+                    "nnection\", socket => {\n\tconsole.log(\"client connected\")\n})\n\nserver.listen(5000, () => console.log(\"server listening\"))"
+                )}, {
+                lines: [4, 5, 6],
+                start: 9,
+                code: (
+                    "io.on(\"connection\", socket => {\n\tconsole.log(\"client connected\")\n\n\tsocket.on(\"message\", data => {\n\t\tconsole.log(data) \n" +
+                    "\t})\n})\n\nserver.listen(5000, () => console.log(\"server listening\"))"
+                )}
+            ]
+        </script>
 
-		<title>Chat App | Socket.IO Introduction</title>
-  	</head>
+        <title>Chat App | Socket.IO Introduction</title>
+      </head>
   
-  	<body>
-		<section class = top>
-			<a href = index.html>HOME</a>
-			<a href = projects.html>PROJECTS</a>
-			<a href = demos.html>DEMOS</a>
-			<a href = tutorials.html class = this>TUTORIALS</a>
-			<a href = https://jobase.org target = _blank>JOBASE</a>
-			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
-			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-			<a class = theme onclick = change(this)><i></i></a>
-		</section>
+      <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html>DEMOS</a>
+            <a href = tutorials.html class = this>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
 
-		<section class = main>
-			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
 
-			<h2>Chat App</h2>
+            <h2>Chat App</h2>
 
-			<a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-			<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+            <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
 
-			<h3>4. Socket.IO Introduction</h3>
+            <h3>4. Socket.IO Introduction</h3>
 
-			<p>
-				In this tutorial we will start writing the <mark>Socket.IO</mark> code.
-				This code is important for communicating with the server.
-			</p>
+            <p>
+                In this tutorial we will start writing the <mark>Socket.IO</mark> code.
+                This code is important for communicating with the server.
+            </p>
 
-			<p>
-				At the top of your page, link to the <mark>Socket.IO</mark> library.
-			</p>
+            <p>
+                At the top of your page, link to the <mark>Socket.IO</mark> library.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				Now in the <mark>body</mark> of our code, let's initialise <mark>Socket.IO</mark> in <mark>JavaScript</mark>.
-			</p>
+            <p>
+                Now in the <mark>body</mark> of our code, let's initialise <mark>Socket.IO</mark> in <mark>JavaScript</mark>.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				We want to detect when the user submits their message.
-				The code below uses the <mark>addEventListener</mark> function to detect when this happens.
-				Inside the function, we write <mark>preventDefault</mark> to stop the program from automatically switching to a new page.
-				Then we print the message to the console.
-			</p>
+            <p>
+                We want to detect when the user submits their message.
+                The code below uses the <mark>addEventListener</mark> function to detect when this happens.
+                Inside the function, we write <mark>preventDefault</mark> to stop the program from automatically switching to a new page.
+                Then we print the message to the console.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				Go to your application and refresh the page.
-				Whenever you submit something in the message box, the message is printed to the <mark>Web Console</mark>.
-			</p>
+            <p>
+                Go to your application and refresh the page.
+                Whenever you submit something in the message box, the message is printed to the <mark>Web Console</mark>.
+            </p>
 
-			<p>
-				We actually want the message to be sent to the server every time the user submits.
-				This means we need to use the <mark>Socket.IO emit</mark> function which emits a message to the server.
-			</p>
+            <p>
+                We actually want the message to be sent to the server every time the user submits.
+                This means we need to use the <mark>Socket.IO emit</mark> function which emits a message to the server.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				In the example above, we put two values into the <mark>emit</mark> function.
-				The first value, <mark>"message"</mark> is a name given to the data you are sending.
-				You can change this value based on the kind of data you are sending.
-				For example, if you are sending someones age, you would probably want to change this value to <mark>"age"</mark>.
-				The second value is the actual data.
-				In this case, it's the message submitted by the user.
-			</p>
+            <p>
+                In the example above, we put two values into the <mark>emit</mark> function.
+                The first value, <mark>"message"</mark> is a name given to the data you are sending.
+                You can change this value based on the kind of data you are sending.
+                For example, if you are sending someones age, you would probably want to change this value to <mark>"age"</mark>.
+                The second value is the actual data.
+                In this case, it's the message submitted by the user.
+            </p>
 
-			<p>
-				The code above won't do anything because the server isn't recieving this information.
-				Let's put our <mark>index.html</mark> to the side and focus on our server code.
-				Open the <mark>server.js</mark> file and write the following code.
-			</p>
+            <p>
+                The code above won't do anything because the server isn't recieving this information.
+                Let's put our <mark>index.html</mark> to the side and focus on our server code.
+                Open the <mark>server.js</mark> file and write the following code.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				The code above detects when a user connects to your app and then prints <mark>client connected</mark> to the terminal.
-				Because we are writing server code, the program currently running in the terminal needs to be refreshed.
-				You can do this by holding <mark>Ctrl + C</mark> to cancel the program.
-				Then type the following into the terminal.
-			</p>
+            <p>
+                The code above detects when a user connects to your app and then prints <mark>client connected</mark> to the terminal.
+                Because we are writing server code, the program currently running in the terminal needs to be refreshed.
+                You can do this by holding <mark>Ctrl + C</mark> to cancel the program.
+                Then type the following into the terminal.
+            </p>
 
-			<div class = code>
-				<pre>node server.js</pre>
-			</div>
+            <div class = code>
+                <pre>node server.js</pre>
+            </div>
 
-			<p>
-				Now whenever you visit <mark>localhost:5000</mark>, the terminal will print <mark>client connected</mark>.
-			</p>
+            <p>
+                Now whenever you visit <mark>localhost:5000</mark>, the terminal will print <mark>client connected</mark>.
+            </p>
 
-			<p>
-				To recieve our message that we set up in <mark>index.html</mark>, we need to listen for it using the <mark>Socket.IO on</mark> function.
-			</p>
+            <p>
+                To recieve our message that we set up in <mark>index.html</mark>, we need to listen for it using the <mark>Socket.IO on</mark> function.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				The code above tells the server to listen for a signal called <mark>message</mark> and then print the data.
-				Refresh your program from the terminal and type a message in the <mark>localhost:5000</mark> input box.
-				Whenever you submit a message, it gets printed to the terminal.
-			</p>
+            <p>
+                The code above tells the server to listen for a signal called <mark>message</mark> and then print the data.
+                Refresh your program from the terminal and type a message in the <mark>localhost:5000</mark> input box.
+                Whenever you submit a message, it gets printed to the terminal.
+            </p>
 
-			<p>
-				Congratulations! You have managed to implement basic client to server communication.
-				If you have got this far, the next page will be easy.
-			</p>
+            <p>
+                Congratulations! You have managed to implement basic client to server communication.
+                If you have got this far, the next page will be easy.
+            </p>
 
-			<p>
-				<a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-				<a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
-			</p>
+            <p>
+                <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+                <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            </p>
 
-			<footer></footer>
-		</section>
-  	</body>
+            <footer></footer>
+        </section>
+      </body>
 </html>

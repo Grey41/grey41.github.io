@@ -1,159 +1,159 @@
 <!DOCTYPE html>
-  	<head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-		
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {dataLayer.push(arguments);}
-			gtag('js', new Date());
+      <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-			gtag('config', 'G-C34XCNZ9G4');
-		</script>
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
 
-    	<meta charset = utf-8>
-		<meta name = viewport content = "width = device-width, initial-scale = 1">
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
 
-		<link rel = stylesheet href = css/main.css>
-		<link rel = stylesheet id = theme>
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet id = theme>
 
-		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
-		<script src = js/main.js></script>
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
 
-		<script>
-			const edit = [{
-				lines: [],
-				code: (
-					"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\t// detail and zoom of set\n\t\t\tconst PRECISION =" +
-					" 20\n\t\t\tconst ZOOM = 150\n\n\t\t\tfunction resize() { \n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t" +
-					"\tcanvas.height = innerHeight\n\n\t\t\t\t//reset line position\n\t\t\t\tx = 0\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// this loo" +
-					"p fills the whole column with pixels\n\t\t\t\tfor (let y = 0; y < innerHeight; y ++) {\n\t\t\t\t\tconst original_x = (x - innerWidth *" +
-					" 0.6) / ZOOM\n\t\t\t\t\tconst original_y = (y - innerHeight * 0.5) / ZOOM\n\n\t\t\t\t\tlet copy_x = original_x\n\t\t\t\t\tlet copy_y =" +
-					" original_y\n\n\t\t\t\t\t// do the main calculations\n\t\t\t\t\tfor (index = 0; index < PRECISION; index ++) {\n\t\t\t\t\t\tlet set_x " +
-					"= copy_x ** 2 - copy_y ** 2\n\t\t\t\t\t\tlet set_y = 2 * copy_x * copy_y\n\n\t\t\t\t\t\tcopy_x = set_x + original_x\n\t\t\t\t\t\tcopy_" +
-					"y = set_y + original_y \n\n\t\t\t\t\t\t// change the statement below to make the set have a different pattern\n\t\t\t\t\t\tif (copy_x " +
-					"** 2 + copy_y ** 2 > 4) break\n\t\t\t\t\t}\n\n\t\t\t\t\t// fill in the pixel\n\t\t\t\t\tlet tone = index / PRECISION * 255\n\t\t\t\t\t" +
-					"context.fillStyle = \"rgb(\" + tone + \", \" + tone + \", \" + tone + \")\"\n\t\t\t\t\tcontext.fillRect(x, y, 1, 1)\n\t\t\t\t}\n\n\t\t" +
-					"\t\t// increase line position each frame\n\t\t\t\tx ++ \n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() { \n" +
-					"\t\t\t\t// starting position of line\n\t\t\t\tx = 0 \n\n\t\t\t\t// style the body and get rid of margins\n\t\t\t\twith (document.body." +
-					"style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t}\n\n\t\t\t\t// when screen resizes, run the resize function " +
-					"\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t\t} \n\n\t\t\tc" +
-					"onst context = canvas.getContext(\"2d\")\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
-				)}, {
-				lines: [21, 22, 40, 41, 65, 66, 67, 68, 69, 70, 71, 72, 80, 81, 82],
-				code: (
-					"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\t// detail of set\n\t\t\tconst PRECISION = 500 \n\n" +
-					"\t\t\tfunction resize() { \n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n" +
-					"\n\t\t\t\t//reset line position\n\t\t\t\tx = 0\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// this loop fills the whole column with p" +
-					"ixels\n\t\t\t\tfor (let y = 0; y < innerHeight; y ++) {\n\t\t\t\t\tconst original_x = (x - position.x * zoom - innerWidth * 0.6) / zoo" +
-					"m\n\t\t\t\t\tconst original_y = (y - position.y * zoom - innerHeight * 0.5) / zoom\n\n\t\t\t\t\tlet copy_x = original_x\n\t\t\t\t\tlet" +
-					" copy_y = original_y\n\n\t\t\t\t\t// do the main calculations\n\t\t\t\t\tfor (index = 0; index < PRECISION; index ++) {\n\t\t\t\t\t\tl" +
-					"et set_x = copy_x ** 2 - copy_y ** 2\n\t\t\t\t\t\tlet set_y = 2 * copy_x * copy_y\n\n\t\t\t\t\t\tcopy_x = set_x + original_x\n\t\t\t\t" +
-					"\t\tcopy_y = set_y + original_y \n\n\t\t\t\t\t\t// change the statement below to make the set have a different pattern\n\t\t\t\t\t\tif" +
-					" (copy_x ** 2 + copy_y ** 2 > 4) break\n\t\t\t\t\t}\n\n\t\t\t\t\t// fill in the pixel\n\t\t\t\t\tconst tone = index % 50\n\t\t\t\t\tco" +
-					"ntext.fillStyle = \"rgb(\" + index % 70 * tone * 0.2 + \", \" + index % 50 * tone * 0.12 + \", \" + index % 30 * tone * 0.1 + \")\" \n" +
-					"\t\t\t\t\tcontext.fillRect(x, y, 1, 1)\n\t\t\t\t}\n\n\t\t\t\t// increase line position each frame\n\t\t\t\tx ++ \n\n\t\t\t\trequestAni" +
-					"mationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// starting position of line\n\t\t\t\tx = 0 \n\n\t\t\t\t// style the b" +
-					"ody and get rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t}\n\n" +
-					"\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tadd" +
-					"EventListener(\"mousedown\", event => {\n\t\t\t\t\tzoom += zoom * 2\n\t\t\t\t\tposition.x -= (event.clientX - innerWidth * 0.6) / zoom" +
-					" * 2\n\t\t\t\t\tposition.y -= (event.clientY - innerHeight * 0.5) / zoom * 2\n\t\t\t\t\t\n\t\t\t\t\t// reset line position\n\t\t\t\t\t" +
-					"x = 0\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t\t} \n\n\t\t\tconst context = canvas.getContext(\"2d\") \n\n\t" +
-					"\t\t// starting position and zoom\n\t\t\tconst position = {x: 0, y: 0}\n\t\t\tlet zoom = 150\n\n\t\t\tstart()\n\t\t<\/script>\n\t</bod" +
-					"y>\n</html>"
-				)}
-			]
-		</script>
-	
-		<title>Mandelbrot Visualisation | JavaScript Canvas</title>
-  	</head>
+        <script>
+            const edit = [{
+                lines: [],
+                code: (
+                    "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\t// detail and zoom of set\n\t\t\tconst PRECISION =" +
+                    " 20\n\t\t\tconst ZOOM = 150\n\n\t\t\tfunction resize() { \n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t" +
+                    "\tcanvas.height = innerHeight\n\n\t\t\t\t//reset line position\n\t\t\t\tx = 0\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// this loo" +
+                    "p fills the whole column with pixels\n\t\t\t\tfor (let y = 0; y < innerHeight; y ++) {\n\t\t\t\t\tconst original_x = (x - innerWidth *" +
+                    " 0.6) / ZOOM\n\t\t\t\t\tconst original_y = (y - innerHeight * 0.5) / ZOOM\n\n\t\t\t\t\tlet copy_x = original_x\n\t\t\t\t\tlet copy_y =" +
+                    " original_y\n\n\t\t\t\t\t// do the main calculations\n\t\t\t\t\tfor (index = 0; index < PRECISION; index ++) {\n\t\t\t\t\t\tlet set_x " +
+                    "= copy_x ** 2 - copy_y ** 2\n\t\t\t\t\t\tlet set_y = 2 * copy_x * copy_y\n\n\t\t\t\t\t\tcopy_x = set_x + original_x\n\t\t\t\t\t\tcopy_" +
+                    "y = set_y + original_y \n\n\t\t\t\t\t\t// change the statement below to make the set have a different pattern\n\t\t\t\t\t\tif (copy_x " +
+                    "** 2 + copy_y ** 2 > 4) break\n\t\t\t\t\t}\n\n\t\t\t\t\t// fill in the pixel\n\t\t\t\t\tlet tone = index / PRECISION * 255\n\t\t\t\t\t" +
+                    "context.fillStyle = \"rgb(\" + tone + \", \" + tone + \", \" + tone + \")\"\n\t\t\t\t\tcontext.fillRect(x, y, 1, 1)\n\t\t\t\t}\n\n\t\t" +
+                    "\t\t// increase line position each frame\n\t\t\t\tx ++ \n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() { \n" +
+                    "\t\t\t\t// starting position of line\n\t\t\t\tx = 0 \n\n\t\t\t\t// style the body and get rid of margins\n\t\t\t\twith (document.body." +
+                    "style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t}\n\n\t\t\t\t// when screen resizes, run the resize function " +
+                    "\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t\t} \n\n\t\t\tc" +
+                    "onst context = canvas.getContext(\"2d\")\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+                )}, {
+                lines: [21, 22, 40, 41, 65, 66, 67, 68, 69, 70, 71, 72, 80, 81, 82],
+                code: (
+                    "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\t// detail of set\n\t\t\tconst PRECISION = 500 \n\n" +
+                    "\t\t\tfunction resize() { \n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n" +
+                    "\n\t\t\t\t//reset line position\n\t\t\t\tx = 0\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// this loop fills the whole column with p" +
+                    "ixels\n\t\t\t\tfor (let y = 0; y < innerHeight; y ++) {\n\t\t\t\t\tconst original_x = (x - position.x * zoom - innerWidth * 0.6) / zoo" +
+                    "m\n\t\t\t\t\tconst original_y = (y - position.y * zoom - innerHeight * 0.5) / zoom\n\n\t\t\t\t\tlet copy_x = original_x\n\t\t\t\t\tlet" +
+                    " copy_y = original_y\n\n\t\t\t\t\t// do the main calculations\n\t\t\t\t\tfor (index = 0; index < PRECISION; index ++) {\n\t\t\t\t\t\tl" +
+                    "et set_x = copy_x ** 2 - copy_y ** 2\n\t\t\t\t\t\tlet set_y = 2 * copy_x * copy_y\n\n\t\t\t\t\t\tcopy_x = set_x + original_x\n\t\t\t\t" +
+                    "\t\tcopy_y = set_y + original_y \n\n\t\t\t\t\t\t// change the statement below to make the set have a different pattern\n\t\t\t\t\t\tif" +
+                    " (copy_x ** 2 + copy_y ** 2 > 4) break\n\t\t\t\t\t}\n\n\t\t\t\t\t// fill in the pixel\n\t\t\t\t\tconst tone = index % 50\n\t\t\t\t\tco" +
+                    "ntext.fillStyle = \"rgb(\" + index % 70 * tone * 0.2 + \", \" + index % 50 * tone * 0.12 + \", \" + index % 30 * tone * 0.1 + \")\" \n" +
+                    "\t\t\t\t\tcontext.fillRect(x, y, 1, 1)\n\t\t\t\t}\n\n\t\t\t\t// increase line position each frame\n\t\t\t\tx ++ \n\n\t\t\t\trequestAni" +
+                    "mationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// starting position of line\n\t\t\t\tx = 0 \n\n\t\t\t\t// style the b" +
+                    "ody and get rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t}\n\n" +
+                    "\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tadd" +
+                    "EventListener(\"mousedown\", event => {\n\t\t\t\t\tzoom += zoom * 2\n\t\t\t\t\tposition.x -= (event.clientX - innerWidth * 0.6) / zoom" +
+                    " * 2\n\t\t\t\t\tposition.y -= (event.clientY - innerHeight * 0.5) / zoom * 2\n\t\t\t\t\t\n\t\t\t\t\t// reset line position\n\t\t\t\t\t" +
+                    "x = 0\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t\t} \n\n\t\t\tconst context = canvas.getContext(\"2d\") \n\n\t" +
+                    "\t\t// starting position and zoom\n\t\t\tconst position = {x: 0, y: 0}\n\t\t\tlet zoom = 150\n\n\t\t\tstart()\n\t\t<\/script>\n\t</bod" +
+                    "y>\n</html>"
+                )}
+            ]
+        </script>
+    
+        <title>Mandelbrot Visualisation | JavaScript Canvas</title>
+      </head>
   
-  	<body>
-		<section class = top>
-			<a href = index.html>HOME</a>
-			<a href = projects.html>PROJECTS</a>
-			<a href = demos.html>DEMOS</a>
-			<a href = tutorials.html class = this>TUTORIALS</a>
-			<a href = https://jobase.org target = _blank>JOBASE</a>
-			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
-			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-			<a class = theme onclick = change(this)><i></i></a>
-		</section>
+      <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html>DEMOS</a>
+            <a href = tutorials.html class = this>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
 
-		<section class = main>
-			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
 
-			<h2>Mandelbrot Visualisation</h2>
+            <h2>Mandelbrot Visualisation</h2>
 
-			<a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-			<a href = mandelbrot_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+            <a href = mandelbrot_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
 
-			<h3>2. JavaScript Canvas</h3>
+            <h3>2. JavaScript Canvas</h3>
 
-			<p>
-				On this page we will create a simple <mark>Mandelbrot Set</mark> using the <mark>JavaScript Canvas</mark>.
-				This method is not the fastest, but it can zoom in a very long way.
-			</p>
+            <p>
+                On this page we will create a simple <mark>Mandelbrot Set</mark> using the <mark>JavaScript Canvas</mark>.
+                This method is not the fastest, but it can zoom in a very long way.
+            </p>
 
-			<p>
-				To make the <mark>Mandelbrot Set</mark> with maximum detail, we need to treat each pixel as an individual square.
-				We will use the <mark>fillRect</mark> function to fill each pixel in a different colour.
-				Because <mark>JavaScript</mark> can't individually fill in every pixel of the screen at once, we need to do it slowly.
-				That is why we will draw the set one column at a time.
-			</p>
+            <p>
+                To make the <mark>Mandelbrot Set</mark> with maximum detail, we need to treat each pixel as an individual square.
+                We will use the <mark>fillRect</mark> function to fill each pixel in a different colour.
+                Because <mark>JavaScript</mark> can't individually fill in every pixel of the screen at once, we need to do it slowly.
+                That is why we will draw the set one column at a time.
+            </p>
 
-			<p>
-				The source code below draws the <mark>Mandelbrot Set</mark> starting at the left of the screen.
-				It will then render each column until it gets to the right of the screen.
-				As it moves along, each pixel is filled in a different colour based on its position on the set.
-			</p>
+            <p>
+                The source code below draws the <mark>Mandelbrot Set</mark> starting at the left of the screen.
+                It will then render each column until it gets to the right of the screen.
+                As it moves along, each pixel is filled in a different colour based on its position on the set.
+            </p>
 
-			<iframe class = iframe></iframe>
-			<div class = editor></div>
-			<span class = note>Edit the code to change the result above.</span>
+            <iframe class = iframe></iframe>
+            <div class = editor></div>
+            <span class = note>Edit the code to change the result above.</span>
 
-			<p>
-				In the code above, the <mark>loop</mark> function contains exactly the same <mark>Mandelbrot</mark> algorithm that we discussed on the previous page.
-				Feel free to change the <mark>PRECISION</mark> and <mark>ZOOM</mark> values.
-				The <mark>x</mark> value refers to the column being drawn.
-				At the end of every loop, the <mark>x</mark> value increases for the next column.
-			</p>
+            <p>
+                In the code above, the <mark>loop</mark> function contains exactly the same <mark>Mandelbrot</mark> algorithm that we discussed on the previous page.
+                Feel free to change the <mark>PRECISION</mark> and <mark>ZOOM</mark> values.
+                The <mark>x</mark> value refers to the column being drawn.
+                At the end of every loop, the <mark>x</mark> value increases for the next column.
+            </p>
 
-			<p>
-				In the next example, we will let the user zoom in by clicking with the mouse.
-				This means we also need a value to record our position on the set.
-				Every time the user clicks, the <mark>x</mark> value will reset to <mark>0</mark> and the columns will be drawn from the left of the screen again.
-			</p>
+            <p>
+                In the next example, we will let the user zoom in by clicking with the mouse.
+                This means we also need a value to record our position on the set.
+                Every time the user clicks, the <mark>x</mark> value will reset to <mark>0</mark> and the columns will be drawn from the left of the screen again.
+            </p>
 
-			<p>
-				To add colour, we will introduce a simple algorithm.
-				We will use the <mark>%</mark> operator to find the remainder of <mark>index</mark> divided by <mark>50</mark>.
-				This means that the colours will form a pattern instead of getting brighter as you get nearer to the centre.
-			</p>
+            <p>
+                To add colour, we will introduce a simple algorithm.
+                We will use the <mark>%</mark> operator to find the remainder of <mark>index</mark> divided by <mark>50</mark>.
+                This means that the colours will form a pattern instead of getting brighter as you get nearer to the centre.
+            </p>
 
-			<p>
-				In the code below, the green lines refer to the new bits.
-			</p>
+            <p>
+                In the code below, the green lines refer to the new bits.
+            </p>
 
-			<iframe class = iframe></iframe>
-			<div class = editor></div>
-			<span class = note>Edit the code to change the result above.</span>
+            <iframe class = iframe></iframe>
+            <div class = editor></div>
+            <span class = note>Edit the code to change the result above.</span>
 
-			<p>
-				As you become engulfed by the endless sea of paterns, you will find that there is a limit.
-				This is because <mark>JavaScript</mark> runs out of decimal places.
-				Although this is very frustrating, there are some ways of getting the program to zoom in forever.
-				This is achieved by using <mark>JavaScript BigInt</mark> which is an number that can go to any size.
-				In the next tutorial, we will make a program that can zoom forever.
-			</p>
+            <p>
+                As you become engulfed by the endless sea of paterns, you will find that there is a limit.
+                This is because <mark>JavaScript</mark> runs out of decimal places.
+                Although this is very frustrating, there are some ways of getting the program to zoom in forever.
+                This is achieved by using <mark>JavaScript BigInt</mark> which is an number that can go to any size.
+                In the next tutorial, we will make a program that can zoom forever.
+            </p>
 
-			<p>
-				<a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-				<a href = mandelbrot_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
-			</p>
+            <p>
+                <a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+                <a href = mandelbrot_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            </p>
 
-			<footer></footer>
-		</section>
-  	</body>
+            <footer></footer>
+        </section>
+      </body>
 </html>

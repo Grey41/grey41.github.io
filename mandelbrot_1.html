@@ -1,213 +1,213 @@
 <!DOCTYPE html>
-  	<head>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-		
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {dataLayer.push(arguments);}
-			gtag('js', new Date());
+      <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-			gtag('config', 'G-C34XCNZ9G4');
-		</script>
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
 
-    	<meta charset = utf-8>
-		<meta name = viewport content = "width = device-width, initial-scale = 1">
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
 
-		<link rel = stylesheet href = css/main.css>
-		<link rel = stylesheet id = theme>
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet id = theme>
 
-		<script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-		<script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
-		<script src = js/main.js></script>
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
 
-		<script>
-			const source = [
-				"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 50\n\t\t\tconst SIZE = 10\n\n\t\t\tf" +
-				"unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
-				"{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
-				"\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tif (item.x ** 2 + " +
-				"item.y ** 2 < 4 && item.value < 10) {\n\t\t\t\t\t\tlet x = item.x ** 2 - item.y ** 2\n\t\t\t\t\t\tlet y = 2 * item.x * item.y \n\n\t\t" +
-				"\t\t\t\titem.x = position(index).x + x\n\t\t\t\t\t\titem.y = position(index).y + y\n\t\t\t\t\t\titem.value ++\n\t\t\t\t\t}\n\n\t\t\t\t" +
-				"\tif (time % 12 == 0) {\n\t\t\t\t\t\titem.x = position(index).x\n\t\t\t\t\t\titem.y = position(index).y\n\t\t\t\t\t\titem.value = 0 \n" +
-				"\t\t\t\t\t}\n\n\t\t\t\t\tcontext.fillStyle = \"rgb(255, 255, 255, \" + item.value / 10 + \")\"\n\n\t\t\t\t\tcontext.fillRect( \n\t\t\t" +
-				"\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tMath.floor(Math.floor(index / WIDTH) * S" +
-				"IZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tSIZE, SIZE\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\tcontext.strokeStyle = \"#8" +
-				"00\"\n\t\t\t\tcontext.beginPath()\n\t\t\t\tcontext.moveTo(0, innerHeight / 2)\n\t\t\t\tcontext.lineTo(innerWidth, innerHeight / 2)\n\t" +
-				"\t\t\tcontext.moveTo(innerWidth / 2, 0)\n\t\t\t\tcontext.lineTo(innerWidth / 2, innerHeight)\n\t\t\t\tcontext.stroke()\n\n\t\t\t\ttime" +
-				" ++\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\tcanvas.style.width = \"100%\"\n\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmar" +
-				"gin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#333\"\n\t\t\t\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n" +
-				"\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t\t\tsquares.push({x: position(i).x, y: position(i).y, value: " +
-				"0})\n\n\t\t\t\tsetInterval(loop, 500)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst squares = []\n\t\t\tlet" +
-				" time = 0\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>",
+        <script>
+            const source = [
+                "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 50\n\t\t\tconst SIZE = 10\n\n\t\t\tf" +
+                "unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
+                "{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
+                "\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tif (item.x ** 2 + " +
+                "item.y ** 2 < 4 && item.value < 10) {\n\t\t\t\t\t\tlet x = item.x ** 2 - item.y ** 2\n\t\t\t\t\t\tlet y = 2 * item.x * item.y \n\n\t\t" +
+                "\t\t\t\titem.x = position(index).x + x\n\t\t\t\t\t\titem.y = position(index).y + y\n\t\t\t\t\t\titem.value ++\n\t\t\t\t\t}\n\n\t\t\t\t" +
+                "\tif (time % 12 == 0) {\n\t\t\t\t\t\titem.x = position(index).x\n\t\t\t\t\t\titem.y = position(index).y\n\t\t\t\t\t\titem.value = 0 \n" +
+                "\t\t\t\t\t}\n\n\t\t\t\t\tcontext.fillStyle = \"rgb(255, 255, 255, \" + item.value / 10 + \")\"\n\n\t\t\t\t\tcontext.fillRect( \n\t\t\t" +
+                "\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tMath.floor(Math.floor(index / WIDTH) * S" +
+                "IZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tSIZE, SIZE\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\tcontext.strokeStyle = \"#8" +
+                "00\"\n\t\t\t\tcontext.beginPath()\n\t\t\t\tcontext.moveTo(0, innerHeight / 2)\n\t\t\t\tcontext.lineTo(innerWidth, innerHeight / 2)\n\t" +
+                "\t\t\tcontext.moveTo(innerWidth / 2, 0)\n\t\t\t\tcontext.lineTo(innerWidth / 2, innerHeight)\n\t\t\t\tcontext.stroke()\n\n\t\t\t\ttime" +
+                " ++\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\tcanvas.style.width = \"100%\"\n\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmar" +
+                "gin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#333\"\n\t\t\t\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n" +
+                "\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t\t\tsquares.push({x: position(i).x, y: position(i).y, value: " +
+                "0})\n\n\t\t\t\tsetInterval(loop, 500)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst squares = []\n\t\t\tlet" +
+                " time = 0\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>",
 
-				"<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 10\n\t\t\tconst SIZE = 50\n\n\t\t\tf" +
-				"unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
-				"{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
-				"\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tif (current.positions[0].x ** 2 + current.positions[0].y ** 2 < " +
-				"4 && squares[current.index] < 10) {\n\t\t\t\t\tlet x = current.positions[0].x ** 2 - current.positions[0].y ** 2\n\t\t\t\t\tlet y = 2 " +
-				"* current.positions[0].x * current.positions[0].y\n\n\t\t\t\t\tcurrent.positions.unshift({x: position(current.index).x + x, y: positio" +
-				"n(current.index).y + y})\n\t\t\t\t\tsquares[current.index] ++\n\t\t\t\t}\n\n\t\t\t\telse {\n\t\t\t\t\tif (squares.length == current.in" +
-				"dex + 1) {\n\t\t\t\t\t\tcurrent.index = 0\n\t\t\t\t\t\tsquares.length = 0\n\n\t\t\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t" +
-				"\t\t\t\tsquares.push(0)\n\t\t\t\t\t}\n\n\t\t\t\t\telse current.index ++\n\t\t\t\t\tcurrent.positions = [position(current.index)]\n\t\t" +
-				"\t\t}\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tcontext.fillStyle = \"rgb(255, 255, 255, \" + item / 10 + \")\"\n\n\t\t" +
-				"\t\t\tcontext.fillRect(\n\t\t\t\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tMath.floo" +
-				"r(Math.floor(index / WIDTH) * SIZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tSIZE, SIZE\n\t\t\t\t\t)\n\t\t\t\t}) \n\n\t" +
-				"\t\t\tcontext.strokeStyle = \"#800\"\n\t\t\t\tcontext.fillStyle = \"#800\"\n\t\t\t\tcontext.lineWidth = 3\n\t\t\t\tcontext.beginPath()" +
-				"\n\n\t\t\t\tcurrent.positions.forEach(item => {\n\t\t\t\t\tconst x = innerWidth / 2 + item.x * WIDTH * SIZE / 4\n\t\t\t\t\tconst y = i" +
-				"nnerHeight / 2 + item.y * WIDTH * SIZE / 4\n\t\t\t\t\tcontext.fillRect(x - 5, y - 5, 10, 10)\n\t\t\t\t\tcontext.lineTo(x, y)\n\t\t\t\t" +
-				"})\n\t\t\t\t\n\t\t\t\tcontext.stroke()\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\tcanvas.style.width = \"100%\"\n\n\t\t\t\twith (do" +
-				"cument.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#333\"\n\t\t\t\t}\n\n\t\t\t\tadd" +
-				"EventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t\t\tsquares.push(0) \n\n\t" +
-				"\t\t\tsetInterval(loop, 500)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst current = {index: 0, positions: " +
-				"[position(0)]}\n\t\t\tconst squares = []\n\t\t\tlet time = 0\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>",
-			]
+                "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 10\n\t\t\tconst SIZE = 50\n\n\t\t\tf" +
+                "unction resize() {\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction position(index) " +
+                "{\n\t\t\t\treturn {x: (index % WIDTH - WIDTH / 2) / WIDTH * 4, y: (Math.floor(index / WIDTH) - WIDTH / 2) / WIDTH * 4}\n\t\t\t} \n\n\t" +
+                "\t\tfunction loop() {\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\tif (current.positions[0].x ** 2 + current.positions[0].y ** 2 < " +
+                "4 && squares[current.index] < 10) {\n\t\t\t\t\tlet x = current.positions[0].x ** 2 - current.positions[0].y ** 2\n\t\t\t\t\tlet y = 2 " +
+                "* current.positions[0].x * current.positions[0].y\n\n\t\t\t\t\tcurrent.positions.unshift({x: position(current.index).x + x, y: positio" +
+                "n(current.index).y + y})\n\t\t\t\t\tsquares[current.index] ++\n\t\t\t\t}\n\n\t\t\t\telse {\n\t\t\t\t\tif (squares.length == current.in" +
+                "dex + 1) {\n\t\t\t\t\t\tcurrent.index = 0\n\t\t\t\t\t\tsquares.length = 0\n\n\t\t\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t" +
+                "\t\t\t\tsquares.push(0)\n\t\t\t\t\t}\n\n\t\t\t\t\telse current.index ++\n\t\t\t\t\tcurrent.positions = [position(current.index)]\n\t\t" +
+                "\t\t}\n\n\t\t\t\tsquares.forEach((item, index) => {\n\t\t\t\t\tcontext.fillStyle = \"rgb(255, 255, 255, \" + item / 10 + \")\"\n\n\t\t" +
+                "\t\t\tcontext.fillRect(\n\t\t\t\t\t\tMath.floor(index % WIDTH * SIZE + (innerWidth - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tMath.floo" +
+                "r(Math.floor(index / WIDTH) * SIZE + (innerHeight - WIDTH * SIZE - SIZE) / 2),\n\t\t\t\t\t\tSIZE, SIZE\n\t\t\t\t\t)\n\t\t\t\t}) \n\n\t" +
+                "\t\t\tcontext.strokeStyle = \"#800\"\n\t\t\t\tcontext.fillStyle = \"#800\"\n\t\t\t\tcontext.lineWidth = 3\n\t\t\t\tcontext.beginPath()" +
+                "\n\n\t\t\t\tcurrent.positions.forEach(item => {\n\t\t\t\t\tconst x = innerWidth / 2 + item.x * WIDTH * SIZE / 4\n\t\t\t\t\tconst y = i" +
+                "nnerHeight / 2 + item.y * WIDTH * SIZE / 4\n\t\t\t\t\tcontext.fillRect(x - 5, y - 5, 10, 10)\n\t\t\t\t\tcontext.lineTo(x, y)\n\t\t\t\t" +
+                "})\n\t\t\t\t\n\t\t\t\tcontext.stroke()\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\tcanvas.style.width = \"100%\"\n\n\t\t\t\twith (do" +
+                "cument.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#333\"\n\t\t\t\t}\n\n\t\t\t\tadd" +
+                "EventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\tfor (let i = 0; i < WIDTH ** 2; i ++)\n\t\t\t\t\tsquares.push(0) \n\n\t" +
+                "\t\t\tsetInterval(loop, 500)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst current = {index: 0, positions: " +
+                "[position(0)]}\n\t\t\tconst squares = []\n\t\t\tlet time = 0\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>",
+            ]
 
-			const text = [{
-				lines: [],
-				start: 1,
-				code: (
-					"// starting position of square\nconst original_x = 0.2\nconst original_y = 0.6\n\n// copy the position\nlet copy_x = original_x\nlet c" +
-					"opy_y = original_y\n\n// make a loop that does a maximum of 10 iterations\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the" +
-					" main calculations\n\tlet set_x = copy_x * copy_x - copy_y * copy_y\n\tlet set_y = 2 * copy_x * copy_y\n\n\tcopy_x = set_x + original_" +
-					"x\n\tcopy_y = set_y + original_y\n\n\t// if the position is out of bounds, cancel the loop\n\tif (copy_x * copy_x + copy_y * copy_y > " +
-					"4)\n\t\tbreak;\n}"
-				)}
-			]
-		</script>
-	
-		<title>Mandelbrot Visualisation | The Formula</title>
-  	</head>
+            const text = [{
+                lines: [],
+                start: 1,
+                code: (
+                    "// starting position of square\nconst original_x = 0.2\nconst original_y = 0.6\n\n// copy the position\nlet copy_x = original_x\nlet c" +
+                    "opy_y = original_y\n\n// make a loop that does a maximum of 10 iterations\nfor (index = 0; index < 10; index ++) {\n\n\t// perform the" +
+                    " main calculations\n\tlet set_x = copy_x * copy_x - copy_y * copy_y\n\tlet set_y = 2 * copy_x * copy_y\n\n\tcopy_x = set_x + original_" +
+                    "x\n\tcopy_y = set_y + original_y\n\n\t// if the position is out of bounds, cancel the loop\n\tif (copy_x * copy_x + copy_y * copy_y > " +
+                    "4)\n\t\tbreak;\n}"
+                )}
+            ]
+        </script>
+    
+        <title>Mandelbrot Visualisation | The Formula</title>
+      </head>
   
-  	<body>
-		<section class = top>
-			<a href = index.html>HOME</a>
-			<a href = projects.html>PROJECTS</a>
-			<a href = demos.html>DEMOS</a>
-			<a href = tutorials.html class = this>TUTORIALS</a>
-			<a href = https://jobase.org target = _blank>JOBASE</a>
-			<a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
-			<a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-			<a class = theme onclick = change(this)><i></i></a>
-		</section>
+      <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html>DEMOS</a>
+            <a href = tutorials.html class = this>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
 
-		<section class = main>
-			<a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
 
-			<h2>Mandelbrot Visualisation</h2>
+            <h2>Mandelbrot Visualisation</h2>
 
-			<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-			<a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+            <a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
 
-			<h3>1. The Formula</h3>
+            <h3>1. The Formula</h3>
 
-			<p>
-				This tutorial will start by explaining how the <mark>Mandelbrot Set</mark> is calculated.
-				On future pages, we will look at some <mark>JavaScript</mark> examples.
-			</p>
+            <p>
+                This tutorial will start by explaining how the <mark>Mandelbrot Set</mark> is calculated.
+                On future pages, we will look at some <mark>JavaScript</mark> examples.
+            </p>
 
-			<p>
-				The <mark>Mandelbrot Set</mark> is made with a grid of squares.
-				Each square is shaded based on its position on the grid.
-				In the example below, the red lines refer to the horizontal and vertical axis of the grid.
-			</p>
+            <p>
+                The <mark>Mandelbrot Set</mark> is made with a grid of squares.
+                Each square is shaded based on its position on the grid.
+                In the example below, the red lines refer to the horizontal and vertical axis of the grid.
+            </p>
 
-			<iframe class = demo></iframe>
+            <iframe class = demo></iframe>
 
-			<p>
-				You will notice that this set doesn't have any colours.
-				This is because the <mark>Mandelbrot</mark> formula only returns a single value.
-				The colours of the set are made using an extra formula which we will cover later.
-			</p>
+            <p>
+                You will notice that this set doesn't have any colours.
+                This is because the <mark>Mandelbrot</mark> formula only returns a single value.
+                The colours of the set are made using an extra formula which we will cover later.
+            </p>
 
-			<p>
-				Now we are going to focus on a single square.
-				First we use its original position to generate a new position.
-				Then we continue to generate new positions until one falls outside the grid.
-				The shade of our square will be determined by the amount of positions we generated.
-				The example below illustrates how each square is shaded based on the generated positions.
-			</p>
+            <p>
+                Now we are going to focus on a single square.
+                First we use its original position to generate a new position.
+                Then we continue to generate new positions until one falls outside the grid.
+                The shade of our square will be determined by the amount of positions we generated.
+                The example below illustrates how each square is shaded based on the generated positions.
+            </p>
 
-			<iframe class = demo></iframe>
-			
-			<p>
-				In the example, the maximum amount of iterations is set to <mark>10</mark>.
-				This means that near the centre of the grid, the square gives up after <mark>10</mark> calculations.
-			</p>
+            <iframe class = demo></iframe>
+            
+            <p>
+                In the example, the maximum amount of iterations is set to <mark>10</mark>.
+                This means that near the centre of the grid, the square gives up after <mark>10</mark> calculations.
+            </p>
 
-			<p>
-				Now we will focus on the actual calculations.
-				Let's use a square with the coordinates <mark>(0.6, 0.4)</mark>.
-			</p>
+            <p>
+                Now we will focus on the actual calculations.
+                Let's use a square with the coordinates <mark>(0.6, 0.4)</mark>.
+            </p>
 
-			<div class = code>
-				<pre>original_x = 0.6<br>original_y = 0.4</pre>
-			</div>
+            <div class = code>
+                <pre>original_x = 0.6<br>original_y = 0.4</pre>
+            </div>
 
-			<p>
-				Now we make a new copy of these positions.
-			</p>
+            <p>
+                Now we make a new copy of these positions.
+            </p>
 
-			<div class = code>
-				<pre>copy_x = original_x<br>copy_y = original_y</pre>
-			</div>
+            <div class = code>
+                <pre>copy_x = original_x<br>copy_y = original_y</pre>
+            </div>
 
-			<p>
-				Then we will execute a calculation on the copies to create a new position.
-			</p>
+            <p>
+                Then we will execute a calculation on the copies to create a new position.
+            </p>
 
-			<div class = code>
-				<pre>set_x = copy_x&#178; - copy_y&#178;<br>set_y = 2 &#215; copy_x &#215; copy_y</pre>
-				<pre>copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
-			</div>
+            <div class = code>
+                <pre>set_x = copy_x&#178; - copy_y&#178;<br>set_y = 2 &#215; copy_x &#215; copy_y</pre>
+                <pre>copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
+            </div>
 
-			<p>
-				After performing the calculations above, <mark>copy_x</mark> will equal <mark>0.8</mark> and <mark>copy_y</mark> will equal <mark>0.88</mark>.
-				These are our new coordinates.
-				We keep repeating the code above until the coordinates go out of bounds.
-			</p>
+            <p>
+                After performing the calculations above, <mark>copy_x</mark> will equal <mark>0.8</mark> and <mark>copy_y</mark> will equal <mark>0.88</mark>.
+                These are our new coordinates.
+                We keep repeating the code above until the coordinates go out of bounds.
+            </p>
 
-			<p>
-				The following <mark>JavaScript</mark> code snippet will show you the full algorithm.
-			</p>
+            <p>
+                The following <mark>JavaScript</mark> code snippet will show you the full algorithm.
+            </p>
 
-			<div class = example></div>
+            <div class = example></div>
 
-			<p>
-				After running the code above, the <mark>index</mark> value will determine the shade of our square.
-				It should be a value between <mark>0</mark> and <mark>10</mark>.
-				In this case, <mark>index</mark> will be equal to <mark>2</mark>.
-				If we use different coordinates for our square, the <mark>index</mark> value will be different.
-			</p>
+            <p>
+                After running the code above, the <mark>index</mark> value will determine the shade of our square.
+                It should be a value between <mark>0</mark> and <mark>10</mark>.
+                In this case, <mark>index</mark> will be equal to <mark>2</mark>.
+                If we use different coordinates for our square, the <mark>index</mark> value will be different.
+            </p>
 
-			<p>
-				Surprisingly, that is all there is to the <mark>Mandelbrot Set</mark>.
-				By applying the code above to each square, you will get incredible patterns.
-				To get the <mark>RGB</mark> colour of each square, use the formula below.
-				It will return colour values between <mark>0</mark> and <mark>255</mark>.
-			</p>
+            <p>
+                Surprisingly, that is all there is to the <mark>Mandelbrot Set</mark>.
+                By applying the code above to each square, you will get incredible patterns.
+                To get the <mark>RGB</mark> colour of each square, use the formula below.
+                It will return colour values between <mark>0</mark> and <mark>255</mark>.
+            </p>
 
-			<div class = code>
-				<pre>rgb = (index &#215; 25.5, index &#215; 25.5, index &#215; 25.5)</pre>
-			</div>
+            <div class = code>
+                <pre>rgb = (index &#215; 25.5, index &#215; 25.5, index &#215; 25.5)</pre>
+            </div>
 
-			<p>
-				Some of you may be unable to grasp why the code for the <mark>Mandelbrot Set</mark> is so small.
-				You may also be wondering why we never talked about imaginary numbers which are part of the <mark>Mandelbrot Formula</mark>.
-				Because we are dealing mainly with code, we don't need to use imaginary numbers.
-				If you are more interested in the maths, then feel free to do your own research.
-			</p>
+            <p>
+                Some of you may be unable to grasp why the code for the <mark>Mandelbrot Set</mark> is so small.
+                You may also be wondering why we never talked about imaginary numbers which are part of the <mark>Mandelbrot Formula</mark>.
+                Because we are dealing mainly with code, we don't need to use imaginary numbers.
+                If you are more interested in the maths, then feel free to do your own research.
+            </p>
 
-			<p>
-				In the next lesson, we will build our first <mark>Mandelbrot Set</mark> in <mark>JavaScript</mark>.
-			</p>
+            <p>
+                In the next lesson, we will build our first <mark>Mandelbrot Set</mark> in <mark>JavaScript</mark>.
+            </p>
 
-			<p>
-				<a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-				<a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
-			</p>
+            <p>
+                <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+                <a href = mandelbrot_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            </p>
 
-			<footer></footer>
-		</section>
-  	</body>
+            <footer></footer>
+        </section>
+      </body>
 </html>
