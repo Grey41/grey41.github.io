@@ -1,18 +1,13 @@
 addEventListener("DOMContentLoaded", () => {
     const footers = document.getElementsByTagName("footer")
-    const number = parseInt(localStorage.getItem("type"))
-
-    window.type = isNaN(number) ? new Date().getHours() > 6 && new Date().getHours() < 18 : number
     window.lost = (typeof ace === "undefined")
 
     for (footer of footers)
         footer.innerText = "\u00a9 Copyright " + new Date().getFullYear() + " GreyHope"
 
     document.querySelector(".theme").firstChild.className = (type ? "fas fa-sun" : "fas fa-moon")
-    theme.href = "css/" + (type ? "light" : "dark") + ".css"
 
     if (lost) return
-
     window.editors = document.querySelectorAll(".editor")
     window.demos = Object.values(document.querySelectorAll(".iframe"))
     window.examples = Object.values(document.querySelectorAll(".example"))
@@ -68,7 +63,7 @@ addEventListener("DOMContentLoaded", () => {
 
     examples.forEach((example, index) => {
         examples[index] = {example, ace: ace.edit(example)}
-        examples[index].ace.session.setMode("ace/mode/" + (text[index].code.match(/<\w+>/) ? "html" : "javascript"))
+        examples[index].ace.session.setMode("ace/mode/" + (text[index].code.match(/<.+>/) ? "html" : "javascript"))
         examples[index].ace.setTheme(color())
         examples[index].ace.setValue(text[index].code)
         examples[index].ace.setReadOnly(true)
@@ -100,3 +95,11 @@ const change = event => {
     demos.forEach(item => item.ace.setTheme(color()))
     examples.forEach(item => item.ace.setTheme(color()))
 }
+
+const start = () => {
+    const number = parseInt(localStorage.getItem("type"))
+    window.type = isNaN(number) ? new Date().getHours() > 6 && new Date().getHours() < 20 : number
+    theme.href = "css/" + (type ? "light" : "dark") + ".css"
+}
+
+start()
