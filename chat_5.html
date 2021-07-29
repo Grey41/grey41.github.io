@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
+
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet href = find(this) id = theme>
+
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
+
+        <script>
+            const text = [{
+                lines: [9],
+                start: 9,
+                code: (
+                    "io.on(\"connection\", socket => {\n\tconsole.log(\"client connected\")\n\n\tsocket.on(\"message\", data => {\n\t\tio.emit(\"input\", d" +
+                    "ata)\n\t})\n})\n\nserver.listen(process.env.PORT || 5000, () => console.log(\"server listening\"))\n"
+                )}
+            ]
+        </script>
+
+        <title>Chat App | Publishing</title>
+    </head>
+  
+    <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html>DEMOS</a>
+            <a href = tutorials.html class = this>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a href = "https://www.paypal.com/donate?hosted_button_id=CJN2XWS3NTJXL" target = _blank>DONATE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
+
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+            <h2>Chat App <a href = tutorials/chat_5.zip download><button title = "Download source files for this page">Download <i class = "fas fa-download"></i></button></a></h2>
+
+            <a href = chat_4.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+            <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+
+            <h3>5. Publishing</h3>
+
+            <p>
+                This page will explain how to publish your app with <mark>Heroku</mark>.
+                <mark>Heroku</mark> is a user friendly platform for online applications.
+                Although some <mark>Heroku</mark> packages are paid for, you can host up to five applications for free.
+                The main downside with the free package is that the server goes to sleep after <mark>30</mark> minutes of inactivity.
+                When the server is asleep and a client visits the site, it takes a while for the page to load.
+            </p>
+
+            <p>
+                All <mark>Heroku</mark> applications need to be <mark>Git</mark> repositories.
+                Visit <a href = https://git-scm.com target = _blank>git-scm.com</a> and install the latest version of <mark>Git</mark> for your computer.
+            </p>
+
+            <p>
+                Now visit <a href = https://heroku.com target = _blank>heroku.com</a> and sign up.
+                Go to the <a href = https://devcenter.heroku.com target = _blank>devcenter</a> and click on the <mark>Node.js</mark> button.
+                Click the <mark>Get started with Node.js</mark> button and then <mark>I'm ready to start</mark>.
+                Install <mark>Heroku</mark> by following the instructions on the <mark>Set up</mark> page.
+            </p>
+
+            <p>
+                Before we deploy our app, we need to write one last bit of code in the <mark>server.js</mark> file.
+            </p>
+
+            <div class = example></div>
+
+            <p>
+                The code above tells the server to look for the <mark>Heroku</mark> port instead of running on <mark>localhost:5000</mark>.
+                If it can't find the port, it will run on <mark>localhost:5000</mark>.
+            </p>
+
+            <p>
+                Now we need to add a new file that tells <mark>Git</mark> what to ignore.
+                Add a new file to your <mark>chat_app</mark> folder named <mark>.gitignore</mark>.
+                Open it and write the following code.
+            </p>
+
+            <div class = code>
+                <pre>/node_modules<br>npm-debug.log<br>.DS_Store<br>/*.env</pre>
+            </div>
+
+            <p>
+                Go to the <mark>Command Terminal</mark> and type <mark>cd</mark> followed by the path to your <mark>chat_app</mark> folder.
+            </p>
+
+            <div class = code>
+                <pre>cd [file path]/chat_app</pre>
+            </div>
+
+            <p>
+                Type the following into the terminal.
+            </p>
+
+            <div class = code>
+                <pre>git init</pre>
+            </div>
+
+            <p>
+                If you go to your <mark>chat_app</mark> folder and veiw the hidden files, you will have a new folder called <mark>.git</mark>.
+                Write the following command in the terminal.
+            </p>
+
+            <div class = code>
+                <pre>git add .</pre>
+            </div>
+
+            <p>
+                Then commit your new repository.
+            </p>
+
+            <div class = code>
+                <pre>git commit -m "First Release"</pre>
+            </div>
+
+            <p>
+                Repository complete.
+            </p>
+
+            <p>
+                Now we can deploy our application to <mark>Heroku</mark>.
+                In the terminal, type the following.
+            </p>
+
+            <div class = code>
+                <pre>heroku login</pre>
+            </div>
+
+            <p>
+                It will then ask you to press any key.
+                Once you've done that, <mark>Heroku</mark> will open a new browser tab.
+                Click <mark>Login</mark> and close the tab.
+                Now type the following.
+            </p>
+
+            <div class = code>
+                <pre>heroku create</pre>
+            </div>
+
+            <p>
+                <mark>Heroku</mark> will then think of a random name for your app.
+                If this troubles you, you can change it later.
+                Finally, type the following command.
+            </p>
+
+            <div class = code>
+                <pre>git push heroku main</pre>
+            </div>
+
+            <p>
+                If you have an error, you may want to type <mark>git checkout -b main</mark> in the terminal and then try again.
+                Now type the following to open your application.
+            </p>
+
+            <div class = code>
+                <pre>heroku open</pre>
+            </div>
+
+            <p>
+                You should then be taken to your application online.
+                If you get your friends to visit your application, you will be able to chat to each other!
+                Well done! You have completed the whole tutorial.
+            </p>
+
+            <p>
+                If you want to rename your app, type the following.
+            </p>
+
+            <div class = code>
+                <pre>heroku apps:rename [new name]</pre>
+            </div>
+
+            <p>
+                This tutorial was meant for an introduction.
+                Feel free to take this further and build your own applications that are even better.
+                You can view the finished chat application at <a href = http://greyhope-chat.herokuapp.com target = _blank>greyhope-chat.herokuapp.com</a>.
+            </p>
+
+            <p>
+                <a href = chat_4.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
+                <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            </p>
+
+            <footer></footer>
+        </section>
+    </body>
+</html>

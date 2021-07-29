@@ -29,20 +29,20 @@
                     "<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t\t<script src = socket.io/socket.io.js><\/script>"
                 )}, {
                 lines: [12, 13, 14],
-                start: 59,
+                start: 60,
                 code: (
                     "\t<body>\n\t\t<div id = main>\n\t\t\t<div id = box><div>This is a test message.</div></div>\n\t\t</div>\n\n\t\t<div id = base>\n\t\t\t" +
                     "<form id = form>\n\t\t\t\t<input id = input type = text placeholder = \"Type Message\">\n\t\t\t</form>\n\t\t</div>\n\n\t\t<script>\n\t" +
                     "\t\tconst socket = io()\n\t\t<\/script>\n\t</body>\n</html>"
                 )}, {
                 lines: [4, 5, 6, 7],
-                start: 70,
+                start: 71,
                 code: (
                     "\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
                     "\tconsole.log(input.value)\n\t\t\t})\n\t\t<\/script>"
                 )}, {
                 lines: [6],
-                start: 70,
+                start: 71,
                 code: (
                     "\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
                     "\tsocket.emit(\"message\", input.value)\n\t\t\t})\n\t\t<\/script>"
@@ -58,11 +58,42 @@
                 code: (
                     "io.on(\"connection\", socket => {\n\tconsole.log(\"client connected\")\n\n\tsocket.on(\"message\", data => {\n\t\tconsole.log(data) \n" +
                     "\t})\n})\n\nserver.listen(5000, () => console.log(\"server listening\"))"
+                )}, {
+                lines: [5],
+                start: 9,
+                code: (
+                    "io.on(\"connection\", socket => {\n\tconsole.log(\"client connected\")\n\n\tsocket.on(\"message\", data => {\n\t\tio.emit(\"input\", d" +
+                    "ata)\n\t})\n})"
+                )}, {
+                lines: [9, 10, 11],
+                start: 71,
+                code: (
+                    "\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault() \n\t\t\t" +
+                    "\tsocket.emit(\"message\", input.value)\n\t\t\t})\n\n\t\t\tsocket.on(\"input\", data => {\n\t\t\t\tconsole.log(data)\n\t\t\t}) \n\t\t<" +
+                    "\/script>"
+                )}, {
+                lines: [7, 8, 9, 10, 11, 12, 13, 14],
+                start: 74,
+                code: (
+                    "\t\t\tform.addEventListener(\"submit\", event => {\n\t\t\t\tevent.preventDefault()\n\t\t\t\tsocket.emit(\"message\", input.value) \n\t" +
+                    "\t\t})\n\n\t\t\tsocket.on(\"input\", data => {\n\t\t\t\tconst box = document.createElement(\"div\")\n\t\t\t\tconst div = document.crea" +
+                    "teElement(\"div\")\n\t\t\t\t\n\t\t\t\tbox.id = \"box\"\n\t\t\t\tdiv.innerText = data\n\n\t\t\t\tbox.appendChild(div)\n\t\t\t\tmain.app" +
+                    "endChild(box)\n\t\t\t})"
+                )}, {
+                lines: [2, 17],
+                start: 60,
+                code: (
+                    "\t<body>\n\t\t<div id = main></div>\n\n\t\t<div id = base>\n\t\t\t<form id = form>\n\t\t\t\t<input id = input type = text placeholder " +
+                    "= \"Type Message\">\n\t\t\t</form>\n\t\t</div>\n\n\t\t<script>\n\t\t\tconst socket = io()\n\n\t\t\tform.addEventListener(\"submit\", e" +
+                    "vent => {\n\t\t\t\tevent.preventDefault()\n\t\t\t\tsocket.emit(\"message\", input.value)\n\n\t\t\t\tinput.value = \"\"\n\t\t\t})\n\n\t" +
+                    "\t\tsocket.on(\"input\", data => {\n\t\t\t\tconst box = document.createElement(\"div\")\n\t\t\t\tconst div = document.createElement(\"" +
+                    "div\")\n\t\t\t\t\n\t\t\t\tbox.id = \"box\"\n\t\t\t\tdiv.innerText = data\n\n\t\t\t\tbox.appendChild(div)\n\t\t\t\tmain.appendChild(box" +
+                    ")\n\t\t\t})\n\t\t<\/script>\n\t</body>"
                 )}
             ]
         </script>
 
-        <title>Chat App | Socket.IO Introduction</title>
+        <title>Chat App | Socket Communication</title>
     </head>
   
     <body>
@@ -80,16 +111,16 @@
         <section class = main>
             <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
 
-            <h2>Chat App</h2>
+            <h2>Chat App <a href = tutorials/chat_4.zip download><button title = "Download source files for this page">Download <i class = "fas fa-download"></i></button></a></h2>
 
             <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-            <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = chat_5.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
 
-            <h3>4. Socket.IO Introduction</h3>
+            <h3>4. Socket Communication</h3>
 
             <p>
-                In this tutorial we will start writing the <mark>Socket.IO</mark> code.
-                This code is important for communicating with the server.
+                On this page we will start writing the <mark>Socket.IO</mark> code.
+                This code is important for communicating between the browser and the server.
             </p>
 
             <p>
@@ -167,16 +198,56 @@
                 The code above tells the server to listen for a signal called <mark>message</mark> and then print the data.
                 Refresh your program from the terminal and type a message in the <mark>localhost:5000</mark> input box.
                 Whenever you submit a message, it gets printed to the terminal.
+                Congratulations! You have managed to implement basic client to server communication.
             </p>
 
             <p>
-                Congratulations! You have managed to implement basic client to server communication.
-                If you have got this far, the next page will be easy.
+                Instead of printing to the terminal, we want the server to send the message to everyone else.
+                In your <mark>server.js</mark> file, change the <mark>console.log</mark> command with the following line of code.
+            </p>
+
+            <div class = example></div>
+
+            <p>
+                The code above broadcasts the message to all the clients.
+                In our client code, we will recieve the message and display it on the screen.
+                Open your <mark>index.html</mark> file and write the following code.
+            </p>
+
+            <div class = example></div>
+
+            <p>
+                Whenever you submit a message at <mark>localhost:5000</mark>, it gets printed to the <mark>Web Console</mark>.
+                Although this may not seem very interesting, you can open multiple tabs and check the result.
+                When you type a message in one of the browser tabs, it gets printed to all the other consoles!
+            </p>
+
+            <p>
+                Now we want to display the message in our grey box.
+                The code below creates <mark>HTML</mark> divs with the message inside and adds them to our <mark>main div</mark>.
+            </p>
+
+            <div class = example></div>
+
+            <p>
+                Now instead of getting printed to the <mark>Web Console</mark>, all the messages get displayed on the screen.
+            </p>
+
+            <p>
+                Finally, let's remove the test message and clear the input box every time a user submits.
+            </p>
+
+            <div class = example></div>
+
+            <p>
+                The application is complete.
+                If you ever wanted to change the code slightly then now is the time.
+                The next page will explain how to publish your app online.
             </p>
 
             <p>
                 <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-                <a href = tutorials.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+                <a href = chat_5.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
             </p>
 
             <footer></footer>
