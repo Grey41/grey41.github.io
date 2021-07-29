@@ -16,6 +16,10 @@ button:hover {
     color: #fff;
 }
 
+.editor, .example {
+    border-color: #333;
+}
+
 .top a {
     color: #999;
 }
