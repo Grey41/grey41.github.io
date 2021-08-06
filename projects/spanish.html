@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset = utf-8>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+
+        <style>
+            body, html {
+                margin: 0;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background: #eee;
+            }
+
+            #copy {
+                font-family: sans-serif;
+                padding: 0.5rem;
+            }
+
+            #input {
+                padding: 0.5rem;
+                font-size: 2rem;
+                border: none;
+                border-radius: 0.4rem;
+                background: #ccc;
+                font-weight: bold;
+            }
+
+            #list {
+                border: none;
+                border-radius: 0.4rem;
+                background: #fff;
+                width: 2rem;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 1rem;
+            }
+
+            #number {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 1rem;
+            }
+
+            #container {
+                margin-top: 1rem;
+            }
+
+            #button {
+                font-size: 2rem;
+                border: none;
+                border-radius: 0.4rem;
+                background: #ccc;
+                padding: 2rem;
+                margin: 1rem;
+                cursor: pointer;
+            }
+
+            #button:hover {
+                background: #fff;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div id = copy></div>
+        <input type = text id = input>
+        <span id = container><input type = text id = list oninput = change()><span id = number></span></span>
+        <button id = button onclick = next()>Start</button>
+
+        <script>
+            const names = [
+                "Abreu", "Acosta", "Aguilar", "Aguirre", "Alas",
+                "Alarcon", "Alonso", "Alvarado", "Alvarenga", "Alvarez",
+                "Amaya", "Arellano", "Arevalo", "Argueta", "Arias",
+                "Arismendi", "Aristigueta", "Arreba", "Ascue", "Avila",
+                "Ayala", "Baños", "Barrera", "Barreto", "Barrido",
+                "Barrios", "Batista", "Bella", "Beltran", "Benitez",
+                "Betancourt", "Blanco", "Blasquez", "Bolas", "Bolanos",
+                "Bolivar", "Bonalde", "Bravo", "Burgos", "Cabello",
+                "Cabrera", "Caldera", "Calderon", "Camacho", "Campos",
+                "Capelo", "Cardona", "Carmona", "Carranza", "Casa",
+                "Casado", "Casagrande", "Cascaron", "Castillo", "Castro",
+                "Cedeño", "Chavez", "Chicas", "Chopite", "Colegio",
+                "Colina", "Colon", "Condori", "Contreras", "Conzalez",
+                "Coraspe", "Cordero", "Cordova", "Coreas", "Cornejo",
+                "Corona", "Correa", "Cortez", "Costa", "Cruz",
+                "Cuesta", "De La Cruz", "De la Vega", "De Leon", "De Los Rios",
+                "Delgado", "Diaz", "Dominguez", "Durcal", "Estrada",
+                "Fernandez", "Ferrer", "Ferrera", "Figueroa", "Flores",
+                "Fuentes", "Funes", "Galindo", "Galmadez", "Garcia",
+                "Garcidueñas", "Garza", "Gil", "Gimenez", "Gomez",
+                "Gonsalez", "Gonzalez", "Granados", "Guardado", "Guerra",
+                "Guerrero", "Gutierrez", "Guzman", "Heredia", "Hernandez",
+                "Herrera", "Hildalgo", "Ibáñez", "Iglesias", "Jimenez",
+                "Juarez", "Lara", "Ledesma", "Lemus", "Leon",
+                "Linares", "Lopez", "Luna", "Maestre", "Madariaga",
+                "Mago", "Maldonado", "Mancia", "Marasco", "Marcano",
+                "Marin", "Martin", "Márquez", "Marqués", "Marroquin",
+                "Martinez", "Medina", "Medrano", "Mejia", "Melendez",
+                "Melgar", "Mendez", "Mendoza", "Merin", "Meza",
+                "Millán", "Miranda", "Mogollon", "Molina", "Montaner",
+                "Montilla", "Morales", "Moran", "Moreno", "Morgado",
+                "Morillos", "Muñoz", "Narvaez", "Navarro", "Nunez",
+                "Oleaga", "Olivares", "Oropeza", "Orozco", "Ortega",
+                "Ortiz", "Osorio", "Pabon", "Pacheco", "Padilla",
+                "Parado", "Parra", "Pavon", "Pereira", "Perez",
+                "Pineda", "Portillo", "Quintero", "Ramirez", "Ramos",
+                "Recinos", "Reina", "Reyes", "Rios", "Rivas",
+                "Rivero", "Rivera", "Rodriguez", "Rojas", "Roldan",
+                "Romero", "Rondon", "Rosales", "Rubio", "Ruiz",
+                "Salazar", "Salguero", "Sanchez", "Sandoval", "Santana",
+                "Santiago", "Santos", "Saenz", "Sainz", "Sanz",
+                "Saravia", "Sarcos", "Segovia", "Segoviano", "Serrano",
+                "Silva", "Siso", "Solis", "Sosa", "Soto",
+                "Suarez", "Subero", "Sucre", "Suniaga", "Taipe",
+                "Taype", "Toro", "Torres", "Tragon", "Urbano",
+                "Uribe", "Uzcategui", "Valdez", "Valencia", "Valera",
+                "Valero", "Valle", "Vargas", "Vazquez", "Velasquez",
+                "Ventura", "Vidal", "Villamizar", "Villa", "Villagran",
+                "Villalta", "Villareal", "Vivar", "Vives", "Zambrano",
+                "Zapata", "Zapatero", "Zapatos", "Zaragoza", "Zelaya",
+                "Zepeda"
+            ]
+
+            const change = () => index = list.value
+
+            const next = () => {
+                input.value = names[index]
+                input.select()
+                input.setSelectionRange(0, 100)
+                document.execCommand("copy")
+                copy.innerText = "Copied: " + names[index]
+                index ++
+                list.value = index
+                button.innerText = "Next"
+            }
+
+            let index = 0
+            let timer = 0
+            input.value = ""
+            number.innerText = " of " + names.length
+            list.value = index
+        </script>
+    </body>
+</html>
