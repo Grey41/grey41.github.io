@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
+
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet id = theme>
+
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
+
+        <script>
+            const edit = [{
+                lines: [],
+                code: (
+                    "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 35\n\t\t\tconst HEIGHT = 35\n\t\t\tc" +
+                    "onst SPEED = 10\n\n\t\t\tfunction resize() {\n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.heig" +
+                    "ht = innerHeight\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// clear screen\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\t// set s" +
+                    "ize of the squares\n\t\t\t\tlet size = Math.floor(canvas.height / HEIGHT)\n\n\t\t\t\t// set x and y offset of the maze\n\t\t\t\tlet x " +
+                    "= Math.round(canvas.width / 2 - WIDTH * size / 2)\n\t\t\t\tlet y = Math.round(canvas.height / 2 - HEIGHT * size / 2)\n\n\t\t\t\tmaze.d" +
+                    "ata.forEach((item, index) => {\n\t\t\t\t\t// if the maze item is empty, don't draw the square\n\t\t\t\t\tif (item == \"empty\") return" +
+                    "\n\n\t\t\t\t\t// set colors of the different squares\n\t\t\t\t\tif (index == maze.head) context.fillStyle = \"#000\"\n\t\t\t\t\telse i" +
+                    "f (item == \"visited\") context.fillStyle = \"#999\"\n\t\t\t\t\telse context.fillStyle = \"#f55\"\n\n\t\t\t\t\t// draw the square on t" +
+                    "he maze\n\t\t\t\t\tcontext.fillRect(\n\t\t\t\t\t\tx + index % WIDTH * size,\n\t\t\t\t\t\ty + Math.floor(index / WIDTH) * size,\n\t\t\t" +
+                    "\t\t\tsize, size\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\t// don't bother to go any further if maze is complete\n\t\t\t\tif (!maze.data.inc" +
+                    "ludes(\"visited\")) return\n\n\t\t\t\t// array that stores empty spaces around the head\n\t\t\t\tlet empty = []\n\n\t\t\t\t// array th" +
+                    "at stores visited space next to the head\n\t\t\t\tlet visited\n\n\t\t\t\t// check if the head isn't too close to the top\n\t\t\t\tif (" +
+                    "maze.head >= WIDTH * 2) {\n\t\t\t\t\t// check for empty and visited spaces above the head\n\t\t\t\t\tif (maze.data[maze.head - WIDTH *" +
+                    " 2] == \"empty\") empty.push(\"up\")\n\t\t\t\t\tif (maze.data[maze.head - WIDTH] == \"visited\") visited = \"up\"\n\t\t\t\t}\n\n\t\t\t" +
+                    "\t// check if the head isn't too close to the bottom\n\t\t\t\tif (maze.head < HEIGHT * WIDTH - WIDTH * 2) {\n\t\t\t\t\t// check for em" +
+                    "pty and visited spaces below the head\n\t\t\t\t\tif (maze.data[maze.head + WIDTH * 2] == \"empty\") empty.push(\"down\")\n\t\t\t\t\tif" +
+                    " (maze.data[maze.head + WIDTH] == \"visited\") visited = \"down\"\n\t\t\t\t}\n\n\t\t\t\t// check if the head isn't too far to the left" +
+                    "\n\t\t\t\tif (maze.head % WIDTH > 1) {\n\t\t\t\t\t// check for empty and visited spaces to the left of the head\n\t\t\t\t\tif (maze.da" +
+                    "ta[maze.head - 2] == \"empty\") empty.push(\"left\")\n\t\t\t\t\tif (maze.data[maze.head - 1] == \"visited\") visited = \"left\" \n\t\t" +
+                    "\t\t}\n\n\t\t\t\t// check if the head isn't too far to the right\n\t\t\t\tif (maze.head % WIDTH < WIDTH - 2) {\n\t\t\t\t\t// check for" +
+                    " empty and visited spaces to the right of the head\n\t\t\t\t\tif (maze.data[maze.head + 2] == \"empty\") empty.push(\"right\")\n\t\t\t" +
+                    "\t\tif (maze.data[maze.head + 1] == \"visited\") visited = \"right\"\n\t\t\t\t}\n\n\t\t\t\tfunction move(direction, type) { \n\t\t\t\t" +
+                    "\tmaze.data[maze.head] = type\n\n\t\t\t\t\t// make the head move two squares in a certain direction\n\t\t\t\t\tfor (let i = 0; i < 2; " +
+                    "i ++) {\n\t\t\t\t\t\tmaze.head += (\n\t\t\t\t\t\t\tdirection == \"up\" ? -WIDTH :\n\t\t\t\t\t\t\tdirection == \"down\" ? WIDTH :\n\t\t" +
+                    "\t\t\t\t\tdirection == \"left\" ? -1 : 1\n\t\t\t\t\t\t)\n\n\t\t\t\t\t\tmaze.data[maze.head] = type\n\t\t\t\t\t}\n\t\t\t\t}\n\n\t\t\t\t" +
+                    "// check if there are some empty spaces around the head\n\t\t\t\tif (empty.length > 0) {\n\t\t\t\t\t// make the head move two squares " +
+                    "in a random empty direction\n\t\t\t\t\tmove(empty[Math.floor(Math.random() * empty.length)], \"visited\")\n\t\t\t\t}\n\n\t\t\t\t// if " +
+                    "there aren't empty spaces around the head, move to a square that is already visited\n\t\t\t\telse {\n\t\t\t\t\t// make the head move t" +
+                    "wo squares in that visited direction\n\t\t\t\t\tmove(visited, \"final\")\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// s" +
+                    "tyle the body and get rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\" \n\t" +
+                    "\t\t\t\tbackground = \"#777\"\n\t\t\t\t}\n\n\t\t\t\t// fill maze with empty elements\n\t\t\t\tfor (let i = 0; i < WIDTH * HEIGHT; i ++" +
+                    ")\n\t\t\t\t\tmaze.data[i] = \"empty\"\n\n\t\t\t\t// starting head position becomes visited\n\t\t\t\tmaze.data[maze.head] = \"visited\"" +
+                    "\n\n\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize() \n\n\t\t\t" +
+                    "\t// activate game loop\n\t\t\t\tsetInterval(loop, 1000 / SPEED)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\n\t\t\t" +
+                    "// initialize the maze with empty values and place head in top left corner\n\t\t\tconst maze = {head: WIDTH + 2, data: []}\n\n\t\t\tst" +
+                    "art()\n\t\t<\/script>\n\t</body>\n</html>"
+                )}
+            ]
+        </script>
+    
+        <title>Maze Generation</title>
+    </head>
+  
+    <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html class = this>DEMOS</a>
+            <a href = tutorials.html>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
+
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+            <h2>Maze Generation</h2>
+
+            <iframe class = iframe></iframe>
+            <div class = editor></div>
+            <span class = note>Edit the code to change the result above.</span>
+
+            <p>
+                Explanation coming soon.
+            </p>
+
+            <footer></footer>
+        </section>
+    </body>
+</html>
