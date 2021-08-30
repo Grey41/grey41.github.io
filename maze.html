@@ -32,7 +32,7 @@
                     "= Math.round(canvas.width / 2 - WIDTH * size / 2)\n\t\t\t\tlet y = Math.round(canvas.height / 2 - HEIGHT * size / 2)\n\n\t\t\t\tmaze.d" +
                     "ata.forEach((item, index) => {\n\t\t\t\t\t// if the maze item is empty, don't draw the square\n\t\t\t\t\tif (item == \"empty\") return" +
                     "\n\n\t\t\t\t\t// set colors of the different squares\n\t\t\t\t\tif (index == maze.head) context.fillStyle = \"#000\"\n\t\t\t\t\telse i" +
-                    "f (item == \"visited\") context.fillStyle = \"#999\"\n\t\t\t\t\telse context.fillStyle = \"#f55\"\n\n\t\t\t\t\t// draw the square on t" +
+                    "f (item == \"visited\") context.fillStyle = \"#999\"\n\t\t\t\t\telse context.fillStyle = \"#f77\"\n\n\t\t\t\t\t// draw the square on t" +
                     "he maze\n\t\t\t\t\tcontext.fillRect(\n\t\t\t\t\t\tx + index % WIDTH * size,\n\t\t\t\t\t\ty + Math.floor(index / WIDTH) * size,\n\t\t\t" +
                     "\t\t\tsize, size\n\t\t\t\t\t)\n\t\t\t\t})\n\n\t\t\t\t// don't bother to go any further if maze is complete\n\t\t\t\tif (!maze.data.inc" +
                     "ludes(\"visited\")) return\n\n\t\t\t\t// array that stores empty spaces around the head\n\t\t\t\tlet empty = []\n\n\t\t\t\t// array th" +
