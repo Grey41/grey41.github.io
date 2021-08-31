@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
+        
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C34XCNZ9G4');
+        </script>
+
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+
+        <link rel = stylesheet href = css/main.css>
+        <link rel = stylesheet id = theme>
+
+        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = js/main.js></script>
+
+        <script>
+            const edit = [{
+                lines: [],
+                code: (
+                    "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst WIDTH = 40\n\t\t\tconst HEIGHT = 40\n\t\t\tc" +
+                    "onst DIAGONAL = false\n\t\t\tconst SPEED = 10\n\n\t\t\tfunction resize() {\n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = i" +
+                    "nnerWidth\n\t\t\t\tcanvas.height = innerHeight\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// clear screen\n\t\t\t\tcanvas.width = ca" +
+                    "nvas.width\n\n\t\t\t\t// set size of the squares\n\t\t\t\tconst size = Math.floor(canvas.height / HEIGHT)\n\n\t\t\t\t// function that " +
+                    "finds an x and y position based on an index value\n\t\t\t\tfunction position(index) {\n\t\t\t\t\t// set the offset for the squares\n\t" +
+                    "\t\t\t\tconst x = Math.round(canvas.width / 2 - WIDTH * size / 2)\n\t\t\t\t\tconst y = Math.round(canvas.height / 2 - HEIGHT * size / " +
+                    "2)\n\n\t\t\t\t\treturn {\n\t\t\t\t\t\tx: x + index % WIDTH * size,\n\t\t\t\t\t\ty: y + Math.floor(index / WIDTH) * size\n\t\t\t\t\t}\n" +
+                    "\t\t\t\t}\n\n\t\t\t\t// draw the maze\n\t\t\t\tcontext.fillStyle = \"#ccc\"\n\n\t\t\t\tmap.forEach((item, index) => {\n\t\t\t\t\t// if" +
+                    " the maze item is empty, don't draw the square\n\t\t\t\t\tif (item == \"empty\") return\n\n\t\t\t\t\t// draw the square on the maze \n" +
+                    "\t\t\t\t\tcontext.fillRect(position(index).x, position(index).y, size, size)\n\t\t\t\t})\n\n\t\t\t\t// draw the bluish closed squares " +
+                    "\n\t\t\t\tcontext.fillStyle = \"#99b\"\n\t\t\t\tsolid.forEach(item => context.fillRect(position(item.index).x, position(item.index).y," +
+                    " size, size))\n\n\t\t\t\t// start calculating the active squares\n\t\t\t\tcontext.fillStyle = \"#cca\"\n\t\t\t\tconst extra = []\n\n\t" +
+                    "\t\t\tactive.forEach((item, pos) => {\n\t\t\t\t\t// draw the yellow active square\n\t\t\t\t\tcontext.fillRect(position(item.index).x, " +
+                    "position(item.index).y, size, size)\n\n\t\t\t\t\t// check if this square is on the goal square\n\t\t\t\t\tif (item.index == goal) comp" +
+                    "lete = solid.length\n\n\t\t\t\t\t// add this square to the closed array\n\t\t\t\t\tsolid.push(item)\n\n\t\t\t\t\t// the code below add" +
+                    "s positions to the path array\n\t\t\t\t\tconst path = []\n\t\t\t\t\tconst up = item.index > WIDTH\n\t\t\t\t\tconst down = item.index <" +
+                    " WIDTH * HEIGHT - WIDTH\n\t\t\t\t\tconst left = item.index % WIDTH > 0\n\t\t\t\t\tconst right = item.index % WIDTH < WIDTH - 1\n\n\t\t" +
+                    "\t\t\tif (up) path.push(item.index - WIDTH)\n\t\t\t\t\tif (down) path.push(item.index + WIDTH)\n\t\t\t\t\tif (left) path.push(item.ind" +
+                    "ex - 1)\n\t\t\t\t\tif (right) path.push(item.index + 1)\n\n\t\t\t\t\t// if DIAGONAL is set to true, add the diagonal positions\n\t\t\t" +
+                    "\t\tif (DIAGONAL) {\n\t\t\t\t\t\tif (up && left) path.push(item.index - WIDTH - 1)\n\t\t\t\t\t\tif (up && right) path.push(item.index " +
+                    "- WIDTH + 1)\n\t\t\t\t\t\tif (down && left) path.push(item.index + WIDTH - 1)\n\t\t\t\t\t\tif (down && right) path.push(item.index + W" +
+                    "IDTH + 1)\n\t\t\t\t\t}\n\n\t\t\t\t\t// now we iterate through each position and skip any that we already found or ones that hit a wall" +
+                    "\n\t\t\t\t\tfor (index of path) {\n\t\t\t\t\t\tlet found = false\n\n\t\t\t\t\t\tfor (item of extra)\n\t\t\t\t\t\t\tif (item.index == i" +
+                    "ndex) {\n\t\t\t\t\t\t\t\tfound = true\n\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\tfor (item of active)\n\t\t\t\t\t\t\tif (i" +
+                    "tem.index == index) {\n\t\t\t\t\t\t\t\tfound = true\n\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\tfor (item of solid)\n\t\t\t" +
+                    "\t\t\t\tif (item.index == index) {\n\t\t\t\t\t\t\t\tfound = true\n\t\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\tif (map[index]" +
+                    " == \"wall\" || found)\n\t\t\t\t\t\t\tcontinue\n\n\t\t\t\t\t\t// add this position to the active array\n\t\t\t\t\t\textra.push({index," +
+                    " join: solid.length - 1})\n\t\t\t\t\t}\n\t\t\t\t})\n\n\t\t\t\t// all the active squares are reset for the next frame\n\t\t\t\tactive =" +
+                    " extra\n\n\t\t\t\t// draw the goal square\n\t\t\t\tcontext.fillStyle = \"#ff0\"\n\t\t\t\tcontext.fillRect(position(goal).x, position(g" +
+                    "oal).y, size, size)\n\n\t\t\t\t// draw the player\n\t\t\t\tcontext.fillStyle = \"#000\"\n\t\t\t\tcontext.fillRect(position(player).x, " +
+                    "position(player).y, size, size)\n\n\t\t\t\t// if the path has been calculated, draw it\n\t\t\t\tif (complete) {\n\t\t\t\t\tlet next = " +
+                    "complete\n\n\t\t\t\t\t// draw a red line from the goal to the player\n\t\t\t\t\tcontext.strokeStyle = \"#f00\"\n\n\t\t\t\t\t// when ne" +
+                    "xt is equal to -1, the line is finished\n\t\t\t\t\twhile (next != -1) {\n\t\t\t\t\t\tconst pos = position(solid[next].index)\n\t\t\t\t" +
+                    "\t\tcontext.lineTo(pos.x + size / 2, pos.y + size / 2)\n\n\t\t\t\t\t\t// go to the next square in the path\n\t\t\t\t\t\tnext = solid[n" +
+                    "ext].join\n\t\t\t\t\t}\n\n\t\t\t\t\tcontext.stroke()\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// style the body and ge" +
+                    "t rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = " +
+                    "\"#777\"\n\t\t\t\t}\n\n\t\t\t\t// fill maze with empty elements\n\t\t\t\tfor (let i = 0; i < WIDTH * HEIGHT; i ++)\n\t\t\t\t\tmap[i] =" +
+                    " (Math.random() < 0.3 && i != player && i != goal) ? \"wall\" : \"empty\"\n\n\t\t\t\t// when screen resizes, run the resize function\n" +
+                    "\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\t// activate game loop\n\t\t\t\tsetInterval(loop, 1000 / SPEE" +
+                    "D)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\n\t\t\t// initialize the maze with empty values and place head in top" +
+                    " left corner\n\t\t\tconst map = []\n\n\t\t\t// set the position of the player and goal square\n\t\t\tconst player = Math.floor(Math.ra" +
+                    "ndom() * WIDTH * HEIGHT)\n\t\t\tconst goal = Math.floor(Math.random() * WIDTH * HEIGHT)\n\n\t\t\t// set up the active path finding arr" +
+                    "ay\n\t\t\tlet active = [{index: player, join: -1}]\n\n\t\t\t// set up the closed path array\n\t\t\tlet solid = []\n\n\t\t\t// the goal" +
+                    " index value\n\t\t\tlet complete = 0\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+                )}
+            ]
+        </script>
+    
+        <title>Path Finding</title>
+    </head>
+  
+    <body>
+        <section class = top>
+            <a href = index.html>HOME</a>
+            <a href = projects.html>PROJECTS</a>
+            <a href = demos.html class = this>DEMOS</a>
+            <a href = tutorials.html>TUTORIALS</a>
+            <a href = https://jobase.org target = _blank>JOBASE</a>
+            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a class = theme onclick = change(this)><i></i></a>
+        </section>
+
+        <section class = main>
+            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+
+            <h2>Path Finding</h2>
+
+            <iframe class = iframe></iframe>
+            <div class = editor></div>
+            <span class = note>Edit the code to change the result above.</span>
+
+            <p>
+                Explanation coming soon.
+            </p>
+
+            <footer></footer>
+        </section>
+    </body>
+</html>

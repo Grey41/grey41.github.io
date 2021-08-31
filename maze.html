@@ -59,8 +59,8 @@
                     ")\n\t\t\t\t\tmaze.data[i] = \"empty\"\n\n\t\t\t\t// starting head position becomes visited\n\t\t\t\tmaze.data[maze.head] = \"visited\"" +
                     "\n\n\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize() \n\n\t\t\t" +
                     "\t// activate game loop\n\t\t\t\tsetInterval(loop, 1000 / SPEED)\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\n\t\t\t" +
-                    "// initialize the maze with empty values and place head in top left corner\n\t\t\tconst maze = {head: WIDTH + 2, data: []}\n\n\t\t\tst" +
-                    "art()\n\t\t<\/script>\n\t</body>\n</html>"
+                    "// initialize the maze with empty values and place head in top left corner\n\t\t\tconst maze = {head: 0, data: []}\n\n\t\t\tstart() \n" +
+                    "\t\t<\/script>\n\t</body>\n</html>"
                 )}
             ]
         </script>

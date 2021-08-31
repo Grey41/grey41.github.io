@@ -45,9 +45,9 @@
                     "\t\t\t\tcontext.fill()\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {\n\t\t\t\t// style the body and get " +
                     "rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"" +
                     "#555\"\n\t\t\t\t}\n\n\t\t\t\t// when screen resizes, run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tre" +
-                    "size()\n\n\t\t\t\t// when the mouse clicks on screen, make a wave\n\t\t\t\taddEventListener(\"mousedown\", event => {\n\t\t\t\t\tpoint" +
-                    "s[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t\t" +
-                    "\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+                    "size()\n\n\t\t\t\t// when the mouse clicks on screen, make a wave\n\t\t\t\taddEventListener(\"pointerdown\", event => {\n\t\t\t\t\tpoi" +
+                    "nts[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\t// activate game loop\n\t\t\t\tloop()\n\t" +
+                    "\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
                 )}
             ]
 
@@ -66,9 +66,9 @@
                 "ntext.moveTo(x, y)\n\t\t\t\t\tcontext.lineTo(x, innerHeight)\n\t\t\t\t\tcontext.stroke()\n\n\t\t\t\t\tcontext.fillStyle = \"#a00\"\n\t" +
                 "\t\t\t\tcontext.fillRect(x - 5, y - 5, 10, 10)\n\t\t\t\t})\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() {" +
                 "\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidden\"\n\t\t\t\t\tbackground = \"#9ab\"\n\t\t\t" +
-                "\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\taddEventListener(\"mousedown\", event => { \n\t\t\t\t" +
-                "\tpoints[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\tloop()\n\t\t\t}\n\n\t\t\tconst conte" +
-                "xt = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
+                "\t}\n\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\taddEventListener(\"pointerdown\", event => { \n\t\t\t" +
+                "\t\tpoints[Math.round(event.offsetX / innerWidth * RESOLUTION)].speed = -0.5\n\t\t\t\t})\n\n\t\t\t\tloop()\n\t\t\t}\n\n\t\t\tconst con" +
+                "text = canvas.getContext(\"2d\")\n\t\t\tconst points = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n</html>"
             ]
         </script>
     
