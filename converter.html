@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset = utf-8>
+
+        <style>
+            body, html {
+                height: 100%;
+            }
+
+            body {
+                font-family: monospace;
+                font-weight: bold;
+                font-size: 1.2rem;
+                margin: 0;
+                overflow: hidden;
+                background-color: #222;
+            }
+
+            div {
+                position: fixed;
+                right: 50%;
+                bottom: 50%;
+                height: 50%;
+                width: 50%;
+                min-width: 20rem;
+                max-width: 40rem;
+                min-height: 10rem;
+                max-height: 20rem;
+                background-color: #333;
+                transform: translateX(50%) translateY(50%);
+                border-radius: 1rem;
+                border: 1px solid #555;
+                text-align: center;
+            }
+
+            input[type = "file"] {
+                display: none;
+            }
+
+            label {
+                cursor: pointer;
+                color: #3af;
+            }
+
+            label:hover {
+                color: #ddd;
+            }
+
+            mark {
+                color: #fff;
+                font-weight: bolder;
+                background: none;
+            }
+
+            span i {
+                font-size: 3rem;
+                padding: 0.5rem;
+            }
+
+            span {
+                color: #aaa;
+                position: fixed;
+                right: 50%;
+                bottom: 50%;
+                transform: translateX(50%) translateY(50%);
+            }
+        </style>
+
+        <title>Errol's Super Converter</title>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+    </head>
+
+	<body>
+        <div id = box>
+            <span>
+                <i class = "far fa-file-word"></i><br>
+                Drag your <mark>.docx</mark> file here <br>
+
+                <label>
+                    <input type = file id = input accept = ".docx">
+                    or choose file
+                </label>
+            </span>
+        </div>
+
+        <script src = mammoth.js></script>
+        <script src = xlsx.js></script>
+        <script src = saver.js></script>
+
+		<script>
+            const submit = data => {
+                const reader = new FileReader()
+
+                reader.readAsBinaryString(data)
+                reader.onerror = error => alert("Error reading file: " + error)
+
+                reader.onload = event => mammoth.convertToMarkdown({arrayBuffer: event.target.result}).then(result => {
+                    const chapters = result.value.split(/__Chapter \d+__/g)
+                    const book = chapters[0].replace(/(__|\n)/g, "")
+                    const data = []
+                    chapters.shift()
+
+                    chapters.forEach((chapter, index) => {
+                        chapter = chapter.replace(/(\n|\\)/g, "")
+
+                        let verse = 2
+                        const verses = []
+
+                        while (true) {
+                            let match = new RegExp(verse.toString() + /\s/.source).exec(chapter)
+                            if (!match) break
+
+                            data.push([book, index + 1, verse - 1, chapter.substring(2, match.index).trim()])
+                            chapter = chapter.substring(match.index)
+                            verse ++
+                        }
+
+                        data.push([book, index + 1, verse - 1, chapter.substring(2).trim()])
+                    })
+
+                    const workbook = XLSX.utils.book_new()
+
+                    workbook.Props = {
+                        Title: "Errol's Super Excel Spreadsheet",
+                        Subject: "Formatted Bible Verses",
+                        Author: "Reuben Ford",
+                        CreatedDate: new Date()
+                    }
+
+                    workbook.SheetNames.push("Main Sheet")
+                    workbook.Sheets["Main Sheet"] = XLSX.utils.aoa_to_sheet(data)
+
+                    const output = XLSX.write(workbook, {bookType: "xlsx", type: "binary"})
+                    const buffer = new ArrayBuffer(output.length)
+                    const view = new Uint8Array(buffer)
+
+                    for (let i = 0; i < output.length; i ++)
+                        view[i] = output.charCodeAt(i) & 0xFF
+
+                    saveAs(new Blob([buffer], {type: "application/octet-stream"}), "complete.xlsx")
+
+                    const div = document.createElement("div")
+                    const span = document.createElement("span")
+                    const icon = document.createElement("i")
+
+                    icon.className = "far fa-file-excel"
+                    span.appendChild(icon)
+                    span.innerHTML += "<br>Open the <mark>.xlsx</mark> spreadsheet and copy its contents"
+                    div.appendChild(span)
+
+                    box.remove()
+                    document.body.appendChild(div)
+                }).done()
+            }
+
+            input.addEventListener("change", event => {
+                if (!input.files.length) {
+                    alert("No files selected")
+                    return
+                }
+
+                submit(input.files.item(0))
+            })
+
+            box.addEventListener("dragenter", event => box.style.backgroundColor = "#555")
+            box.addEventListener("dragleave", event => box.style.backgroundColor = "#333")
+            box.addEventListener("dragover", event => event.preventDefault())
+
+            box.addEventListener("drop", event => {
+                event.preventDefault()
+                box.style.backgroundColor = "#333"
+                submit(event.dataTransfer.files[0])
+            })
+		</script>
+	</body>
+</html>
