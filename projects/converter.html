@@ -114,6 +114,8 @@
                             chapter = chapter.substring(match.index)
                             verse ++
                         }
+
+                        data.push([book, index + 1, verse - 1, chapter.substring(2).trim()])
                     })
 
                     const workbook = XLSX.utils.book_new()
