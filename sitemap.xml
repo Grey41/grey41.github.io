@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<urlset xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image = "http://www.google.com/schemas/sitemap-image/1.1">
+    <url><loc>https://greyhope.uk/index.html</loc></url>
+    <url><loc>https://greyhope.uk/platform.html</loc></url>
+    <url><loc>https://greyhope.uk/mandelbrot.html</loc></url>
+    <url><loc>https://greyhope.uk/snake.html</loc></url>
+    <url><loc>https://greyhope.uk/dwitter.html</loc></url>
+    <url><loc>https://greyhope.uk/physics.html</loc></url>
+    <url><loc>https://greyhope.uk/maze.html</loc></url>
+    <url><loc>https://greyhope.uk/waves.html</loc></url>
+    <url><loc>https://greyhope.uk/path.html</loc></url>
+    <url><loc>https://greyhope.uk/mandelbrot_1.html</loc></url>
+    <url><loc>https://greyhope.uk/mandelbrot_2.html</loc></url>
+    <url><loc>https://greyhope.uk/mandelbrot_3.html</loc></url>
+    <url><loc>https://greyhope.uk/chat_1.html</loc></url>
+    <url><loc>https://greyhope.uk/chat_2.html</loc></url>
+    <url><loc>https://greyhope.uk/chat_3.html</loc></url>
+    <url><loc>https://greyhope.uk/chat_4.html</loc></url>
+    <url><loc>https://greyhope.uk/chat_5.html</loc></url>
+
+    <url>
+        <loc>https://greyhope.uk/projects.html</loc>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/platform.png</image:loc>
+            <image:title>Puck Runner</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/snake.png</image:loc>
+            <image:title>Snake</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/mandlebrot.png</image:loc>
+            <image:title>Mandelbrot Viewer</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/dwitter.png</image:loc>
+            <image:title>Dweet Runner</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/chat.png</image:loc>
+            <image:title>Chat App</image:title>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://greyhope.uk/demos.html</loc>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/balls.png</image:loc>
+            <image:title>Ball Physics</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/maze.png</image:loc>
+            <image:title>Maze Generation</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/waves.png</image:loc>
+            <image:title>Wave Simulation</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/path.png</image:loc>
+            <image:title>Path Finding</image:title>
+        </image:image>
+    </url>
+
+    <url>
+        <loc>https://greyhope.uk/tutorials.html</loc>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/visual.png</image:loc>
+            <image:title>Mandelbrot Visualisation</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://greyhope.uk/images/chat.png</image:loc>
+            <image:title>Chat App</image:title>
+        </image:image>
+    </url>
+</urlset>
