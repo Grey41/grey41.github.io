@@ -1,57 +1,34 @@
 <!DOCTYPE html>
+<html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-        
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-C34XCNZ9G4');
-        </script>
-
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1">
-
-        <link rel = stylesheet href = css/main.css>
-        <link rel = stylesheet id = theme>
-
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
         <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
         <script src = js/main.js></script>
 
-        <script>
-            const text = [{
-                lines: [],
-                start: 1,
-                code: (
-                    "console.log(\"hello\")"
-                )}
-            ]
-        </script>
-            
-        <title>Chat App | Setting Up</title>
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+
+        <link rel = stylesheet href = css/main.css>
+        <title>GreyHope · Chat App · Setting Up</title>
     </head>
-  
+
     <body>
         <section class = top>
             <a href = index.html>HOME</a>
-            <a href = projects.html>PROJECTS</a>
             <a href = demos.html>DEMOS</a>
             <a href = tutorials.html class = this>TUTORIALS</a>
             <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-            <a class = theme onclick = change(this)><i></i></a>
+            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
+            <a onclick = bar()><i class = "fa fa-bars"></i></a>
         </section>
 
         <section class = main>
-            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+            <h2>Chat App <a href = tutorials/chat_1.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
 
-            <h2>Chat App <a href = tutorials/chat_1.zip download><button title = "Download source files for this page">Download <i class = "fas fa-download"></i></button></a></h2>
-
-            <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-            <a href = chat_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
+            <a href = chat_2.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
 
             <h3>1. Setting Up</h3>
 
@@ -85,7 +62,7 @@
             </p>
 
             <p>
-                To install <mark>Node.js</mark>, visit <a href = https://nodejs.org>nodejs.org</a> and download the stable version for your computer.
+                To install <mark>Node.js</mark>, visit <a href = https://nodejs.org target = _blank>nodejs.org</a> and download the stable version for your computer.
                 On <mark>Windows</mark> and <mark>Mac</mark>, it comes as an installer.
             </p>
 
@@ -93,9 +70,7 @@
                 To check if everything has worked, type the following into the <mark>Command Terminal</mark> of your computer and press <mark>ENTER</mark>.
             </p>
 
-            <div class = code>
-                <pre>node -v<br>npm -v</pre>
-            </div>
+            <pre>node -v<br>npm -v</pre>
 
             <p>
                 If any errors appear, then you have a problem.
@@ -103,55 +78,48 @@
             </p>
 
             <p>
-                Once you have successfully installed <mark>Node.js</mark>, make a new folder on your computer and name it <mark>chat_app</mark>.
+                Once you have successfully installed <mark>Node.js</mark>, make a new folder on your computer and name it <mark>chat-app</mark>.
                 Inside the folder, add a file called <mark>server.js</mark>.
                 Open the file and write the following code.
             </p>
 
-            <div class = example></div>
+            <div class = snippet></div>
 
             <p>
                 Now go to the <mark>Command Terminal</mark> and type <mark>cd</mark> followed by the file path of your <mark>chat_app</mark> folder.
                 Based on where you put the folder, the file path will be different.
             </p>
 
-            <div class = code>
-                <pre>cd [file path] chat_app</pre>
-            </div>
+            <pre>cd [file path] chat-app</pre>
 
             <p>
                 Now type the following into the terminal.
             </p>
 
-            <div class = code>
-                <pre>node server.js</pre>
-            </div>
+            <pre>node server.js</pre>
 
             <p>
                 The terminal should then print <mark>hello</mark>.
             </p>
 
             <p>
-                Now we need to set up our <mark>chat_app</mark> folder.
+                Now we need to set up our <mark>chat-app</mark> folder.
                 Type the following into the terminal.
             </p>
 
-            <div class = code>
-                <pre>npm init</pre>
-            </div>
+            <pre>npm init</pre>
 
             <p>
                 It will then ask questions about your new package.
                 You can type the following answers.
             </p>
 
-            <div class = code>
-                <pre>package name: chat-app<br>version: 1.0.0<br>description: A basic online chat application<br>entry point: server.js<br>test command:<br>git repository:<br>keywords: chatting online fun<br>author: Your Name<br>license: ISC</pre>
-            </div>
+            <pre>package name: (chat-app)<br>version: (1.0.0)<br>description: A basic online chat application<br>entry point: (server.js)
+test command:<br>git repository:<br>keywords: chatting online fun<br>author: Your Name<br>license: (ISC)</pre>
 
             <p>
                 Confirm everything by pressing <mark>ENTER</mark>.
-                It should then create a single file called <mark>package.json</mark> in your <mark>chat_app</mark> folder.
+                It should then create a single file called <mark>package.json</mark> in your <mark>chat-app</mark> folder.
                 This file contains all the information you just entered.
             </p>
 
@@ -171,11 +139,13 @@
             </p>
 
             <p>
-                <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-                <a href = chat_2.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+                <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
+                <a href = chat_2.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
             </p>
-
-            <footer></footer>
         </section>
+
+        <script>
+            snippet("chat", document.querySelector(".snippet"), 1)
+        </script>
     </body>
 </html>

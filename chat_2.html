@@ -1,82 +1,34 @@
 <!DOCTYPE html>
+<html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-        
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-C34XCNZ9G4');
-        </script>
-
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1">
-
-        <link rel = stylesheet href = css/main.css>
-        <link rel = stylesheet id = theme>
-
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
         <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
         <script src = js/main.js></script>
 
-        <script>
-            const source = [
-                "<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t</head>\n\n\t<body>\n\t\t<h1>Welcome</h1>\n\t\tWelcome to the new applicatio" +
-                "n.\n\t</body>\n</html>"
-            ]
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
 
-            const text = [{
-                lines: [],
-                start: 1,
-                code: (
-                    "const express = require(\"express\")\nconst app = express()\nconst server = require(\"http\").Server(app)\nconst io = require(\"socket" +
-                    ".io\")(server)"
-                )}, {
-                lines: [6, 7],
-                start: 1,
-                code: (
-                    "const express = require(\"express\")\nconst app = express()\nconst server = require(\"http\").Server(app)\nconst io = require(\"socket" +
-                    ".io\")(server)\n\napp.use(express.static(__dirname + \"/public\"))\napp.get(\"/\", (request, response) => response.render(\"index.html" +
-                    "\"))"
-                )}, {
-                lines: [6],
-                start: 4,
-                code: (
-                    "const io = require(\"socket.io\")(server)\n\napp.use(express.static(__dirname + \"/public\"))\napp.get(\"/\", (request, response) => r" +
-                    "esponse.render(\"index.html\"))\n\nserver.listen(5000, () => console.log(\"server listening\"))"
-                )}, {
-                lines: [],
-                start: 1,
-                code: (
-                    "<!DOCTYPE html>\n\t<head>\n\t\t<title>Chat App</title>\n\t</head>\n\n\t<body>\n\t\t<h1>Welcome</h1>\n\t\tWelcome to the new applicatio" +
-                    "n.\n\t</body>\n</html>"
-                )}
-            ]
-        </script>
-            
-        <title>Chat App | Setup Code</title>
+        <link rel = stylesheet href = css/main.css>
+        <title>GreyHope · Chat App · Setup Code</title>
     </head>
-  
+
     <body>
         <section class = top>
             <a href = index.html>HOME</a>
-            <a href = projects.html>PROJECTS</a>
             <a href = demos.html>DEMOS</a>
             <a href = tutorials.html class = this>TUTORIALS</a>
             <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-            <a class = theme onclick = change(this)><i></i></a>
+            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
+            <a onclick = bar()><i class = "fa fa-bars"></i></a>
         </section>
 
         <section class = main>
-            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
+            <h2>Chat App <a href = tutorials/chat_2.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
 
-            <h2>Chat App <a href = tutorials/chat_2.zip download><button title = "Download source files for this page">Download <i class = "fas fa-download"></i></button></a></h2>
-
-            <a href = chat_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-            <a href = chat_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+            <a href = chat_1.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
+            <a href = chat_3.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
 
             <h3>2. Setup Code</h3>
 
@@ -92,16 +44,14 @@
             </p>
 
             <p>
-                First, inside your <mark>chat_app</mark> folder, create a new folder named <mark>public</mark>.
+                First, inside your <mark>chat-app</mark> folder, create a new folder named <mark>public</mark>.
                 This new folder is where we will keep all our files for the users.
                 Inside the <mark>public</mark> folder create an empty file named <mark>index.html</mark>.
                 This is the main <mark>HTML</mark> file that will be run at the start.
                 So far, your file structure should look like this.
             </p>
 
-            <div class = code>
-                <pre>chat_app<br>├── node_modules<br>├── public<br>│   └── index.html<br>├── package.json<br>├── package-lock.json<br>└── server.js</pre>
-            </div>
+            <pre>chat-app<br>├── node_modules<br>├── public<br>│   └── index.html<br>├── package.json<br>├── package-lock.json<br>└── server.js</pre>
 
             <p>
                 Let's focus on our server-side code.
@@ -109,14 +59,14 @@
                 Type the following in your <mark>server.js</mark> file.
             </p>
 
-            <div class = example></div>
+            <div class = snippet></div>
 
             <p>
                 When a user connects to our application, the server needs to supply them with main <mark>HTML</mark> page.
                 The code below, tells the server where this <mark>HTML</mark> file is.
             </p>
 
-            <div class = example></div>
+            <div class = snippet></div>
 
             <p>
                 Finally, we need to set a port for the server.
@@ -124,31 +74,27 @@
                 We will set the port to <mark>5000</mark> and make it print <mark>server listening</mark>.
             </p>
 
-            <div class = example></div>
+            <div class = snippet></div>
 
             <p>
                 Now we will focus on our client-side code.
                 Write the following <mark>HTML</mark> code inside <mark>index.html</mark>.
             </p>
 
-            <div class = example></div>
+            <div class = snippet></div>
 
             <p>
                 Go to the <mark>Command Terminal</mark> and make sure the its current directory is your <mark>chap_app</mark> folder.
                 If not, change the current directory.
             </p>
 
-            <div class = code>
-                <pre>cd [file path] chat_app</pre>
-            </div>
+            <pre>cd [file path] chat-app</pre>
 
             <p>
                 Now type the following into the terminal
             </p>
 
-            <div class = code>
-                <pre>node server.js</pre>
-            </div>
+            <pre>node server.js</pre>
 
             <p>
                 It should then print <mark>server listening</mark>.
@@ -156,31 +102,37 @@
                 It takes you to the port we set up earlier.
             </p>
 
-            <div class = code>
-                <pre>localhost:5000</pre>
-            </div>
+            <pre>localhost:5000</pre>
 
             <p>
                 If everything works as planned, you should see this.
             </p>
 
-            <iframe class = demo></iframe>
+            <iframe class = frame></iframe>
 
             <p>
                 You have officially built your first <mark>Node.js</mark> application.
             </p>
 
             <p>
-                Because we are currently connecting through <mark>localhost</mark>, noone else can access this website.
+                Because we are currently connecting through <mark>localhost</mark>, no one else can access this website.
                 We will use <mark>localhost</mark> for testing and later we will release our application online.
             </p>
 
             <p>
-                <a href = chat_1.html><button><i class = "fas fa-arrow-left"></i> Back</button></a>
-                <a href = chat_3.html><button class = right>Next <i class = "fas fa-arrow-right"></i></button></a>
+                <a href = chat_1.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
+                <a href = chat_3.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
             </p>
-
-            <footer></footer>
         </section>
+
+        <script>
+            const snippets = document.querySelectorAll(".snippet")
+
+            snippet("chat_server_1", snippets[0], 1, [1, 2, 3, 4])
+            snippet("chat_server_2", snippets[1], 1, [6, 7])
+            snippet("chat_server_3", snippets[2], 4, [6])
+            snippet("chat_server_4", snippets[3], 1)
+            frame("chat", document.querySelector(".frame"))
+        </script>
     </body>
 </html>
