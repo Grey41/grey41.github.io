@@ -1,84 +1,36 @@
 <!DOCTYPE html>
+<html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-        
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-C34XCNZ9G4');
-        </script>
-
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1">
-
-        <link rel = stylesheet href = css/main.css>
-        <link rel = stylesheet id = theme>
-
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
         <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
         <script src = js/main.js></script>
 
-        <script>
-            const edit = [{
-                lines: [],
-                code: (
-                    "<!DOCTYPE html>\n\t<body>\n\t\t<canvas id = canvas></canvas>\n\n\t\t<script>\n\t\t\tconst ROWS = 10\n\t\t\tconst COLUMNS = 10\n\t\t\tc" +
-                    "onst RADIUS = 10\n\t\t\tconst GRAVITY = 0.2\n\t\t\tconst DAMPING = 0.99\n\n\t\t\tclass Ball {\n\t\t\t\tconstructor(x, y) {\n\t\t\t\t\t" +
-                    "this.x = x\n\t\t\t\t\tthis.y = y\n\t\t\t\t\tthis.speed = {x: 0.1, y: 0}\n\t\t\t\t}\n\n\t\t\t\tupdate() {\n\t\t\t\t\t// make the ball f" +
-                    "all\n\t\t\t\t\tthis.speed.y += GRAVITY\n\n\t\t\t\t\t// slow it down slightly\n\t\t\t\t\tthis.x += this.speed.x *= DAMPING\n\t\t\t\t\tt" +
-                    "his.y += this.speed.y *= DAMPING\n\n\t\t\t\t\t// check collision with every other ball\n\t\t\t\t\tballs.forEach(ball => { \n\n\t\t\t\t" +
-                    "\t\t// make sure it doesn't collide with itself\n\t\t\t\t\t\tif (ball == this) return\n\n\t\t\t\t\t\t// find distance and angle betwee" +
-                    "n both balls\n\t\t\t\t\t\tconst distance = Math.sqrt((this.x - ball.x) ** 2 + (this.y - ball.y) ** 2)\n\t\t\t\t\t\tconst angle = Math." +
-                    "atan2(ball.y - this.y, ball.x - this.x)\n\n\t\t\t\t\t\t// if the balls are too close, it means they have collided\n\t\t\t\t\t\tif (dis" +
-                    "tance < RADIUS * 2) {\n\n\t\t\t\t\t\t\t// find how much they overlap\n\t\t\t\t\t\t\tconst x = Math.cos(angle) * (RADIUS * 2 - distance" +
-                    ") / 2\n\t\t\t\t\t\t\tconst y = Math.sin(angle) * (RADIUS * 2 - distance) / 2\n\n\t\t\t\t\t\t\t// make them move apart from each other " +
-                    "\n\t\t\t\t\t\t\tthis.x -= x\n\t\t\t\t\t\t\tthis.y -= y\n\t\t\t\t\t\t\tball.x += x\n\t\t\t\t\t\t\tball.y += y\n\n\t\t\t\t\t\t\t// alter" +
-                    " their speed\n\t\t\t\t\t\t\tthis.speed.x -= x\n\t\t\t\t\t\t\tthis.speed.y -= y\n\t\t\t\t\t\t\tball.speed.x += x\n\t\t\t\t\t\t\tball.sp" +
-                    "eed.y += y\n\t\t\t\t\t\t}\n\t\t\t\t\t})\n\n\t\t\t\t\t// check collision with floor\n\t\t\t\t\tif (this.y > innerHeight * 0.9) { \n\t\t" +
-                    "\t\t\t\tthis.y = innerHeight * 0.9\n\t\t\t\t\t\tthis.speed.y = Math.abs(this.speed.y) * -1\n\t\t\t\t\t}\n\n\t\t\t\t\t// left wall \n\t" +
-                    "\t\t\t\tif (this.x < RADIUS) {\n\t\t\t\t\t\tthis.x = RADIUS\n\t\t\t\t\t\tthis.speed.x = Math.abs(this.speed.x)\n\t\t\t\t\t} \n\n\t\t\t" +
-                    "\t\t// right wall\n\t\t\t\t\telse if (this.x > innerWidth - RADIUS) {\n\t\t\t\t\t\tthis.x = innerWidth - RADIUS\n\t\t\t\t\t\tthis.spee" +
-                    "d.x = Math.abs(this.speed.x) * -1\n\t\t\t\t\t}\n\n\t\t\t\t\t// draw ball with javascript arc\n\t\t\t\t\tcontext.fillStyle = \"#aaa\"\n" +
-                    "\t\t\t\t\tcontext.beginPath()\n\t\t\t\t\tcontext.arc(this.x, this.y, RADIUS, 0, 2 * Math.PI)\n\t\t\t\t\tcontext.fill()\n\t\t\t\t} \n\t" +
-                    "\t\t}\n\n\t\t\tfunction resize() {\n\t\t\t\t// set canvas dimentions\n\t\t\t\tcanvas.width = innerWidth\n\t\t\t\tcanvas.height = inner" +
-                    "Height\n\t\t\t}\n\n\t\t\tfunction loop() {\n\t\t\t\t// clear screen\n\t\t\t\tcanvas.width = canvas.width\n\n\t\t\t\t// update all the " +
-                    "balls\n\t\t\t\tballs.forEach(ball => ball.update())\n\n\t\t\t\trequestAnimationFrame(loop)\n\t\t\t}\n\n\t\t\tfunction start() { \n\t\t" +
-                    "\t\t// style the body and get rid of margins\n\t\t\t\twith (document.body.style) {\n\t\t\t\t\tmargin = 0\n\t\t\t\t\toverflow = \"hidde" +
-                    "n\"\n\t\t\t\t\tbackground = \"#555\"\n\t\t\t\t}\n\n\t\t\t\t// position all the balls in a grid\n\t\t\t\tfor (let y = 0; y < ROWS; y ++" +
-                    " )\n\t\t\t\t\tfor (let x = 0; x < COLUMNS; x ++)\n\t\t\t\t\t\tballs.push(new Ball(\n\t\t\t\t\t\t\tinnerWidth / 2 - ROWS * RADIUS + RAD" +
-                    "IUS * 2 * y,\n\t\t\t\t\t\t\tinnerHeight / 3 - COLUMNS * RADIUS * 2 + RADIUS * 2 * x\n\t\t\t\t\t\t))\n\n\t\t\t\t// when screen resizes," +
-                    " run the resize function\n\t\t\t\taddEventListener(\"resize\", resize)\n\t\t\t\tresize()\n\n\t\t\t\t// activate game loop\n\t\t\t\tloo" +
-                    "p()\n\t\t\t}\n\n\t\t\tconst context = canvas.getContext(\"2d\")\n\t\t\tconst balls = []\n\n\t\t\tstart()\n\t\t<\/script>\n\t</body>\n<" +
-                    "/html>"
-                )}
-            ]
-        </script>
-    
-        <title>Ball Physics</title>
+        <meta charset = utf-8>
+        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+
+        <link rel = stylesheet href = css/main.css>
+        <title>GreyHope · Ball Physics</title>
     </head>
-  
+
     <body>
         <section class = top>
             <a href = index.html>HOME</a>
-            <a href = projects.html>PROJECTS</a>
             <a href = demos.html class = this>DEMOS</a>
             <a href = tutorials.html>TUTORIALS</a>
             <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-            <a class = theme onclick = change(this)><i></i></a>
+            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
+            <a onclick = bar()><i class = "fa fa-bars"></i></a>
         </section>
 
         <section class = main>
-            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
-
             <h2>Ball Physics</h2>
 
-            <iframe class = iframe></iframe>
-            <div class = editor></div>
-            <span class = note>Edit the code to change the result above.</span>
+            <div class = editor>
+                <iframe></iframe>
+                <div></div>
+            </div>
 
             <p>
                 In this demo, I have tried to make the code as minimal as possible.
@@ -86,20 +38,12 @@
             </p>
 
             <p>
-                To find the distance between two circles, you need to use the <mark>Pythagoras Theorem</mark>.
-                The example below will show how this is achieved.
-                Once you have the distance, it's easy to calculate collision.
-            </p>
-
-            <div class = code>
-                <pre>distance = &#8730;(x-distance&#178; + y-distance&#178;)</pre>
-            </div>
-
-            <p>
                 Feel free to fiddle with the code and make your own combinations.
             </p>
-
-            <footer></footer>
         </section>
+
+        <script>
+            editor("physics", document.querySelector(".editor"))
+        </script>
     </body>
 </html>

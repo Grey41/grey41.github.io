@@ -1,48 +1,36 @@
 <!DOCTYPE html>
+<html>
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-W2C6ZR2P0X"></script>
-        
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-C34XCNZ9G4');
-        </script>
+        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <script src = js/main.js></script>
 
         <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        <meta name = description content = "We aim to explain everything clearly and make these tutorials easy to follow.">
+        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
 
         <link rel = stylesheet href = css/main.css>
-        <link rel = stylesheet id = theme>
-
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js  crossorigin = anonymous></script>
-        <script src = js/main.js></script>
-    
-        <title>GreyHope | Tutorials</title>
+        <title>GreyHope · Tutorials</title>
     </head>
-  
+
     <body>
         <section class = top>
             <a href = index.html>HOME</a>
-            <a href = projects.html>PROJECTS</a>
             <a href = demos.html>DEMOS</a>
             <a href = tutorials.html class = this>TUTORIALS</a>
             <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a class = icon onclick = bar()><i class = "fa fa-bars"></i></a>
-            <a class = theme onclick = change(this)><i></i></a>
+            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
+            <a onclick = bar()><i class = "fa fa-bars"></i></a>
         </section>
 
         <section class = main>
-            <a href = mailto:info@greyhope.uk class = email>info@greyhope.uk</a>
-
             <div class = image>
                 <a href = mandelbrot_1.html>
                     <img src = images/visual.png>
                 </a>
 
-                <div class = content>
+                <div>
                     <h2>Mandelbrot Visualisation</h2>
                     This tutorial explains how to create the <mark>Mandelbrot Set</mark> in pure <mark>JavaScript</mark>.
                 </div>
@@ -53,7 +41,7 @@
                     <img src = images/chat.png>
                 </a>
 
-                <div class = content>
+                <div>
                     <h2>Chat App</h2>
                     In this tutorial we will build a simple app that multiple people can connect to.
                     This tutorial will also explain how to publish the app online.
@@ -65,13 +53,11 @@
                     <img src = images/coming.png>
                 </a>
 
-                <div class = content>
+                <div>
                     <h2>JavaScript Platformer</h2>
                     In this tutorial we will create a 2D platform game in <mark>JavaScript</mark>.
                 </div>
             </div>
-
-            <footer></footer>
         </section>
     </body>
 </html>
