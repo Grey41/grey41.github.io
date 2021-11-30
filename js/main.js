@@ -571,6 +571,9 @@ const data = {
 				if (complete) {
 					let next = complete
 
+                    // set the width of the line
+                    context.lineWidth = 2
+
 					// draw a red line from the goal to the player
                     context.beginPath()
 					context.strokeStyle = "#f00"
