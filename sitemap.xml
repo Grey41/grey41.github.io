@@ -1,10 +1,10 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
 <urlset xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image = "http://www.google.com/schemas/sitemap-image/1.1">
-    <url><loc>https://greyhope.uk/platform.html</loc></url>
-    <url><loc>https://greyhope.uk/mandelbrot.html</loc></url>
-    <url><loc>https://greyhope.uk/snake.html</loc></url>
-    <url><loc>https://greyhope.uk/dwitter.html</loc></url>
+    <url><loc>https://greyhope.uk/projects/platform.html</loc></url>
+    <url><loc>https://greyhope.uk/projects/mandelbrot.html</loc></url>
+    <url><loc>https://greyhope.uk/projects/snake.html</loc></url>
+    <url><loc>https://greyhope.uk/projects/dwitter.html</loc></url>
     <url><loc>https://greyhope.uk/physics.html</loc></url>
     <url><loc>https://greyhope.uk/maze.html</loc></url>
     <url><loc>https://greyhope.uk/waves.html</loc></url>
