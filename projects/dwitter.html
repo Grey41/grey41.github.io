@@ -238,18 +238,16 @@
             }
 
             function unpack() {
+                const code = edit.getValue()
                 const index = code.toLowerCase().search(/eval\(unescape\(escape`/g)
-                let code = edit.getValue()
                 
                 if (index >= 0) {
                     const start = code.slice(0, index)
                     const end = code.slice(index)
                     const result = content.eval(end.slice(4))
 
-                    if (result) {
-                        code = start + result
-                        edit.setValue(code)
-                    }
+                    if (result)
+                        edit.setValue(start + result)
                 }
             }
 
