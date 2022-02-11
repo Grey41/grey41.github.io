@@ -1660,7 +1660,7 @@
             const fade = {active: 1, value: 1}
             const key = {left: false, right: false}
             const main = {data: [], actors: [], particles: [], store: {}, level: 0}
-            const mobile = true ///Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+            const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
             const begin = {index: 0, timer: 100, play: true}
             const context = canvas.getContext("2d")
             const player = new Self()
