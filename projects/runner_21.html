@@ -1665,7 +1665,7 @@
             const fade = {active: 1, value: 1}
             const key = {left: false, right: false}
             const main = {data: [], actors: [], particles: [], store: {}, level: 0}
-            const begin = {index: 0, timer: 100, play: true}
+            const game = {index: 0, timer: 100, start: true}
             const mobile = "ontouchstart" in window
             const context = canvas.getContext("2d")
             const player = new Self()
@@ -1939,8 +1939,6 @@
             function resize() {
                 canvas.width = innerWidth
                 canvas.height = innerHeight
-                canvas.style.width = innerWidth + "px"
-                canvas.style.height = innerHeight + "px"
             }
 
             function pos(index) {
@@ -1993,21 +1991,18 @@
                     addEventListener("touchend", e => arrows(e, false))
 
                     addEventListener("touchstart", e => {
-                        if (press(e, 4)) {
+                        if (game.start) {
+                            game.start = false
+                            setTimeout(() => message.activate("arrows"), 1000)
+                            loop()
+                        }
+
+                        else if (press(e, 4)) {
                             message.deactivate("arrows")
                             player.jump()
                         }
 
-                        else if (press(e, 3)) {
-                            if (begin.play) {
-                                begin.play = false
-                                setTimeout(() => message.activate("arrows"), 1000)
-                                loop()
-                            }
-                            
-                            else player.space()
-                        }
-
+                        else if (press(e, 3)) player.space()
                         else arrows(e, true)
                     })
                 }
@@ -2024,8 +2019,8 @@
 
                     else if (e.keyCode == 82) player.destroy()
                     else if (e.keyCode == 32) {
-                        if (begin.play) {
-                            begin.play = false
+                        if (game.start) {
+                            game.start = false
                             setTimeout(() => message.activate("arrows"), 1000)
                             loop()
                         }
@@ -2050,12 +2045,12 @@
                 context.fillRect(0, 0, canvas.width, canvas.height)
                 context.fillStyle = "#888"
 
-                text.draw(start.substring(0, begin.index), {
+                text.draw(start.substring(0, game.index), {
                     x: canvas.width / 2 - text.width(start + end) / 2 * text.size,
                     y: canvas.height / 2 - 7 * text.size
                 })
 
-                if (begin.index > start.length + end.length + 5) {
+                if (game.index > start.length + end.length + 5) {
                     const message = (mobile ? "TAP" : "PRESS SPACE") + " TO START"
                     context.fillStyle = "#888"
                     text.size = 3
@@ -2069,16 +2064,16 @@
                     context.fillStyle = "#282"
                 }
 
-                text.draw(end.substring(0, begin.index - start.length), {
+                text.draw(end.substring(0, game.index - start.length), {
                     x: canvas.width / 2 - (text.width(start + end) / 2 - text.width(start)) * text.size,
                     y: canvas.height / 2 - 7 * text.size
                 })
 
-                begin.timer --
+                game.timer --
 
-                if (begin.timer < 0) {
-                    begin.index ++
-                    begin.timer = random(5, 20)
+                if (game.timer < 0) {
+                    game.index ++
+                    game.timer = random(5, 20)
                 }
             }
 
