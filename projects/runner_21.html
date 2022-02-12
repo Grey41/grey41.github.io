@@ -1990,9 +1990,9 @@
                 resize()
 
                 if (mobile) {
-                    addEventListener("pointerup", e => arrows(e, false))
+                    addEventListener("touchend", e => arrows(e, false))
 
-                    addEventListener("pointerdown", e => {
+                    addEventListener("touchstart", e => {
                         if (press(e, 4)) {
                             message.deactivate("arrows")
                             player.jump()
