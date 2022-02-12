@@ -1666,7 +1666,7 @@
             const key = {left: false, right: false}
             const main = {data: [], actors: [], particles: [], store: {}, level: 0}
             const game = {index: 0, timer: 100, start: true}
-            const mobile = "ontouchstart" in window
+            const mobile = "ontouchstart" in window || navigator.msMaxTouchPoints
             const context = canvas.getContext("2d")
             const player = new Self()
             const camera = new Camera()
@@ -1988,9 +1988,9 @@
                 resize()
 
                 if (mobile) {
-                    addEventListener("touchend", e => arrows(e, false))
+                    addEventListener("pointerup", e => arrows(e, false))
 
-                    addEventListener("touchstart", e => {
+                    addEventListener("pointerdown", e => {
                         if (game.start) {
                             game.start = false
                             setTimeout(() => message.activate("arrows"), 1000)
