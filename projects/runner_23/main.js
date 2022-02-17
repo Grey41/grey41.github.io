@@ -1,7 +1,5 @@
 "use strict"
 
-alert("Start")
-
 const ctx = canvas.getContext("2d")
 const player = new Player()
 const camera = new Camera()
