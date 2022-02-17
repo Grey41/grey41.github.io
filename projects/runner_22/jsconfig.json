@@ -1,0 +1,15 @@
+{
+    "files": [
+        "main.js",
+        "js/constants.js",
+        "js/world.js",
+        "js/actors.js",
+        "js/static.js",
+        "js/particles.js",
+        "js/camera.js",
+        "js/input.js",
+        "js/math.js",
+        "js/text.js",
+        "js/game.js"
+    ]
+}
