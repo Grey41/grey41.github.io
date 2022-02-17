@@ -303,7 +303,7 @@ class World {
                 if (!rand(0, 100))
                     this.source[i] = ITEM
 
-                else if (game.level >= DUCK_MIN_LEVEL && !rand(0, 500 / game.level))
+                else if (game.level >= DUCK_MIN_LEVEL && !rand(0, 300 / game.level))
                     this.source[i] = DUCK
 
                 else if (this.source[i + this.size.x] == WALL) {

@@ -163,7 +163,7 @@ const EGG_HATCH_TIMER = 200
 const EGG_COLOR = [0.8, 0.8, 0.7]
 
 const PLAYER_SIZE = 0.6
-const PLAYER_COLOR = [0.63, 0.5, 0]
+const PLAYER_COLOR = [0.7, 0.57, 0]
 const PLAYER_JUMP_FORCE = 0.4
 const PLAYER_BLINK_SPEED = 0.3
 const PLAYER_SQUINT_SPEED = 0.1

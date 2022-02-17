@@ -251,7 +251,7 @@ class Fish extends Base {
                 {x: this.pos.x + this.size / 2 * this.direction, y: this.pos.y},
                 Math.PI))
 
-            this.time = Math.random() * FISH_BUBBLE_TIMER
+            this.time = rand(0, FISH_BUBBLE_TIMER)
         }
 
         const checkSide = side => {
@@ -444,7 +444,7 @@ class Duck extends Character {
     }
 
     destroy() {
-        if (!this.destroyed)            
+        if (!this.destroyed)
             world.particles.push(new Puff(
                 this.pos, {x: this.size, y: this.size},
                 DUCK_COLOR, 10))
@@ -460,8 +460,8 @@ class Duck extends Character {
             if (this.inWater) {
                 this.bob += DUCK_BOB_SPEED
                 this.velocity *= 0.8
-                this.velocity += (this.inWater.top - this.bottom) * GRAVITY * this.size * 6
-                this.pos.y += Math.sin(this.bob) * 0.015
+                this.velocity += (this.inWater.top - this.bottom) * GRAVITY * this.size * 8
+                this.pos.y += Math.sin(this.bob) * 0.012
             }
 
             if (!this.time) {
