@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = description content = "Short JavaScript examples for inserting into your own projects.">
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
         <title>GreyHope · Demos</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html class = this>DEMOS</a>
-            <a href = tutorials.html>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html class = this>Demos</a>
+            <a href = tutorials.html>Tutorials</a>
         </section>
 
         <section class = main>
             <div class = image>
                 <a href = physics.html>
-                    <img src = images/balls.png>
+                    <video autoplay>
+                        <source src = assets/videos/physics.mp4 type = video/mp4>
+                        <img src = assets/images/physics.png alt = "Ball Physics">
+                    </video>
                 </a>
 
                 <div>
                     <h2>Ball Physics</h2>
                     This demo gives an example of the simplest type of collision and physics.
-                    It also briefly explains how circle collision is calculated.
                 </div>
             </div>
 
             <div class = image>
-                <a href = maze.html>
-                    <img src = images/maze.png>
+                <a href = path.html>
+                    <video autoplay>
+                        <source src = assets/videos/path.mp4 type = video/mp4>
+                        <img src = assets/images/path.png alt = "A* Pathfinding">
+                    </video>
                 </a>
 
                 <div>
-                    <h2>Maze Generation</h2>
-                    In this demo, you will learn how to make a procedurally generated maze using the <mark>randomized depth-first search</mark> algorithm.
-                    This type of maze never loops back on itself.
+                    <h2>A* Pathfinding</h2>
+                    This demo will explain how to build the <mark>A* Pathfinding</mark> algorithm.
+                    This technique is used in many games.
                 </div>
             </div>
 
             <div class = image>
                 <a href = waves.html>
-                    <img src = images/waves.png>
+                    <video autoplay>
+                        <source src = assets/videos/waves.mp4 type = video/mp4>
+                        <img src = assets/images/waves.png alt = "Wave Simulation">
+                    </video>
                 </a>
 
                 <div>
@@ -61,14 +69,16 @@
             </div>
 
             <div class = image>
-                <a href = path.html>
-                    <img src = images/path.png>
+                <a href = maze.html>
+                    <video autoplay>
+                        <source src = assets/videos/maze.mp4 type = video/mp4>
+                        <img src = assets/images/maze.png alt = "Maze Generation">
+                    </video>
                 </a>
 
                 <div>
-                    <h2>Path Finding</h2>
-                    This demo will explain how to build a path finding algorithm.
-                    This path finding technique is used in many games.
+                    <h2>Maze Generation</h2>
+                    In this demo, you will learn how to make a procedurally generated maze using the <mark>Randomized Depth-First Search</mark> algorithm.
                 </div>
             </div>
         </section>

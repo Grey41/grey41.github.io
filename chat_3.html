@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Chat App · The Layout</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Chat App",
-                    "item": "https://greyhope.uk/chat_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "The Layout"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Chat App · The Layout</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
-            <h2>Chat App <a href = tutorials/chat_3.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
-
-            <a href = chat_2.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = chat_4.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <h2>Chat App</h2>
+            
+            <div class = buttons>
+                <a href = chat_2.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = assets/zip/chat_3.zip class = left download><i class = "fa-solid fa-download"></i>Download</a>
+                <a href = chat_4.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>3. The Layout</h3>
 
@@ -66,13 +47,43 @@
                 Then create a new <mark>div</mark> called <mark>main</mark>.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                </head>
+
+                <body>
+                    ‡<div id = main></div>‡
+                </body>
+            </script>
 
             <p>
                 Now we want to style the page and position the <mark>div</mark> in the middle of the screen.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                <head>
+                    <title>Chat App</title>
+
+                    ‡<style>
+                        html {
+                            height: 100%;
+                        }
+
+                        body { 
+                            margin: 0;
+                            background: #555;
+                            height: 100%;
+                        }
+
+                        #main {
+                            max-width: 64em;
+                            margin: 0 auto;
+                            background: #aaa;
+                            height: 100%;
+                            overflow: auto;
+                        }
+                    </style>‡
+                </head>
+            </script>
 
             <p>
                 The <mark>CSS</mark> above makes the page expand to the full height of the window.
@@ -92,14 +103,31 @@
                 This is where the user will submit a message.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                <body>
+                    <div id = main></div>
+                    ‡<div id = base></div>‡
+                </body>
+            </script>
 
             <p>
                 To make our <mark>base div</mark> fit at the bottom of the page, we need to make the height of the <mark>main div</mark> smaller.
                 The following <mark>CSS</mark> uses <mark>calc</mark> to subtract from the height of the <mark>main div</mark>.
             </p>
 
-            <div class = snippet></div>
+            <script type = css>
+                        height: calc(100% - 4.5em);
+                        overflow: auto;
+                    }
+        
+                    ‡#base {
+                        max-width: 64em;
+                        margin: 0 auto;
+                        background: #bbb;
+                        height: 4.5em;
+                    }‡
+                </style>
+            </script>
 
             <p>
                 If you run your application at <mark>localhost:5000</mark>, you will see a thin grey rectangle at the bottom of the screen.
@@ -110,14 +138,40 @@
                 The <mark>placeholder</mark> value refers to the initial background text inside the box.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                <div id = main></div>
+                <div id = base>
+                    ‡<form id = form>
+                        <input id = input type = text placeholder = "Type Message">
+                    </form>‡
+                </div>
+            </script>
 
             <p>
                 Now let's style our input box.
                 We will give it a curved edge with the <mark>border-radius</mark> value.
             </p>
 
-            <div class = snippet></div>
+            <script type = css>
+                        background: #bbb;
+                        height: 4.5em;
+                    }
+        
+                    ‡#base #form {
+                        padding: 1rem;
+                    }
+        
+                    #base #input {
+                        border-radius: 0.3em;
+                        border: solid #888;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                        width: 100%;
+                        padding: 0.4em;
+                        height: 2.5em;
+                    }‡
+                </style>
+            </script>
 
             <p>
                 When you refresh your application, you will have a nice input box where you can type a message.
@@ -130,13 +184,35 @@
                 This is just a test and we will remove it later.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                <body>
+                    <div id = main>
+                        ‡<div id = box><div>This is a test message.</div></div>‡
+                    </div>
+            </script>
 
             <p>
                 Let's style the message box.
             </p>
 
-            <div class = snippet></div>
+            <script type = css>
+                        padding: 0.4em;
+                        height: 2.5em;
+                    }
+        
+                    ‡#box {
+                        padding: 1em 1em 0 1em;
+                    }
+        
+                    #box div {
+                        background: #eee;
+                        padding: 0.4em;
+                        border-radius: 0.3em;
+                        overflow: hidden;
+                        font-size: 16px;
+                    }‡
+                </style>
+            </script>
 
             <p>
                 When you refresh your application again, you will see a box with a message inside.
@@ -148,23 +224,10 @@
                 On the next page, we will start writing the code that will enable the browser to communicate with the server.
             </p>
 
-            <p>
-                <a href = chat_2.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = chat_4.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = chat_2.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = chat_4.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            const snippets = document.querySelectorAll(".snippet")
-
-            snippet("chat_main_1", snippets[0], 1, [8])
-            snippet("chat_main_2", snippets[1], 1, [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24])
-            snippet("chat_main_3", snippets[2], 27, [3])
-            snippet("chat_main_4", snippets[3], 6, [16, 20, 21, 22, 23, 24, 25])
-            snippet("chat_main_5", snippets[4], 34, [4, 5, 6])
-            snippet("chat_main_6", snippets[5], 6, [27, 28, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39])
-            snippet("chat_main_7", snippets[6], 48, [3])
-            snippet("chat_main_8", snippets[7], 6, [41, 42, 43, 45, 46, 47, 48, 49, 50, 51])
-        </script>
     </body>
 </html>

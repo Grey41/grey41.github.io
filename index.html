@@ -1,90 +1,72 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        <meta name = description content = "Welcome to GreyHope. Explore the playground of JavaScript tutorials, games and experiments.">
+
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = description content = "Welcome to GreyHope. Explore the playground of JavaScript tutorials, games and experiments.">
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope</title>
+        <title>GreyHope · The Experimental Coding Playground</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html class = this>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html class = this>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html>Tutorials</a>
         </section>
 
         <section class = main>
             <div class = image>
-                <a href = projects/dwitter.html target = _blank>
-                    <img src = images/dwitter.png alt = "Dweet Runner">
+                <a href = https://js-bytebase.com target = _blank>
+                    <video autoplay>
+                        <source src = assets/videos/bytebase.mp4 type = video/mp4>
+                        <img src = assets/images/bytebase.png alt = "JS-ByteBase">
+                    </video>
+                </a>
+
+                <div>
+                    <h2>JS-ByteBase</h2>
+                    Join the JavaScript 2k coding challenge.
+                    Share games, upload projects, showcase your creations.
+                </div>
+            </div>
+
+            <div class = image>
+                <a href = https://jobase.org target = _blank>
+                    <video autoplay>
+                        <source src = assets/videos/jobase.mp4 type = video/mp4>
+                        <img src = assets/images/jobase.png alt = "JoBase">
+                    </video>
+                </a>
+
+                <div>
+                    <h2>JoBase</h2>
+                    A fast Python game library for beginner coders.
+                </div>
+            </div>
+
+            <div class = image>
+                <a href = projects/runner/index.html target = _blank>
+                    <video autoplay>
+                        <source src = assets/videos/runner.mp4 type = video/mp4>
+                        <img src = assets/images/runner.png alt = "Dweet Runner">
+                    </video>
                 </a>
 
                 <div>
                     <h2>Dweet Runner</h2>
                     This is a program for the <a href = https://dwitter.net target = _blank>Dwitter</a> challenge.
-                    It has some useful tools that might come in handy.
-                    This program can also be used on mobile devices.
-                </div>
-            </div>
-
-            <div class = image>
-                <a href = http://greyhope-chat.herokuapp.com target = _blank>
-                    <img src = images/chat.png alt = "Chat App">
-                </a>
-
-                <div>
-                    <h2>Chat App</h2>
-                    Multiple people can connect to this chat application.
-                    We have made a detailed tutorial for it on the tutorials page.
-                </div>
-            </div>
-
-            <div class = image>
-                <a href = projects/snake.html target = _blank>
-                    <img src = images/snake.png alt = Snake>
-                </a>
-
-                <div>
-                    <h2>Snake</h2>
-                    This classic game can be played by two people.
-                    The snakes detect obstacles and move toward food.
-                    The bigger you get, the more snakes you can surround.
-                </div>
-            </div>
-
-            <div class = image>
-                <a href = projects/mandelbrot.html target = _blank>
-                    <img src = images/mandelbrot.png alt = "Mandelbrot Viewer">
-                </a>
-
-                <div>
-                    <h2>Mandelbrot Viewer</h2>
-                    This is the ultimate way to discover the patterns within the mandelbrot set.
-                    If you ever find a pattern that you want to share, you can save it as an image.
-                </div>
-            </div>
-
-            <div class = image>
-                <a href = projects/platform.html target = _blank>
-                    <img src = images/platform.png alt = "Puck Runner">
-                </a>
-
-                <div>
-                    <h2>Puck Runner</h2>
-                    Use the arrow keys control your man through a procedurally generated maze.
-                    Collect the coins to get to the next level and use explosives to get past walls.
-                    Beware of the lurking monsters.
+                    It has some useful tools including a unicode compressor.
                 </div>
             </div>
         </section>

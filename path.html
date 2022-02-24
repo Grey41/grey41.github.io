@@ -1,62 +1,225 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Path Finding</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Demos",
-                    "item": "https://greyhope.uk/demos.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Path Finding",
-                }]
-            }
-        </script>
+        <title>GreyHope · Demos · A* Pathfinding</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html class = this>DEMOS</a>
-            <a href = tutorials.html>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html class = this>Demos</a>
+            <a href = tutorials.html>Tutorials</a>
         </section>
 
         <section class = main>
-            <h2>Path Finding</h2>
+            <h2>A* Pathfinding</h2>
 
-            <div class = editor>
-                <iframe></iframe>
-                <div></div>
-            </div>
+            <script type = editor>
+                <!DOCTYPE html>
+                <html>
+                    <body>
+                        <canvas id = canvas></canvas>
 
-            <p>
-                Explanation coming soon.
-            </p>
+                        <script>
+                            const WIDTH = 40
+                            const HEIGHT = 40
+                            const DIAGONAL = false
+                            const SPEED = 10
+
+                            function resize() {
+                                // set canvas dimensions
+                                canvas.width = innerWidth
+                                canvas.height = innerHeight
+                            }
+
+                            function loop() {
+                                // clear screen
+                                context.clearRect(0, 0, canvas.width, canvas.height)
+
+                                // set size of the squares
+                                const size = Math.floor(canvas.height / HEIGHT)
+
+                                // function that finds an x and y position based on an index value
+                                function position(index) {
+                                    // set the offset for the squares
+                                    const x = Math.round(canvas.width / 2 - WIDTH * size / 2)
+                                    const y = Math.round(canvas.height / 2 - HEIGHT * size / 2)
+
+                                    return {
+                                        x: x + index % WIDTH * size,
+                                        y: y + Math.floor(index / WIDTH) * size
+                                    }
+                                }
+
+                                // draw the maze
+                                context.fillStyle = "#ccc"
+
+                                map.forEach((item, index) => {
+                                    // if the maze item is empty, don't draw the square
+                                    if (item == "empty") return
+
+                                    // draw the square on the maze 
+                                    context.fillRect(position(index).x, position(index).y, size, size)
+                                })
+
+                                // draw the closed squares 
+                                context.fillStyle = "#999"
+                                solid.forEach(item => context.fillRect(position(item.index).x, position(item.index).y, size, size))
+
+                                // start calculating the active squares
+                                context.fillStyle = "#cca"
+                                const extra = []
+
+                                active.forEach((item, pos) => {
+                                    // draw the yellow active square
+                                    context.fillRect(position(item.index).x, position(item.index).y, size, size)
+
+                                    // check if this square is on the goal square
+                                    if (item.index == goal) complete = solid.length
+
+                                    // add this square to the closed array
+                                    solid.push(item)
+
+                                    // the code below adds positions to the path array
+                                    const path = []
+                                    const up = item.index > WIDTH
+                                    const down = item.index < WIDTH * HEIGHT - WIDTH
+                                    const left = item.index % WIDTH > 0
+                                    const right = item.index % WIDTH < WIDTH - 1
+
+                                    if (up) path.push(item.index - WIDTH)
+                                    if (down) path.push(item.index + WIDTH)
+                                    if (left) path.push(item.index - 1)
+                                    if (right) path.push(item.index + 1)
+
+                                    // if DIAGONAL is set to true, add the diagonal positions
+                                    if (DIAGONAL) {
+                                        if (up && left) path.push(item.index - WIDTH - 1)
+                                        if (up && right) path.push(item.index - WIDTH + 1)
+                                        if (down && left) path.push(item.index + WIDTH - 1)
+                                        if (down && right) path.push(item.index + WIDTH + 1)
+                                    }
+
+                                    // now we iterate through each position and skip any that we already found or ones that hit a wall
+                                    for (index of path) {
+                                        let found = false
+
+                                        for (item of extra)
+                                            if (item.index == index) {
+                                                found = true
+                                                break
+                                            }
+
+                                        for (item of active)
+                                            if (item.index == index) {
+                                                found = true
+                                                break
+                                            }
+
+                                        for (item of solid)
+                                            if (item.index == index) {
+                                                found = true
+                                                break
+                                            }
+
+                                        if (map[index] == "wall" || found)
+                                            continue
+
+                                        // add this position to the active array
+                                        extra.push({index, join: solid.length - 1})
+                                    }
+                                })
+
+                                // all the active squares are reset for the next frame
+                                active = extra
+
+                                // draw the goal square
+                                context.fillStyle = "#fe5"
+                                context.fillRect(position(goal).x, position(goal).y, size, size)
+
+                                // draw the player
+                                context.fillStyle = "#000"
+                                context.fillRect(position(player).x, position(player).y, size, size)
+
+                                // if the path has been calculated, draw it
+                                if (complete) {
+                                    let next = complete
+
+                                    // set the width of the line
+                                    context.lineWidth = 2
+
+                                    // draw a red line from the goal to the player
+                                    context.beginPath()
+                                    context.strokeStyle = "#f00"
+
+                                    // when next is equal to -1, the line is finished
+                                    while (next != -1) {
+                                        const pos = position(solid[next].index)
+                                        context.lineTo(pos.x + size / 2, pos.y + size / 2)
+
+                                        // go to the next square in the path
+                                        next = solid[next].join
+                                    }
+
+                                    context.stroke()
+                                }
+                            }
+
+                            function start() {
+                                // style the body and get rid of margins
+                                document.body.style.margin = 0
+                                document.body.style.overflow = "hidden"
+                                document.body.style.background = "#777"
+
+                                // fill maze with empty elements
+                                for (let i = 0; i < WIDTH * HEIGHT; i ++)
+                                    map[i] = (Math.random() < 0.3 && i != player && i != goal) ? "wall" : "empty"
+
+                                // when screen resizes, run the resize function
+                                addEventListener("resize", resize)
+                                resize()
+
+                                // activate game loop
+                                setInterval(loop, 1000 / SPEED)
+                            }
+
+                            const context = canvas.getContext("2d")
+
+                            // initialize the maze with empty values and place head in top left corner
+                            const map = []
+
+                            // set the position of the player and goal square
+                            const player = Math.floor(Math.random() * WIDTH * HEIGHT)
+                            const goal = Math.floor(Math.random() * WIDTH * HEIGHT)
+
+                            // set up the active path finding array
+                            let active = [{index: player, join: -1}]
+
+                            // set up the closed path array
+                            let solid = []
+
+                            // the goal index value
+                            let complete = 0
+
+                            start()
+                        <&sol;script>
+                    </body>
+                </html>
+            </script>
         </section>
-
-        <script>
-            editor("path", document.querySelector(".editor"))
-        </script>
     </body>
 </html>

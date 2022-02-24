@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Chat App · Publishing</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Chat App",
-                    "item": "https://greyhope.uk/chat_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Publishing"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Chat App · Publishing</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
-            <h2>Chat App <a href = tutorials/chat_5.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
-
-            <a href = chat_4.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = tutorials.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <h2>Chat App</h2>
+            
+            <div class = buttons>
+                <a href = chat_4.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = assets/zip/chat_5.zip class = left download><i class = "fa-solid fa-download"></i>Download</a>
+                <a href = tutorials.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>5. Publishing</h3>
 
@@ -79,7 +60,13 @@
                 Before we deploy our app, we need to write one last bit of code in the <mark>server.js</mark> file.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                        io.emit("input", data)
+                    })
+                })
+                
+                server.listen(‡process.env.PORT || ‡5000, () => console.log("Server listening..."))
+            </script>
 
             <p>
                 The code above tells the server to look for the <mark>Heroku</mark> port instead of running on <mark>localhost:5000</mark>.
@@ -92,32 +79,32 @@
                 Open it and write the following code.
             </p>
 
-            <pre>/node_modules</pre>
+            <script type = sh>‡/node_modules‡</script>
 
             <p>
                 Go to the <mark>Command Terminal</mark> and type <mark>cd</mark> followed by the path to your <mark>chat-app</mark> folder.
             </p>
 
-            <pre>cd [file path] chat-app</pre>
+            <script type = sh>‡cd path/to/chat-app‡</script>
 
             <p>
                 Type the following into the terminal.
             </p>
 
-            <pre>git init</pre>
+            <script type = sh>‡git init‡</script>
 
             <p>
                 If you go to your <mark>chat-app</mark> folder and veiw the hidden files, you will have a new folder called <mark>.git</mark>.
                 Write the following command in the terminal.
             </p>
 
-            <pre>git add .</pre>
+            <script type = sh>‡git add .‡</script>
 
             <p>
                 Then commit your new repository.
             </p>
 
-            <pre>git commit -m "First Release"</pre>
+            <script type = sh>‡git commit -m "First Release"‡</script>
 
             <p>
                 Repository complete.
@@ -128,7 +115,7 @@
                 In the terminal, type the following.
             </p>
 
-            <pre>heroku login</pre>
+            <script type = sh>‡heroku login‡</script>
 
             <p>
                 It will then ask you to press any key.
@@ -137,7 +124,7 @@
                 Now type the following.
             </p>
 
-            <pre>heroku create</pre>
+            <script type = sh>‡heroku create‡</script>
 
             <p>
                 <mark>Heroku</mark> will then think of a random name for your app.
@@ -145,14 +132,14 @@
                 Finally, type the following command.
             </p>
 
-            <pre>git push heroku main</pre>
+            <script type = sh>‡git push heroku main‡</script>
 
             <p>
                 If you have an error, you may want to type <mark>git checkout -b main</mark> in the terminal and then try again.
                 Now type the following to open your application.
             </p>
 
-            <pre>heroku open</pre>
+            <script type = sh>‡heroku open‡</script>
 
             <p>
                 You should then be taken to your application online.
@@ -164,7 +151,7 @@
                 If you want to rename your app, type the following.
             </p>
 
-            <pre>heroku apps:rename [new name]</pre>
+            <script type = sh>‡heroku apps:rename [new name]‡</script>
 
             <p>
                 This tutorial was meant for an introduction.
@@ -172,14 +159,10 @@
                 You can view the finished chat application at <a href = http://greyhope-chat.herokuapp.com target = _blank>greyhope-chat.herokuapp.com</a>.
             </p>
 
-            <p>
-                <a href = chat_4.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = tutorials.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = chat_4.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = tutorials.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            snippet("chat_publish", document.querySelector(".snippet"), 9, [9])
-        </script>
     </body>
 </html>

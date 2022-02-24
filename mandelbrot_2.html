@@ -1,57 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Mandelbrot Visualisation · JavaScript Canvas</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Mandelbrot Visualisation",
-                    "item": "https://greyhope.uk/mandelbrot_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "JavaScript Canvas"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Mandelbrot Visualisation · JavaScript Canvas</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
             <h2>Mandelbrot Visualisation</h2>
 
-            <a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = mandelbrot_3.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <div class = buttons>
+                <a href = mandelbrot_1.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = mandelbrot_3.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>2. JavaScript Canvas</h3>
 
@@ -73,10 +53,81 @@
                 As it moves along, each pixel is filled in a different colour based on its position on the set.
             </p>
 
-            <div class = editor>
-                <iframe></iframe>
-                <div></div>
-            </div>
+            <script type = editor>
+                <!DOCTYPE html>
+                <html>
+                    <body>
+                        <canvas id = canvas></canvas>
+
+                        <script>
+                            // detail and zoom of set
+                            const PRECISION = 20
+                            const ZOOM = 150
+
+                            function resize() { 
+                                // set canvas dimensions
+                                canvas.width = innerWidth
+                                canvas.height = innerHeight
+
+                                //reset line position
+                                x = 0
+                            }
+
+                            function loop() {
+                                // this loop fills the whole column with pixels
+                                for (let y = 0; y < canvas.height; y ++) {
+                                    const original_x = (x - canvas.width * 0.6) / ZOOM
+                                    const original_y = (y - canvas.height * 0.5) / ZOOM
+
+                                    let copy_x = original_x
+                                    let copy_y = original_y
+
+                                    // do the main calculations
+                                    for (index = 0; index < PRECISION; index ++) {
+                                        let set_x = copy_x ** 2 - copy_y ** 2
+                                        let set_y = 2 * copy_x * copy_y
+
+                                        copy_x = set_x + original_x
+                                        copy_y = set_y + original_y 
+
+                                        // change the statement below to make the set have a different pattern
+                                        if (copy_x ** 2 + copy_y ** 2 > 4) break
+                                    }
+
+                                    // fill in the pixel
+                                    let tone = index / PRECISION * 255
+                                    context.fillStyle = `rgb(${tone}, ${tone}, ${tone})`
+                                    context.fillRect(x, y, 1, 1)
+                                }
+
+                                // increase line position each frame
+                                x ++ 
+
+                                requestAnimationFrame(loop)
+                            }
+
+                            function start() { 
+                                // starting position of line
+                                x = 0 
+
+                                // style the body and get rid of margins
+                                document.body.style.margin = 0
+                                document.body.style.overflow = "hidden"
+
+                                // when screen resizes, run the resize function 
+                                addEventListener("resize", resize)
+                                resize()
+
+                                // activate game loop
+                                loop()
+                            } 
+
+                            const context = canvas.getContext("2d")
+                            start()
+                        <&sol;script>
+                    </body>
+                </html>
+            </script>
 
             <p>
                 In the code above, the <mark>loop</mark> function contains exactly the same <mark>Mandelbrot</mark> algorithm that we discussed on the previous page.
@@ -97,14 +148,94 @@
                 This means that the colours will form a pattern instead of getting brighter as you get nearer to the centre.
             </p>
 
-            <p>
-                In the code below, the grey lines refer to the new bits.
-            </p>
+            <script type = editor>
+                <!DOCTYPE html>
+                <html>
+                    <body>
+                        <canvas id = canvas></canvas>
 
-            <div class = editor>
-                <iframe></iframe>
-                <div></div>
-            </div>
+                        <script>
+                            // detail of set
+                            const PRECISION = 500 
+
+                            function resize() { 
+                                // set canvas dimensions
+                                canvas.width = innerWidth
+                                canvas.height = innerHeight
+
+                                //reset line position
+                                x = 0
+                            }
+
+                            function loop() {
+                                // this loop fills the whole column with pixels
+                                for (let y = 0; y < canvas.height; y ++) {
+                                    const original_x = (x - position.x * zoom - canvas.width * 0.6) / zoom
+                                    const original_y = (y - position.y * zoom - canvas.height * 0.5) / zoom
+
+                                    let copy_x = original_x
+                                    let copy_y = original_y
+
+                                    // do the main calculations
+                                    for (index = 0; index < PRECISION; index ++) {
+                                        let set_x = copy_x ** 2 - copy_y ** 2
+                                        let set_y = 2 * copy_x * copy_y
+
+                                        copy_x = set_x + original_x
+                                        copy_y = set_y + original_y 
+
+                                        // change the statement below to make the set have a different pattern
+                                        if (copy_x ** 2 + copy_y ** 2 > 4) break
+                                    }
+
+                                    // fill in the pixel
+                                    const tone = index % 50
+                                    context.fillStyle = `rgb(${index % 70 * tone * 0.2}, ${index % 50 * tone * 0.12}, ${index % 30 * tone * 0.1})`
+                                    context.fillRect(x, y, 1, 1)
+                                }
+
+                                // increase line position each frame
+                                x ++ 
+
+                                requestAnimationFrame(loop)
+                            }
+
+                            function start() {
+                                // starting position of line
+                                x = 0 
+
+                                // style the body and get rid of margins
+                                document.body.style.margin = 0
+                                document.body.style.overflow = "hidden"
+
+                                // when screen resizes, run the resize function
+                                addEventListener("resize", resize)
+                                resize()
+
+                                addEventListener("mousedown", event => {
+                                    zoom += zoom * 2
+                                    position.x -= (event.clientX - canvas.width * 0.6) / zoom * 2
+                                    position.y -= (event.clientY - canvas.height * 0.5) / zoom * 2
+                                    
+                                    // reset line position
+                                    x = 0
+                                })
+
+                                // activate game loop
+                                loop()
+                            } 
+
+                            const context = canvas.getContext("2d") 
+
+                            // starting position and zoom
+                            const position = {x: 0, y: 0}
+                            let zoom = 150
+
+                            start()
+                        <&sol;script>
+                    </body>
+                </html>
+            </script>
 
             <p>
                 As you become engulfed by the endless sea of paterns, you will find that there is a limit.
@@ -114,17 +245,10 @@
                 In the next tutorial, we will make a program that can zoom forever.
             </p>
 
-            <p>
-                <a href = mandelbrot_1.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = mandelbrot_3.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = mandelbrot_1.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = mandelbrot_3.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            const editors = document.querySelectorAll(".editor")
-
-            editor("mandelbrot", editors[0])
-            editor("mandelbrot_color", editors[1], [22, 23, 41, 42, 64, 65, 66, 67, 68, 69, 70, 71, 79, 80, 81])
-        </script>
     </body>
 </html>

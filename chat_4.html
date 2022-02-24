@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Chat App · Socket Communication</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Chat App",
-                    "item": "https://greyhope.uk/chat_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Socket Communication"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Chat App · Socket Communication</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
-            <h2>Chat App <a href = tutorials/chat_4.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
-
-            <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = chat_5.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <h2>Chat App</h2>
+            
+            <div class = buttons>
+                <a href = chat_3.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = assets/zip/chat_4.zip class = left download><i class = "fa-solid fa-download"></i>Download</a>
+                <a href = chat_5.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>4. Socket Communication</h3>
 
@@ -64,13 +45,26 @@
                 At the top of your page, link to the <mark>Socket.IO</mark> library.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                <head>
+                    <title>Chat App</title>
+                    ‡<script src = socket.io/socket.io.js><&sol;script>‡
+
+                    <style>
+            </script>
 
             <p>
                 Now in the <mark>body</mark> of our code, let's initialise <mark>Socket.IO</mark> in <mark>JavaScript</mark>.
             </p>
 
-            <div class = snippet></div>
+            <script type = html>
+                    </div>
+
+                    ‡<script>
+                        const socket = io()
+                    <&sol;script>‡
+                </body>
+            </script>
 
             <p>
                 We want to detect when the user submits their message.
@@ -79,7 +73,16 @@
                 Then we print the message to the console.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                <script>
+                    const socket = io()
+        
+                    ‡form.addEventListener("submit", event => {
+                        event.preventDefault() 
+                        console.log(input.value)
+                    })‡
+                <&sol;script>
+            </script>
 
             <p>
                 Go to your application and refresh the page.
@@ -91,7 +94,13 @@
                 This means we need to use the <mark>Socket.IO emit</mark> function which emits a message to the server.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                    form.addEventListener("submit", event => {
+                        event.preventDefault() 
+                        ‡socket.emit("message", input.value)‡
+                    })
+                <&sol;script>
+            </script>
 
             <p>
                 In the example above, we put two values into the <mark>emit</mark> function.
@@ -103,12 +112,20 @@
             </p>
 
             <p>
-                The code above won't do anything because the server isn't recieving this information.
+                The code above won't do anything because the server isn't receiving this information.
                 Let's put our <mark>index.html</mark> to the side and focus on our server code.
                 Open the <mark>server.js</mark> file and write the following code.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                app.get("/", (request, response) => response.render("index.html"))
+
+                ‡io.on("connection", socket => {
+                    console.log("Client connected")
+                })‡
+
+                server.listen(5000, () => console.log("Server listening..."))
+            </script>
 
             <p>
                 The code above detects when a user connects to your app and then prints <mark>client connected</mark> to the terminal.
@@ -117,17 +134,25 @@
                 Then type the following into the terminal.
             </p>
 
-            <pre>node server.js</pre>
+            <script type = sh>‡node server.js‡</script>
 
             <p>
                 Now whenever you visit <mark>localhost:5000</mark>, the terminal will print <mark>client connected</mark>.
             </p>
 
             <p>
-                To recieve our message that we set up in <mark>index.html</mark>, we need to listen for it using the <mark>Socket.IO on</mark> function.
+                To receive our message that we set up in <mark>index.html</mark>, we need to listen for it using the <mark>Socket.IO on</mark> function.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                io.on("connection", socket => {
+                    console.log("Client connected")
+                
+                    ‡socket.on("message", data => {
+                        console.log(data) 
+                    })‡
+                })
+            </script>
 
             <p>
                 The code above tells the server to listen for a signal called <mark>message</mark> and then print the data.
@@ -138,18 +163,33 @@
 
             <p>
                 Instead of printing to the terminal, we want the server to send the message to everyone else.
-                In your <mark>server.js</mark> file, change the <mark>console.log</mark> command with the following line of code.
+                In your <mark>server.js</mark> file, change the <mark>console.log</mark> command to the following line of code.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                    console.log("Client connected")
+                
+                    socket.on("message", data => {
+                        ‡io.emit("input", data)‡
+                    })
+                })
+            </script>
 
             <p>
                 The code above broadcasts the message to all the clients.
-                In our client code, we will recieve the message and display it on the screen.
+                In our client code, we will receive the message and display it on the screen.
                 Open your <mark>index.html</mark> file and write the following code.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                        socket.emit("message", input.value)
+                    })
+        
+                    ‡socket.on("input", data => {
+                        console.log(data)
+                    })‡
+                <&sol;script>
+            </script>
 
             <p>
                 Whenever you submit a message at <mark>localhost:5000</mark>, it gets printed to the <mark>Web Console</mark>.
@@ -159,46 +199,51 @@
 
             <p>
                 Now we want to display the message in our grey box.
-                The code below creates <mark>HTML</mark> divs with the message inside and adds them to our <mark>main div</mark>.
+                The code below creates <mark>HTML divs</mark> with the message inside and adds them to our <mark>main div</mark>.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                socket.on("input", data => {
+                    ‡const box = document.createElement("div")
+                    const div = document.createElement("div")
+                    
+                    box.id = "box"
+                    div.innerText = data
+    
+                    box.appendChild(div)
+                    main.appendChild(box)‡
+                })
+            </script>
 
             <p>
                 Now instead of getting printed to the <mark>Web Console</mark>, all the messages get displayed on the screen.
+                Let's remove the test message and clear the input box every time a user submits.
             </p>
 
-            <p>
-                Finally, let's remove the test message and clear the input box every time a user submits.
-            </p>
+            <script type = html>
+                <body>
+                    ‡<div id = main></div>‡
 
-            <div class = snippet></div>
+                    <div id = base>
+            </script>
+
+            <script type = javascript>
+                    event.preventDefault()
+                    socket.emit("message", input.value)
+    
+                    ‡input.value = ""‡
+                })
+            </script>
 
             <p>
-                The application is complete.
-                If you ever wanted to change the code slightly then now is the time.
+                Our application is complete, feel free to change the code and improve the appearance.
                 The next page will explain how to publish your app online.
             </p>
 
-            <p>
-                <a href = chat_3.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = chat_5.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = chat_3.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = chat_5.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            const snippets = document.querySelectorAll(".snippet")
-
-            snippet("chat_socket_1", snippets[0], 1, [5])
-            snippet("chat_socket_2", snippets[1], 61, [12, 13, 14])
-            snippet("chat_socket_3", snippets[2], 72, [4, 5, 6, 7])
-            snippet("chat_socket_4", snippets[3], 72, [6])
-            snippet("chat_socket_5", snippets[4], 6, [4, 5, 6])
-            snippet("chat_socket_6", snippets[5], 9, [4, 5, 6])
-            snippet("chat_socket_7", snippets[6], 9, [5])
-            snippet("chat_socket_8", snippets[7], 72, [9, 10, 11])
-            snippet("chat_socket_9", snippets[8], 75, [7, 8, 9, 10, 11, 12, 13, 14])
-            snippet("chat_socket_10", snippets[9], 61, [2, 17])
-        </script>
     </body>
 </html>

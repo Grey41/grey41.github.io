@@ -1,57 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Mandelbrot Visualisation · Infinite Zoom</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Mandelbrot Visualisation",
-                    "item": "https://greyhope.uk/mandelbrot_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Infinite Zoom"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Mandelbrot Visualisation · Infinite Zoom</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
             <h2>Mandelbrot Visualisation</h2>
 
-            <a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = tutorials.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <div class = buttons>
+                <a href = mandelbrot_2.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = tutorials.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>3. Infinite Zoom</h3>
 
@@ -71,22 +51,34 @@
                 We need to multiply the coordinates by the <mark>offset</mark> to bring them into whole numbers.
             </p>
 
-            <pre>offset = 100<br>original_x = 0.6 &#215; offset<br>original_y = 0.4 &#215; offset</pre>
+            <script type = text>
+                offset = 100
+                original_x = 0.6 × offset
+                original_y = 0.4 × offset
+            </script>
 
             <p>
                 We will now have the values <mark>60</mark> and <mark>40</mark>.
                 Like before, let's make a new copy of these positions.
             </p>
 
-            <pre>copy_x = original_x<br>copy_y = original_y</pre>
+            <script type = text>
+                copy_x = original_x
+                copy_y = original_y
+            </script>
 
             <p>
                 Then we will execute a calculation on the copies to create a new position.
                 This time, we will use our <mark>offset</mark> value to scale everything.
             </p>
 
-            <pre>set_x = copy_x&#178; &#247; offset - copy_y&#178; &#247; offset<br>set_y = (2 &#215; copy_x &#215; copy_y) &#247; offset<br>
-copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
+            <script type = text>
+                set_x = copy_x² ÷ offset - copy_y² ÷ offset
+                set_y = (2 × copy_x × copy_y) ÷ offset
+
+                copy_x = set_x + original_x
+                copy_y = set_y + original_y
+            </script>
 
             <p>
                 After performing the calculations above, <mark>copy_x</mark> will equal <mark>80</mark> and <mark>copy_y</mark> will equal <mark>88</mark>.
@@ -98,7 +90,33 @@ copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
                 The <mark>JavaScript</mark> code below will show you the full altered algorithm.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                ‡// scale of everything
+                const offset = 100
+
+                // starting position of square
+                const original_x = 0.2 * offset
+                const original_y = 0.6 * offset
+
+                // copy the position
+                let copy_x = original_x
+                let copy_y = original_y
+
+                // make a loop that does a maximum of 10 iterations
+                for (index = 0; index < 10; index ++) {
+
+                    // perform the main calculations
+                    let set_x = (copy_x * copy_x) / offset - (copy_y * copy_y) / offset
+                    let set_y = (2 * copy_x * copy_y) / offset
+
+                    copy_x = set_x + original_x
+                    copy_y = set_y + original_y 
+
+                    // if the position is out of bounds, cancel the loop
+                    if ((copy_x * copy_x) / offset + (copy_y * copy_y) / offset > 4 * offset) 
+                        break;
+                }‡
+            </script>
 
             <p>
                 Although this code works perfectly, you may be wondering where <mark>BigInt</mark> comes into it.
@@ -109,14 +127,10 @@ copy_x = set_x + original_x<br>copy_y = set_y + original_y</pre>
                 Next part coming soon.
             </p>
 
-            <p>
-                <a href = mandelbrot_2.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = tutorials.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = mandelbrot_2.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = tutorials.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            snippet("bigint", document.querySelector(".snippet"), 1)
-        </script>
     </body>
 </html>

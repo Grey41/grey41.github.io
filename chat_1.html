@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src = "https://www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
-        <script src = https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js type = application/javascript charset = utf-8></script>
-        <script src = https://kit.fontawesome.com/1dc9aa0b49.js crossorigin = anonymous></script>
+        <meta name = viewport content = "width = device-width, initial-scale = 1">
+        
+        <script async src = "//www.googletagmanager.com/gtag/js?id=G-C34XCNZ9G4"></script>
+        <script src = js/analytics.js></script>
+        <script src = js/highlight.min.js></script>
         <script src = js/main.js></script>
 
-        <meta charset = utf-8>
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
+        <link href = assets/fontawesome/css/fontawesome.css rel = stylesheet>
+        <link href = assets/fontawesome/css/solid.css rel = stylesheet>
+        <link rel = stylesheet href = main.css>
 
-        <link rel = stylesheet href = css/main.css>
-        <title>GreyHope · Chat App · Setting Up</title>
-
-        <script type = application/ld+json>
-            {
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-
-                "itemListElement": [{
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Tutorials",
-                    "item": "https://greyhope.uk/tutorials.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Chat App",
-                    "item": "https://greyhope.uk/chat_1.html"
-                }, {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Setting Up"
-                }]
-            }
-        </script>
+        <title>GreyHope · Tutorials · Chat App · Setting Up</title>
     </head>
 
     <body>
         <section class = top>
-            <a href = index.html>HOME</a>
-            <a href = demos.html>DEMOS</a>
-            <a href = tutorials.html class = this>TUTORIALS</a>
-            <a href = https://jobase.org target = _blank>JOBASE</a>
-            <a href = https://www.js-bytebase.com target = _blank>JS-BYTEBASE</a>
-            <a onclick = bar()><i class = "fa fa-bars"></i></a>
+            <a href = index.html>GreyHope</a>
+            <i onclick = toggleBars(this) class = "fa-solid fa-bars"></i>
+            <i onclick = toggleTheme(this) class = theme></i>
+            <a href = index.html>Projects</a>
+            <a href = demos.html>Demos</a>
+            <a href = tutorials.html class = this>Tutorials</a>
         </section>
 
         <section class = main>
-            <h2>Chat App <a href = tutorials/chat_1.zip download><button title = "Download source files for this page"><i class = "fas fa-download"></i>Download</button></a></h2>
+            <h2>Chat App</h2>
 
-            <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-            <a href = chat_2.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
+            <div class = buttons>
+                <a href = tutorials.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = assets/zip/chat_1.zip class = left download><i class = "fa-solid fa-download"></i>Download</a>
+                <a href = chat_2.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
 
             <h3>1. Setting Up</h3>
 
@@ -70,7 +51,7 @@
             <p>
                 When building a <mark>static</mark> website, you upload the code to a server that only has to provide users with the website data.
                 In this tutorial, we will build a <mark>dynamic</mark> website where we write our own code for the server.
-                The server does a lot more work because it is constantly recieving and sending data between users.
+                The server does a lot more work because it is constantly receiving and sending data between users.
             </p>
 
             <p>
@@ -93,7 +74,10 @@
                 To check if everything has worked, type the following into the <mark>Command Terminal</mark> of your computer and press <mark>ENTER</mark>.
             </p>
 
-            <pre>node -v<br>npm -v</pre>
+            <script type = sh>
+                ‡node -v
+                npm -v‡
+            </script>
 
             <p>
                 If any errors appear, then you have a problem.
@@ -106,20 +90,22 @@
                 Open the file and write the following code.
             </p>
 
-            <div class = snippet></div>
+            <script type = javascript>
+                ‡console.log("hello")‡
+            </script>
 
             <p>
                 Now go to the <mark>Command Terminal</mark> and type <mark>cd</mark> followed by the file path of your <mark>chat_app</mark> folder.
                 Based on where you put the folder, the file path will be different.
             </p>
 
-            <pre>cd [file path] chat-app</pre>
+            <script type = sh>‡cd path/to/chat-app‡</script>
 
             <p>
                 Now type the following into the terminal.
             </p>
 
-            <pre>node server.js</pre>
+            <script type = sh>‡node server.js‡</script>
 
             <p>
                 The terminal should then print <mark>hello</mark>.
@@ -130,15 +116,24 @@
                 Type the following into the terminal.
             </p>
 
-            <pre>npm init</pre>
+            <script type = sh>‡npm init‡</script>
 
             <p>
                 It will then ask questions about your new package.
                 You can type the following answers.
             </p>
 
-            <pre>package name: (chat-app)<br>version: (1.0.0)<br>description: A basic online chat application<br>entry point: (server.js)
-test command:<br>git repository:<br>keywords: chatting online fun<br>author: Your Name<br>license: (ISC)</pre>
+            <script type = text>
+                package name: (chat-app)
+                version: (1.0.0)
+                description: A basic online chat application
+                entry point: (server.js)
+                test command:
+                git repository:
+                keywords: chatting online fun
+                author: Your Name
+                license: (ISC)
+            </script>
 
             <p>
                 Confirm everything by pressing <mark>ENTER</mark>.
@@ -152,23 +147,17 @@ test command:<br>git repository:<br>keywords: chatting online fun<br>author: You
                 Type the following into the terminal.
             </p>
 
-            <div class = code>
-                <pre>npm install --save express socket.io</pre>
-            </div>
+            <script type = sh>‡npm install --save express socket.io‡</script>
 
             <p>
                 It should then create a file called <mark>package-lock.json</mark> and a folder called <mark>node_modules</mark>.
                 If this works, you are ready to move on to the next page where we will start coding our program.
             </p>
 
-            <p>
-                <a href = tutorials.html><button><i class = "fas fa-arrow-left"></i>Back</button></a>
-                <a href = chat_2.html><button class = right>Next<i class = "fas fa-arrow-right"></i></button></a>
-            </p>
+            <div class = buttons>
+                <a href = tutorials.html class = left><i class = "fa-solid fa-arrow-left"></i>Back</a>
+                <a href = chat_2.html class = right>Next<i class = "fa-solid fa-arrow-right"></i></a>
+            </div>
         </section>
-
-        <script>
-            snippet("chat", document.querySelector(".snippet"), 1)
-        </script>
     </body>
 </html>
