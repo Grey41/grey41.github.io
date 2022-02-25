@@ -41,6 +41,8 @@ function insertCode(code) {
 }
 
 onload = () => {
+    year.textContent = new Date().getFullYear()
+    
     const format = text => text.replace(
         /( ){16}.*/g, a => a.substring(16)).replace(/\n([\s\S]*)\n/g, "$1").replace(/&sol;/g, "/")
 

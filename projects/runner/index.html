@@ -260,9 +260,10 @@
 
             function compress() {
                 const code = [...text.value.trim()].map(e => e > 255 ? escape(e).replace(/%u/g, "\\u") : e)
+                const string = code.length % 2 ? code : code.concat(";")
 
                 set(`eval(unescape(escape\`${
-                    String.fromCharCode(...[...code.length % 2 ? code + ";" : code].map(
+                    String.fromCharCode(...string.map(
                         (item, index) => item.charCodeAt() | (index % 2 ? 0xDF00 : 0xDB00)))
                     }\`.replace(/u../g,"")))`)
             }

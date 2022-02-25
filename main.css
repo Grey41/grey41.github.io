@@ -103,8 +103,17 @@ pre {
     display: block
 }
 
+footer {
+    width: 100%;
+    padding: var(--padding);
+    font-size: var(--small);
+    background-color: var(--background)
+}
+
+footer span {color: var(--text)}
 .snippet {color: var(--comment)}
 .code {color: var(--code)}
+.main {overflow: auto}
 
 .hljs-string {color: var(--string)}
 .hljs-keyword {color: var(--keyword)}
@@ -233,6 +242,7 @@ iframe {
 
 .image img:hover, .image video:hover {opacity: 0.5}
 .image div {float: left}
+.image a {color: var(--text)}
 .image h2 {color: var(--link)}
 
 @media screen and (min-width: 64em) {
@@ -249,7 +259,7 @@ iframe {
     }
 
     .image img, .image video {width: 50%}
-    .image > div {width: 40%}
+    .image div {width: 40%}
     :root {--font: 20px}
 }
 
@@ -257,14 +267,14 @@ iframe {
     .top {padding: 2em 4em}
     .main {padding: 1em 4em}
     .image img, .image video {width: 60%}
-    .image > div {width: 60%}
+    .image div {width: 60%}
     :root {--font: 18px}
 }
 
 @media screen and (max-width: 42em) {
     .top {padding: 2em 1em}
     .main {padding: 1em 1em 2em 1em}
-    .image img, .image video, .image > div {width: 100%}
+    .image img, .image video, .image div {width: 100%}
     :root {--font: 16px}
 
     .top a:not(:first-child), .top i.theme {display: none}
