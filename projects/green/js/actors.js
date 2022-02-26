@@ -423,7 +423,7 @@ class Character extends Creature {
                     this.pos.y += e.speed
 
                     if (collide.squish && Math.sign(margin.y) != Math.sign(collide.squish) &&
-                        Math.abs(margin.y) > 0.3)
+                        Math.abs(margin.y) + Math.abs(collide.squish) > this.size)
                             this.destroy()
                 }
 

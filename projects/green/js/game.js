@@ -7,8 +7,7 @@ class Game {
         this.fade = {reason: 0, value: 0, pause: 0}
         this.keys = {left: false, right: false, space: false, up: false}
         this.message = {current: "", time: 0, value: 0, active: false}
-        this.start = true
-        this.end = false
+        this.main = {start: true, end: false, play: false}
         this.level = 0
 
         this.messages = {
@@ -32,7 +31,7 @@ class Game {
         ctx.fillStyle = `rgb(${phase * 220}, ${phase * 240}, ${phase * 255})`
         ctx.fillRect(0, 0, innerWidth, innerHeight)
 
-        if (this.start)
+        if (this.main.start)
             return this.updateScreen(["CODE", "GREEN"], "START")
 
         camera.update()
@@ -105,14 +104,14 @@ class Game {
             ctx.fillText(this.message.current, innerWidth / 2, innerHeight / 2 - 100)
         }
 
-        if (this.end) {
-            ctx.fillStyle = addAlpha(plainColor(END_COLOR), this.end.value)
+        if (this.main.end) {
+            ctx.fillStyle = addAlpha(plainColor(END_COLOR), this.main.end.value)
             ctx.fillRect(0, 0, innerWidth, innerHeight)
 
-            if (this.end.value > 1)
+            if (this.main.end.value > 1)
                 this.updateScreen(["MISSION", "COMPLETE"], "PLAY AGAIN")
 
-            return this.end.value += END_SPEED
+            return this.main.end.value += END_SPEED
         }
 
         if (this.fade.reason) {
@@ -162,6 +161,7 @@ class Game {
                 innerHeight / 2, INSTRUCTION_SIZE)
 
             ctx.fillStyle = plainColor(TITLE_GREEN_COLOR)
+            this.main.play = true
         }
 
         drawText(
@@ -176,11 +176,16 @@ class Game {
     }
 
     startPlaying() {
-        this.start = false
-        this.end = false
+        this.main.start = false
+        this.main.end = false
+        this.main.play = false
         this.fade.reason = 1
         this.fade.value = 1
         this.level = 0
+
+        world.base.x = WORLD_INITIAL_SIZE
+        world.base.y = WORLD_INITIAL_SIZE
+        player.bombs = 0
 
         setTimeout(() => this.activateMessage("arrows"), 1000)
     }
@@ -209,7 +214,7 @@ class Game {
             if (this.level == LEVELS) {
                 this.splashScreen.index = 0
                 this.splashScreen.timer = INITIAL_DELAY
-                this.end = {value: 0}
+                this.main.end = {value: 0}
             }
 
             else if (!this.fade.reason)

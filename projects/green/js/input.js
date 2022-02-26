@@ -15,7 +15,7 @@ function keyHandler(code, type) {
 addEventListener("touchstart", e => {
     e.preventDefault()
     
-    if (game.start || game.end)
+    if (game.main.play)
         game.startPlaying()
 
     else {
@@ -76,7 +76,7 @@ addEventListener("keydown", e => {
         player.jump()
 
     else if (e.code == "Space")
-        game.start || game.end ? game.startPlaying() : player.action()
+        game.main.play ? game.startPlaying() : player.action()
 
     else if (e.code == "KeyR")
         player.destroy()
