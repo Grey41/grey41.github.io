@@ -240,9 +240,12 @@ iframe {
     float: left
 }
 
+.image div {
+    float: left;
+    color: var(--text)
+}
+
 .image img:hover, .image video:hover {opacity: 0.5}
-.image div {float: left}
-.image a {color: var(--text)}
 .image h2 {color: var(--link)}
 
 @media screen and (min-width: 64em) {
