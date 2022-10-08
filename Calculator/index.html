@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mystera Legacy Skill Calculator</title>
+
+        <link rel = stylesheet href = assets/fontawesome/css/fontawesome.css>
+        <link rel = stylesheet href = assets/fontawesome/css/solid.css>
+
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                margin: 0
+            }
+
+            body > section {
+                box-shadow: 0 0 5px #888;
+                display: grid;
+                grid-template-columns: 1fr 6em 5em 6em;
+                gap: 0.5em;
+                padding: 0 1em;
+                height: 100vh;
+                overflow-y: scroll
+            }
+            
+            section > section {
+                display: contents
+            }
+
+            section > div {
+                display: contents;
+                border-radius: 0.3em;
+                box-shadow: 0 0 3px #888;
+                padding: 0.4em;
+                margin: 0.7em
+            }
+
+            div > div, button, input {
+                font-family: monospace;
+                font-size: 14px;
+                border-radius: 0.3em;
+                padding: 0.2em 0.6em;
+                border: 1px solid #ccc
+            }
+
+            button {
+                transition-duration: 0.2s;
+                cursor: pointer
+            }
+
+            button:hover {
+                background-color: #ddd
+            }
+
+            input:focus {
+                outline: none
+            }
+
+            i {
+                color: #48f
+            }
+
+            body > section > div > * {
+                background-color: #eee;
+                margin: 1em 0
+            }
+
+            p {
+                font-family: monospace;
+                grid-column: 1 / 5
+            }
+
+            .error {
+                border-color: #f88
+            }
+        </style>
+    </head>
+
+    <body>
+        <section>
+            <div>
+                <div>Skill</div>
+                <div>Level</div>
+                <div><i class = "fa-solid fa-star"></i></div>
+                <div>Top Skill</div>
+            </div>
+
+            <section id = main></section>
+
+            <div>
+                <div>Player</div>
+                <div id = player></div>
+                <div id = total></div>
+                <button onclick = sort()>Sort</button>
+            </div>
+
+            <p>
+                Based on the Mystera Legacy skill calculator by Sidran.
+                <br>
+                Made by GreyHope.
+            </p>
+        </section>
+
+        <script>
+            const data = {mul: 1.0315834879, pow: 3.324817}
+
+            function sort() {
+                data.list.forEach(item => main.appendChild(item.node))
+            }
+
+            function check() {
+                data.list = Array.from(main.childNodes).map(node => {
+                    const input = node.querySelectorAll("input")
+                    const lvl = Number(input[0].value)
+                    const star = Number(input[1].value)
+
+                    const exp = data.mul * lvl ** data.pow - data.mul * (10 * star) ** data.pow
+                    const result = (exp / data.mul) ** (1 / data.pow) - 2 * star
+
+                    return {node, result, star, exp}
+                }).sort((a, b) => b.exp - a.exp)
+
+                const level = Math.sqrt(data.list.reduce((a, e) => e.exp + a, 0) / 200)
+                const stars = data.list.reduce((a, e) => e.star + a, 0)
+                const round = e => Math.round(e * 100) / 100
+
+                data.list.forEach(item => {
+                    const shift = data.mul * (data.list[0].result + 2 * item.star) ** data.pow
+                    const value = shift + data.mul * (10 * item.star) ** data.pow
+                    const total = (value / data.mul) ** (1 / data.pow)
+
+                    item.node.lastChild.textContent = round(total)
+                })
+
+                player.textContent = round(level)
+                total.textContent = stars
+            }
+
+            function start() {
+                const names = [
+                    "Exploration",
+                    "Hunting",
+                    "Foraging",
+                    "Dagger",
+                    "Sword",
+                    "Cooking",
+                    "Smelting",
+                    "Unarmored",
+                    "Light Armor",
+                    "Hammer",
+                    "Farming",
+                    "Destruction",
+                    "Assassin",
+                    "Mining",
+                    "Unarmed",
+                    "Chopping",
+                    "Spear",
+                    "Repairing",
+                    "Sheild Block",
+                    "Medium Armor",
+                    "Fishing",
+                    "Healing",
+                    "Crafting",
+                    "Questing",
+                    "Tilling",
+                    "Pickaxe",
+                    "Axe",
+                    "Construction",
+                    "Archery",
+                    "Digging",
+                    "Heavy Armor",
+                    "Knitting",
+                    "Research",
+                    "Logic",
+                    "Smithing",
+                    "Clubbing"
+                ]
+
+                names.forEach(name => {
+                    const entry = document.createElement("div")
+                    const title = document.createElement("div")
+                    const level = document.createElement("input")
+                    const stars = document.createElement("input")
+                    const top = document.createElement("div")
+
+                    title.textContent = name
+                    level.type = "number"
+                    stars.type = "number"
+
+                    level.step = 0.1
+                    level.min = 0
+                    stars.min = 0
+                    level.value = 0
+                    stars.value = 0
+                    top.textContent = 1
+
+                    level.oninput = () => {
+                        level.className = level.value.match(/^\d+$|^\d+\.\d+$/) ? "" : "error"
+                        check()
+                    }
+
+                    stars.oninput = () => {
+                        stars.className = stars.value.match(/^\d+$/) ? "" : "error"
+                        check()
+                    }
+
+                    entry.append(title, level, stars, top)
+                    main.appendChild(entry)
+                })
+
+                check()
+            }
+
+            start()
+        </script>
+    </body>
+</html>
