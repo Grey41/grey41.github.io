@@ -16,11 +16,14 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background-color: #222;
+                color-scheme: dark;
                 margin: 0
             }
 
             body > section {
-                box-shadow: 0 0 5px #888;
+                background-color: #333;
+                border: 1px solid #555;
                 display: grid;
                 grid-template-columns: 1fr 6em 5em 6em;
                 gap: 0.5em;
@@ -44,7 +47,9 @@
                 font-size: 14px;
                 border-radius: 0.3em;
                 padding: 0.2em 0.6em;
-                border: 1px solid #ccc
+                border: 1px solid #555;
+                background-color: #444;
+                color: #ddd
             }
 
             button {
@@ -53,7 +58,7 @@
             }
 
             button:hover {
-                background-color: #ddd
+                background-color: #333
             }
 
             input:focus {
@@ -65,12 +70,14 @@
             }
 
             body > section > div > * {
-                background-color: #eee;
+                color: #fff;
+                background-color: #222;
                 margin: 1em 0
             }
 
             p {
                 font-family: monospace;
+                color: #888;
                 grid-column: 1 / 5
             }
 
@@ -193,16 +200,19 @@
 
                     level.min = 0
                     stars.min = 0
-                    level.value = 0
-                    stars.value = 0
                     top.textContent = 1
 
+                    level.value = localStorage.getItem(name + "1") || 0
+                    stars.value = localStorage.getItem(name + "2") || 0
+
                     level.oninput = () => {
+                        localStorage.setItem(name + "1", level.value)
                         level.className = level.value.match(/^\d+$|^\d+\.\d+$/) ? "" : "error"
                         check()
                     }
 
                     stars.oninput = () => {
+                        localStorage.setItem(name + "2", stars.value)
                         stars.className = stars.value.match(/^\d+$/) ? "" : "error"
                         check()
                     }
