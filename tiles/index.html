@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
     <head>
-        <title>Mystera Legacy Tile Planner</title>
+        <meta name = viewport content = "width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+        <title>Mystera Legacy</title>
 
         <style>
             html, body {
@@ -55,7 +56,7 @@
                 width: 32px;
                 height: 32px;
                 background-image: url(map.png);
-                background-size: 512px 512px
+                background-size: 512px 160px
             }
 
             #list div:focus {
@@ -70,6 +71,16 @@
 
             span {
                 color: #fff
+            }
+
+            @media screen and (orientation: portrait) {
+                body {
+                    flex-direction: column
+                }
+
+                #left {
+                    flex-direction: row
+                }
             }
         </style>
     </head>
@@ -90,172 +101,339 @@
             const TILE = 16
 
             const BUILD = [
-                {sprite: 32, height: 2, build: true, mats: {stone: 30, clay: 10}},
-                {sprite: 33, height: 2, build: true, mats: {wood: 20}},
-                {sprite: 34, height: 3, build: true, mats: {stone: 80, obsidian: 20, gold: 1}},
-                {sprite: 35, height: 3, build: true, mats: {stone: 100, bone: 20, gold: 15}},
-                {sprite: 36, height: 2, build: true, mats: {wood: 50, tinder: 20, red_dye: 1}},
-                {sprite: 4, height: 1, build: true, mats: {stone: 100, clay: 20, gold: 1}},
-                {sprite: 7, height: 1, build: true, mats: {escape_lantern: 1, dragon_scale: 1, gold: 10}},
-                {sprite: 27, height: 1, build: true, mats: {wood: 20}},
-                {sprite: 37, height: 3, build: true, mats: {stone: 20, clay: 10, dirt: 10}},
-                {sprite: 63, height: 1, build: true, mats: {clay: 20, flint: 20}},
-                {sprite: 28, height: 2, build: true, door: true, mats: {stone: 10, wood: 20, silver: 1}},
-                {sprite: 29, height: 2, build: true, door: true, mats: {stone: 20, wood: 40, silver: 1, gold: 5}},
-                {sprite: 30, height: 2, build: true, door: true, mats: {stone: 20, wood: 40, silver: 5, gold: 10}},
-                {sprite: 15, height: 1, build: true, door: true, mats: {wood: 20}},
-                {sprite: 55, height: 1, build: true, mats: {wood: 30, silver: 5, hide: 6}},
-                {sprite: 56, height: 1, build: true, mats: {stone: 250, clay: 150, charcoal: 8, silver: 10}},
-                {sprite: 57, height: 1, build: true, mats: {wood: 20}},
-                {sprite: 58, height: 1, build: true, mats: {stone: 400, silver: 10}},
-                {sprite: 47, height: 1, build: true, mats: {wood: 50, silver: 10, gold: 5}},
-                // {sprite: 68, height: 1, build: true, mats: {bronze: 20, flint: 5, gold: 5}},
-                {sprite: 6, build: false, mats: {stone: 5, clay: 1}},
-                {sprite: 59, build: false, mats: {stone: 20}},
-                {sprite: 8, build: false, mats: {}},
-                {sprite: 9, build: false, mats: {clay: 5}},
-                {sprite: 10, build: false, mats: {wood: 10}},
-                {sprite: 11, build: false, mats: {stone: 15}},
-                {sprite: 66, build: false, mats: {}},
-                {sprite: 67, build: false, mats: {}},
-                {sprite: 48, height: 1, build: true, mats: {stone: 20, wood: 4, flint: 4, charcoal: 4}},
-                {sprite: 49, height: 1, build: true, mats: {}},
-                {sprite: 50, height: 1, build: true, mats: {}},
-                {sprite: 51, height: 1, build: true, mats: {}},
-                {sprite: 52, height: 1, build: true, mats: {}}
+                {spr: 46, img: 14, anim: true, height: 3, build: true, mats: {stone: 30, clay: 10}},
+                {spr: 45, img: 45, height: 3, build: true, mats: {stone: 100, bone: 20, gold: 15}},
+
+                {spr: 25, img: 25, height: 2, build: true, mats: {stone: 30, clay: 10}},
+                {spr: 26, img: 26, height: 2, build: true, mats: {wood: 20}},
+
+                {spr: 43, img: 43, alt: true, height: 3, build: true, mats: {stone: 20, clay: 10, dirt: 10}},
+
+                {spr: 77, img: 77, build: true, mats: {stone: 20, wood: 4, flint: 4, charcoal: 4}},
+                {spr: 57, img: 57, build: true, mats: {clay: 20, flint: 20}},
+
+                {spr: 37, img: 37, off: 4, build: true, door: true, mats: {stone: 10, wood: 20, silver: 1}},
+                {spr: 38, img: 38, off: 4, build: true, door: true, mats: {stone: 20, wood: 40, silver: 1, gold: 5}},
+                {spr: 39, img: 39, off: 4, build: true, door: true, mats: {stone: 20, wood: 40, silver: 5, gold: 10}},
+                {spr: 40, img: 40, build: true, door: true, mats: {wood: 20}},
+
+                {spr: 58, img: 42, height: 2, build: true, mats: {wood: 50, tinder: 20, red_dye: 1}},
+                {spr: 59, img: 59, build: true, mats: {wood: 20}},
+
+                {spr: 62, img: 62, build: true, mats: {stone: 250, clay: 150, charcoal: 8, silver: 10}},
+                {spr: 63, img: 63, build: true, mats: {wood: 30, silver: 5, hide: 6}},
+
+                {spr: 60, img: 60, build: true, mats: {wood: 20}},
+                {spr: 41, img: 41, build: true, mats: {wood: 50, silver: 10, gold: 5}},
+                {spr: 61, img: 61, build: true, mats: {stone: 400, silver: 10}},
+                {spr: 78, img: 78, anim: true, off: 4, build: true, mats: {bronze: 20, flint: 5, gold: 5}},
+
+                {spr: 24, img: 24, build: true, mats: {escape_lantern: 1, dragon_scale: 1, gold: 10}},
+                {spr: 8, img: 8, build: true, mats: {stone: 100, clay: 20, gold: 1}},
+
+                {spr: 21, img: 21, anim: true, block: true, mats: {}},
+                {spr: 23, img: 23, block: true, mats: {}},
+
+                {spr: 2, img: 2, mats: {}},
+                {spr: 3, img: 3, block: true, mats: {stone: 5, clay: 1}},
+                {spr: 4, img: 4, block: true, mats: {stone: 20}},
+                {spr: 5, img: 5, mats: {clay: 5}},
+                {spr: 6, img: 6, mats: {wood: 10}},
+                {spr: 7, img: 7, mats: {stone: 15}},
+
+                {spr: 68, img: 68, build: true, mats: {}},
+                {spr: 69, img: 69, build: true, mats: {}},
+                {spr: 70, img: 70, build: true, mats: {}},
+                {spr: 71, img: 71, build: true, mats: {}},
+                {spr: 72, img: 72, build: true, mats: {}},
+                {spr: 73, img: 73, build: true, mats: {}},
+                {spr: 74, img: 74, build: true, mats: {}},
+                {spr: 75, img: 75, build: true, mats: {}},
+                {spr: 76, img: 76, build: true, mats: {}},
             ]
 
-            const floor = {}
-            const build = {}
-            const state = {x: 0, y: 0, zoom: TILE, mouse: 0, mx: 0, my: 0}
-            const tiles = new Image()
-
             const list = document.getElementById("list")
-            const mats = document.getElementById("mats")
             const canvas = document.querySelector("canvas")
-            const ctx = canvas.getContext("2d")
+            const gl = canvas.getContext("webgl2")
             const worker = new Worker("worker.js")
 
-            function pos(image) {
-                return [image % TILE * TILE, Math.floor(image / TILE) * TILE]
-            }
+            const state = {x: 0, y: 0, zoom: TILE * 2}
+            const program = gl.createProgram()
+            const build = {}
+            const floor = {}
 
             function mouse() {
                 const rect = canvas.getBoundingClientRect()
 
                 return [
-                    Math.floor((state.mx - rect.left - canvas.width / 2) / 2 / state.zoom - state.x),
-                    Math.floor((state.my - canvas.height / 2) / 2 / state.zoom - state.y)
+                    Math.round((state.mx - rect.left - canvas.width / 2) / state.zoom - state.x),
+                    Math.round((state.my - canvas.height / 2) / state.zoom - state.y)
                 ]
             }
 
-            function render() {
-                const translate = (x, y) => [
-                    Math.floor((x + state.x) * size + canvas.width / 2),
-                    Math.floor((y + state.y) * size + canvas.height / 2)
-                ]
+            function place() {
+                if (state.select) {
+                    const [mx, my] = mouse()
+                    const i = add(mx, my)
 
-                const size = Math.ceil(2 * state.zoom)
-                const width = Math.round(canvas.width / size / 2) * 2 + 2
-                const height = Math.round(canvas.height / size / 2) * 2 + 2
+                    if (state.mouse == 3)
+                        build[i] ? delete build[i] : delete floor[i]
 
-                const [mx, my] = mouse()
-                const [x, y] = translate(mx, my)
+                    else {
+                        if (state.select.build) {
+                            if (floor[i] && floor[i].block)
+                                delete floor[i]
 
-                ctx.clearRect(0, 0, canvas.width, canvas.height)
- 
-                for (let i = 0; i < width * height; i ++) {
-                    const check = (e, x, y) => e[(bx + x) + " " + (by + y)]
+                            build[i] = state.select
+                        }
 
-                    const bx = i % width - Math.round(state.x) - width / 2
-                    const by = Math.floor(i / width) - Math.round(state.y) - height / 2
+                        else {
+                            if (build[i] && state.select.block)
+                                delete build[i]
 
-                    const wall = check(build, 0, 0)
-                    const tile = check(floor, 0, 0)
-
-                    const [x, y] = translate(bx, by)
-                    const [px, py] = pos(tile ? tile.sprite : Math.floor(Math.abs(Math.sin(bx) * 1e3 + Math.cos(by))) % 2)
-
-                    ctx.drawImage(tiles, px, py, TILE, TILE, x, y, size, size)
-
-                    if (tile) {
-                        const t = !check(floor, 0, -1)
-                        const b = !check(floor, 0, 1)
-                        const l = !check(floor, -1, 0)
-                        const r = !check(floor, 1, 0)
-
-                        const index = t && b && l && r ? 65 : t && b && l ? 41 : t && b && r ? 64 :
-                            t && l && r ? 54 : b && l && r ? 43 : b && r ? 42 : b && l ? 39 : r && l ? 25 :
-                            t && b ? 40 : t && l ? 23 : t && r ? 26 : t ? 53 : b ? 38 : l ? 22 : r ? 24 : 0
-
-                        if (index) {
-                            const [px, py] = pos(index)
-                            ctx.drawImage(tiles, px, py, TILE, TILE, x, y, size, size)
+                            floor[i] = state.select
                         }
                     }
 
-                    if (wall) {
-                        const [px, py] = pos(wall.door && (!check(build, -1, 0) || !check(build, 1, 0)) ? wall.sprite + TILE * wall.height : wall.sprite)
-                        const level = py - TILE * wall.height + TILE
-                        const loc = y - size * wall.height + size
-
-                        ctx.drawImage(tiles, px, level, TILE, TILE * wall.height, x, loc, size, size * wall.height)
-                    }
-                }
-
-                ctx.strokeStyle = "#fff"
-                ctx.strokeRect(x - .5, y - .5, size + 1, size + 1)
-            }
-
-            function place(type) {
-                if (state.select) {
-                    const [mx, my] = mouse()
-                    const i = mx + " " + my
-
-                    type == 3 ? build[i] ? delete build[i] : delete floor[i] : state.select.build ? build[i] = state.select : floor[i] = state.select
                     worker.postMessage({floor, build})
                 }
 
                 return state.select
             }
 
+            function add(x, y) {
+                return x + " " + y
+            }
+
+            function render() {
+                const loc = e => [e % TILE, Math.floor(e / TILE)]
+
+                const width = Math.floor(canvas.width / state.zoom / 2) + 1
+                const height = Math.floor(canvas.height / state.zoom / 2) + 1
+                const index = width * 2 + 1
+
+                const pos = gl.getUniformLocation(program, "pos")
+                const img = gl.getUniformLocation(program, "img")
+                const alt = Math.floor(Date.now() / 1e3) % 2
+
+                gl.clear(gl.COLOR_BUFFER_BIT)
+
+                for (let i = 0; i < index * (height * 2 + 1); i ++) {
+                    const coord = e => [e % TILE, Math.floor(e / TILE)]
+                    const image = e => e.anim && state.alt || e.alt && alt ? e.spr + 1 : e.spr
+
+                    const x = i % index - width - Math.round(state.x)
+                    const y = Math.floor(i / index) - height - Math.round(state.y)
+                    const alt = ~~(Math.sin(x) * 1e3 + Math.cos(y)) & 1
+
+                    const wall = build[add(x, y)]
+                    const tile = floor[add(x, y)]
+                    const [px, py] = loc(tile ? image(tile) : alt)
+
+                    gl.uniform2f(pos, x, y)
+                    gl.uniform4f(img, px, py, 1, 1)
+                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+
+                    if (tile) {
+                        const t = !floor[add(x, y - 1)]
+                        const b = !floor[add(x, y + 1)]
+                        const l = !floor[add(x - 1, y)]
+                        const r = !floor[add(x + 1, y)]
+
+                        const index = t && b && l && r ? 16 : t && b && r ? 17 : t && b && l ? 18 :
+                            b && l && r ? 19 : t && l && r ? 20 : t && l ? 32 : t && r ? 33 : l && b ? 34 :
+                            r && b ? 35 : l && r ? 36 : t && b ? 48 : l ? 49 : t ? 50 : b ? 51 : r ? 52 : 0
+
+                        if (index) {
+                            const [px, py] = loc(index)
+
+                            gl.uniform4f(img, px, py, 1, 1)
+                            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+                        }
+                    }
+
+                    if (wall) {
+                        const [px, py] = loc(wall.door && (!build[add(x - 1, y)] || !build[add(x + 1, y)]) ? wall.spr + TILE : image(wall))
+
+                        gl.uniform2f(pos, x, wall.off ? y - wall.off / TILE : y)
+                        gl.uniform4f(img, px, py, wall.height || 1, 1)
+                        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+                    }
+                }
+
+                if (state.select && state.mouse != 3) {
+                    const [mx, my] = mouse()
+                    const [x, y] = loc(state.select.spr)
+
+                    gl.uniform2f(pos, mx, state.select.off ? my - state.select.off / TILE : my)
+                    gl.uniform4f(img, x, y, state.select.height || 1, .7)
+                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+                }
+            }
+
             function start() {
-                new ResizeObserver(() => {
-                    canvas.width = canvas.clientWidth
-                    canvas.height = canvas.clientHeight
+                const update = () => {
+                    const width = state.zoom / canvas.width * 2.
+                    const height = state.zoom / canvas.height * -2.
 
-                    ctx.imageSmoothingEnabled = false
-                    ctx.lineJoin = "round"
-                    ctx.lineWidth = 2
-
-                    render()
-                }).observe(canvas)
-
-                canvas.onmousedown = event => {
-                    event.preventDefault()
-                    state.mouse = true
+                    gl.uniform4f(gl.getUniformLocation(program, "state"), state.x, state.y, width, height)
                 }
 
-                canvas.onmouseup = event => {
-                    state.mouse = false
-                    place(event.which) && render()
-                }
+                const vertex = gl.createShader(gl.VERTEX_SHADER)
+                const fragment = gl.createShader(gl.FRAGMENT_SHADER)
+
+                const vs =
+                    "#version 300 es\n" +
+
+                    "uniform vec4 state;" +
+                    "uniform vec2 pos;" +
+                    "uniform vec4 img;" +
+
+                    "out vec4 image;" +
+                    "out vec2 coord;" +
+
+                    "void main() {" +
+                        "vec2 points[] = vec2[](vec2(-.5, .5), vec2(.5, .5), vec2(-.5, .5 - img.z), vec2(.5, .5 - img.z));" +
+                        "vec2 coords[] = vec2[](vec2(0, 1), vec2(1, 1), vec2(0, 1. - img.z), vec2(1, 1. - img.z));" +
+
+                        "gl_Position = vec4((points[gl_VertexID] + pos + state.xy) * state.zw, 0, 1);" +
+                        "coord = coords[gl_VertexID] * 16.;" +
+                        "image = vec4(vec3(img.xy, 1. - img.z) * 16., img.a);" +
+                    "}"
+
+                const fs =
+                    "#version 300 es\n" +
+
+                    "precision highp float;" +
+                    "uniform sampler2D sampler;" +
+
+                    "in vec2 coord;" +
+                    "in vec4 image;" +
+                    "out vec4 color;" +
+
+                    "void main() {" +
+                        "vec2 pos = vec2(max(min(coord.x, 15.), 0.), max(min(coord.y, 15.), image.z));" +
+                        "vec2 size = vec2(textureSize(sampler, 0));" +
+                        "vec4 shade = texture(sampler, (image.xy + pos) / size);" +
+
+                        "color = vec4(shade.rgb, shade.a * image.w);" +
+                    "}"
+
+                gl.shaderSource(vertex, vs); 
+                gl.shaderSource(fragment, fs);
+                gl.compileShader(vertex)
+                gl.compileShader(fragment)
+
+                gl.attachShader(program, vertex)
+                gl.attachShader(program, fragment)
+                gl.linkProgram(program)
+                gl.useProgram(program)
+
+                gl.deleteShader(vertex)
+                gl.deleteShader(fragment)
+
+                gl.enable(gl.BLEND)
+                gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+
+                const texture = gl.createTexture()
+                const tiles = new Image()
+
+                // canvas.ontouchstart = event => {
+                //     for (const touch of event.changedTouches)
+                //         touches[touch.identifier] = [touch.clientX, touch.clientY]
+                // }
+
+                // canvas.ontouchmove = event => {
+                //     if (event.touches.length == 2) {
+                //         const data = index => {
+                //             const touch = event.touches[index]
+                //             const [x, y] = touches[touch.identifier]
+
+                //             touches[touch.identifier] = [touch.clientX, touch.clientY]
+                //             return [touch.clientX, touch.clientY, x, y]
+                //         }
+
+                //         const [ax, ay, apx, apy] = data(0)
+                //         const [bx, by, bpx, bpy] = data(1)
+
+                //         const az = Math.hypot(ax - bx, ay - by)
+                //         const bz = Math.hypot(apx - bpx, apy - bpy)
+
+                //         const mx = (ax - apx + bx - bpx) / 2
+                //         const my = (ay - apy + by - bpy) / 2
+                //         const [x, y] = real((ax + bx) / 2, (ay + by) / 2)
+
+                //         zoom((az - bz) / 3e2, x, y)
+                //         move(mx, my)
+
+                //         update()
+                //         render()
+                //     }
+                //}
+
+                // canvas.ontouchend = event => {
+                //     for (const touch of event.changedTouches)
+                //         delete touches[touch.identifier]
+                // }
 
                 canvas.onwheel = event => {
-                    state.zoom = Math.max(state.zoom - state.zoom * event.deltaY / 5e2, 4)
+                    const amount = event.deltaY / -5e2
+                    const rect = canvas.getBoundingClientRect()
+
+                    const x = state.mx - rect.left - canvas.width / 2
+                    const y = state.my - canvas.height / 2
+
+                    state.zoom = Math.max(state.zoom * (1 + amount), 4)
+                    state.x -= x / state.zoom * amount
+                    state.y -= y / state.zoom * amount
+
+                    update()
+                    render()
+                }
+
+                canvas.onmousedown = event => {
+                    state.mouse = event.which
+                    event.preventDefault()
+
+                    place()
                     render()
                 }
 
                 canvas.onmousemove = event => {
-                    //const rect = canvas.getBoundingClientRect()
+                    state.mx = event.clientX
+                    state.my = event.clientY
 
-                    state.mx = event.clientX//Math.floor((event.clientX - rect.left - canvas.width / 2) / 2 / state.zoom + state.y)
-                    state.my = event.clientY//Math.floor((event.clientY - canvas.height / 2) / 2 / state.zoom + state.y)
+                    if (state.mouse && !place()) {
+                        state.x += event.movementX / state.zoom
+                        state.y += event.movementY / state.zoom
 
-                    if (state.mouse && !place(event.which)) {
-                        state.x += event.movementX / 2 / state.zoom
-                        state.y += event.movementY / 2 / state.zoom
+                        update()
                     }
+
+                    render()
+                }
+
+                canvas.onmouseup = () => {
+                    state.mouse = false
+                    render()
+                }
+
+                new ResizeObserver(() => {
+                    canvas.width = canvas.clientWidth
+                    canvas.height = canvas.clientHeight
+
+                    gl.viewport(0, 0, canvas.width, canvas.height)
+
+                    update()
+                    render()
+                }).observe(canvas)
+
+                tiles.onload = () => {
+                    gl.bindTexture(gl.TEXTURE_2D, texture)
+                    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tiles)
+
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
 
                     render()
                 }
@@ -263,8 +441,8 @@
                 list.append(...Object.entries(BUILD).map(([_, item]) => {
                     const div = document.createElement("div")
 
-                    const x = item.sprite % TILE * TILE * -2
-                    const y = Math.floor(item.sprite / TILE) * TILE * -2
+                    const x = item.img % TILE * TILE * -2
+                    const y = Math.floor(item.img / TILE) * TILE * -2
 
                     div.style.backgroundPositionX = x + "px"
                     div.style.backgroundPositionY = y + "px"
@@ -276,11 +454,14 @@
                     return div
                 }))
 
-                tiles.onload = render
-                tiles.src = "map.png"
-
                 worker.onmessage = e => mats.textContent = e.data
                 canvas.oncontextmenu = e => e.preventDefault()
+                tiles.src = "map.png"
+
+                setInterval(() => {
+                    state.alt = !state.alt
+                    render()
+                }, 5e2)
             }
 
             start()

@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name = viewport content = "width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+        <title>Mystera Legacy Cost Calculator</title>
+
+        <style>
+            html, body {
+                height: 100%
+            }
+
+            body {
+                font-family: monospace;
+                display: flex;
+                margin: 0;
+                background-color: #222;
+                overflow: hidden
+            }
+
+            canvas {
+                min-width: 0;
+                flex: 1 1 0;
+                image-rendering: crisp-edges;
+                user-select: none;
+                cursor: crosshair
+            }
+
+            #mats {
+                color: #ddd;
+                flex: 1 0 0;
+                margin: 0;
+                overflow-y: auto
+            }
+
+            #left {
+                flex: 0 0 0;
+                padding: 1em;
+                display: flex;
+                flex-direction: column;
+                gap: 1em
+            }
+
+            #list {
+                border-radius: .5em;
+                padding: .5em;
+                background-color: #fff;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                gap: .5em
+            }
+
+            #list div {
+                cursor: pointer;
+                border-radius: 2px;
+                image-rendering: crisp-edges;
+                width: 32px;
+                height: 32px;
+                background-image: url(map.png);
+                background-size: 512px 512px
+            }
+
+            #list div:focus {
+                outline: 2px solid #07f
+            }
+
+            section {
+                font-size: 12px;
+                color: #888;
+                word-break: break-all;
+            }
+
+            span {
+                color: #fff
+            }
+
+            @media screen and (orientation: portrait) {
+                body {
+                    flex-direction: column
+                }
+
+                #left {
+                    flex-direction: row
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id = left>
+            <div id = list></div>
+            <pre id = mats></pre>
+
+            <section>
+                Calculate the materials cost to build structures in Mystera Legacy &middot; <span>Made by GreyHope</span> 
+            </section>
+        </div>
+
+        <canvas></canvas>
+
+        <script>
+            const TILE = 16
+
+            const BUILD = [
+                {spr: 32, height: 2, build: true, mats: {stone: 30, clay: 10}},
+
+                {sprite: 33, height: 2, build: true, mats: {wood: 20}},
+                {sprite: 34, height: 3, build: true, mats: {stone: 80, obsidian: 20, gold: 1}},
+                {sprite: 35, height: 3, build: true, mats: {stone: 100, bone: 20, gold: 15}},
+                {sprite: 36, height: 2, build: true, mats: {wood: 50, tinder: 20, red_dye: 1}},
+                {sprite: 4, height: 1, build: true, mats: {stone: 100, clay: 20, gold: 1}},
+                {sprite: 7, height: 1, build: true, mats: {escape_lantern: 1, dragon_scale: 1, gold: 10}},
+                {sprite: 27, height: 1, build: true, mats: {wood: 20}},
+                {sprite: 37, height: 3, build: true, mats: {stone: 20, clay: 10, dirt: 10}},
+                {sprite: 63, height: 1, build: true, mats: {clay: 20, flint: 20}},
+                {sprite: 28, height: 2, build: true, door: true, mats: {stone: 10, wood: 20, silver: 1}},
+                {sprite: 29, height: 2, build: true, door: true, mats: {stone: 20, wood: 40, silver: 1, gold: 5}},
+                {sprite: 30, height: 2, build: true, door: true, mats: {stone: 20, wood: 40, silver: 5, gold: 10}},
+                {sprite: 15, height: 1, build: true, door: true, mats: {wood: 20}},
+                {sprite: 55, height: 1, build: true, mats: {wood: 30, silver: 5, hide: 6}},
+                {sprite: 56, height: 1, build: true, mats: {stone: 250, clay: 150, charcoal: 8, silver: 10}},
+                {sprite: 57, height: 1, build: true, mats: {wood: 20}},
+                {sprite: 58, height: 1, build: true, mats: {stone: 400, silver: 10}},
+                {sprite: 47, height: 1, build: true, mats: {wood: 50, silver: 10, gold: 5}},
+                // {sprite: 68, height: 1, build: true, mats: {bronze: 20, flint: 5, gold: 5}},
+                {sprite: 6, build: false, mats: {stone: 5, clay: 1}},
+                {sprite: 59, build: false, mats: {stone: 20}},
+                {sprite: 8, build: false, mats: {}},
+                {sprite: 9, build: false, mats: {clay: 5}},
+                {sprite: 10, build: false, mats: {wood: 10}},
+                {sprite: 11, build: false, mats: {stone: 15}},
+                {sprite: 66, build: false, mats: {}},
+                {sprite: 67, build: false, mats: {}},
+                {sprite: 48, height: 1, build: true, mats: {stone: 20, wood: 4, flint: 4, charcoal: 4}},
+                {sprite: 49, height: 1, build: true, mats: {}},
+                {sprite: 50, height: 1, build: true, mats: {}},
+                {sprite: 51, height: 1, build: true, mats: {}},
+                {sprite: 52, height: 1, build: true, mats: {}}
+            ]
+
+            const floor = {}
+            const build = {}
+            const state = {x: 0, y: 0, zoom: TILE, mouse: 0, mx: 0, my: 0}
+            const tiles = new Image()
+
+            const list = document.getElementById("list")
+            const mats = document.getElementById("mats")
+            const canvas = document.querySelector("canvas")
+            const ctx = canvas.getContext("2d")
+            const worker = new Worker("worker.js")
+
+            function pos(image) {
+                return [image % TILE * TILE, Math.floor(image / TILE) * TILE]
+            }
+
+            function mouse() {
+                const rect = canvas.getBoundingClientRect()
+
+                return [
+                    Math.floor((state.mx - rect.left - canvas.width / 2) / 2 / state.zoom - state.x),
+                    Math.floor((state.my - canvas.height / 2) / 2 / state.zoom - state.y)
+                ]
+            }
+
+            function render() {
+                const translate = (x, y) => [
+                    Math.floor((x + state.x) * size + canvas.width / 2),
+                    Math.floor((y + state.y) * size + canvas.height / 2)
+                ]
+
+                const size = Math.ceil(2 * state.zoom)
+                const width = Math.round(canvas.width / size / 2) * 2 + 2
+                const height = Math.round(canvas.height / size / 2) * 2 + 2
+
+                const [mx, my] = mouse()
+                const [x, y] = translate(mx, my)
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height)
+ 
+                for (let i = 0; i < width * height; i ++) {
+                    const check = (e, x, y) => e[(bx + x) + " " + (by + y)]
+
+                    const bx = i % width - Math.round(state.x) - width / 2
+                    const by = Math.floor(i / width) - Math.round(state.y) - height / 2
+
+                    const wall = check(build, 0, 0)
+                    const tile = check(floor, 0, 0)
+
+                    const [x, y] = translate(bx, by)
+                    const [px, py] = pos(tile ? tile.sprite : Math.floor(Math.abs(Math.sin(bx) * 1e3 + Math.cos(by))) % 2)
+
+                    ctx.drawImage(tiles, px, py, TILE, TILE, x, y, size, size)
+
+                    if (tile) {
+                        const t = !check(floor, 0, -1)
+                        const b = !check(floor, 0, 1)
+                        const l = !check(floor, -1, 0)
+                        const r = !check(floor, 1, 0)
+
+                        const index = t && b && l && r ? 65 : t && b && l ? 41 : t && b && r ? 64 :
+                            t && l && r ? 54 : b && l && r ? 43 : b && r ? 42 : b && l ? 39 : r && l ? 25 :
+                            t && b ? 40 : t && l ? 23 : t && r ? 26 : t ? 53 : b ? 38 : l ? 22 : r ? 24 : 0
+
+                        if (index) {
+                            const [px, py] = pos(index)
+                            ctx.drawImage(tiles, px, py, TILE, TILE, x, y, size, size)
+                        }
+                    }
+
+                    if (wall) {
+                        const [px, py] = pos(wall.door && (!check(build, -1, 0) || !check(build, 1, 0)) ? wall.sprite + TILE * wall.height : wall.sprite)
+                        const level = py - TILE * wall.height + TILE
+                        const loc = y - size * wall.height + size
+
+                        ctx.drawImage(tiles, px, level, TILE, TILE * wall.height, x, loc, size, size * wall.height)
+                    }
+                }
+
+                ctx.strokeStyle = "#fff"
+                ctx.strokeRect(x - .5, y - .5, size + 1, size + 1)
+            }
+
+            function place(type) {
+                if (state.select) {
+                    const [mx, my] = mouse()
+                    const i = mx + " " + my
+
+                    type == 3 ? build[i] ? delete build[i] : delete floor[i] : state.select.build ? build[i] = state.select : floor[i] = state.select
+                    worker.postMessage({floor, build})
+                }
+
+                return state.select
+            }
+
+            function start() {
+                new ResizeObserver(() => {
+                    canvas.width = canvas.clientWidth
+                    canvas.height = canvas.clientHeight
+
+                    ctx.imageSmoothingEnabled = false
+                    ctx.lineJoin = "round"
+                    ctx.lineWidth = 2
+
+                    render()
+                }).observe(canvas)
+
+                canvas.onmousedown = event => {
+                    event.preventDefault()
+                    state.mouse = true
+
+                    place(event.which) && render()
+                }
+
+                canvas.onwheel = event => {
+                    state.zoom = Math.max(state.zoom - state.zoom * event.deltaY / 5e2, 4)
+                    render()
+                }
+
+                canvas.onmousemove = event => {
+                    //const rect = canvas.getBoundingClientRect()
+
+                    state.mx = event.clientX//Math.floor((event.clientX - rect.left - canvas.width / 2) / 2 / state.zoom + state.y)
+                    state.my = event.clientY//Math.floor((event.clientY - canvas.height / 2) / 2 / state.zoom + state.y)
+
+                    if (state.mouse && !place(event.which)) {
+                        state.x += event.movementX / 2 / state.zoom
+                        state.y += event.movementY / 2 / state.zoom
+                    }
+
+                    render()
+                }
+
+                list.append(...Object.entries(BUILD).map(([_, item]) => {
+                    const div = document.createElement("div")
+
+                    const x = item.sprite % TILE * TILE * -2
+                    const y = Math.floor(item.sprite / TILE) * TILE * -2
+
+                    div.style.backgroundPositionX = x + "px"
+                    div.style.backgroundPositionY = y + "px"
+                    div.tabIndex = 1
+
+                    div.onfocus = () => state.select = item
+                    div.onblur = () => delete state.select
+
+                    return div
+                }))
+
+                tiles.onload = render
+                tiles.src = "map.png"
+
+                worker.onmessage = e => mats.textContent = e.data
+                canvas.oncontextmenu = e => e.preventDefault()
+                canvas.onmouseup = () => state.mouse = false
+            }
+
+            start()
+        </script>
+    </body>
+</html>

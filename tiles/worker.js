@@ -14,8 +14,8 @@ onmessage = event => {
         hide: {name: "Hide"},
         flint: {name: "Flint"},
         bone: {name: "Bone"},
-        dirt: {name: "Dirt"}
-        // bronze: {name: "Bronze"}
+        dirt: {name: "Dirt"},
+        bronze: {name: "Bronze"}
     }
 
     postMessage(Object.entries(Object.values(event.data.floor).concat(Object.values(event.data.build)).reduce((all, item) => {
